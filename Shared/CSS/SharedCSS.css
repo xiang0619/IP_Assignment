@@ -1,0 +1,25 @@
+.primary-background-color{
+    background-color: #2BDEDE;
+}
+
+.primary-color{
+    color: #2BDEDE;
+}
+
+.secondary-background-color{
+    background-color: white;
+}
+
+.secondary-color{
+    color:white;
+}
+
+a,i{
+    font-style: normal;
+    text-decoration: none;
+}
+
+.icon-size{
+    height:25px;
+    width: 25px;
+}
