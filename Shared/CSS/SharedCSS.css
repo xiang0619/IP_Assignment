@@ -23,3 +23,35 @@ a,i{
     height:25px;
     width: 25px;
 }
+
+.image{
+    margin:0px auto;
+}
+
+.overlay{
+    top: -50%;
+    position: relative;
+    left: 150px;
+    width: min-content;
+}
+
+.text{
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.container{
+    transition: 0.3s;
+}
+
+.container:hover .image{
+    opacity: 0.3;
+}
+
+.container:hover .overlay {
+    opacity: 1;
+}
+
+.container:hover .text{
+    opacity: 1;
+}
