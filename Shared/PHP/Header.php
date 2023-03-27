@@ -42,7 +42,12 @@
         <nav class="navbar navbar-expand-lg shadow-sm secondary-background-color">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="Shared/Image/b0b8203f-68d2-47f6-a397-269a9aa1f618.png" width="110px" height="110px" alt="Logo"/>
+                    <img src="<?php
+                        $thisPath = dirname($_SERVER['PHP_SELF']);
+                        if($thisPath != "/IP_Assignment"){
+                            echo "../";
+                        }
+                    ?>Shared/Image/b0b8203f-68d2-47f6-a397-269a9aa1f618.png" width="110px" height="110px" alt="Logo"/>
                 </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>

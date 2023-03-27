@@ -14,13 +14,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <?php
-            include dirname(__FILE__).'/Shared/PHP/Header.php';
+            include './Shared/PHP/Header.php';
         ?>
+        
+        <!-- Stationery and Service link position-->
         <div class="row m-5">
             <div class="col ms-5 me-5">
                 <div class="row">
-                    <div class="col-1"></div>
-                    <div class="col">
+                    
+                    <!-- Make div to center-->
+                    <div class="col-2"></div>
+                    
+                    <!-- Stationery link position -->
+                    <div class="col-4">
                         <a href="#" title="Stationery" class="container w-60">
                             <img class="image" width="400px" src="Shared/Image/_107080905_gettyimages-654239286.jpg">
                             <div class="overlay">
@@ -28,7 +34,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             </div>
                         </a>
                     </div>
-                    <div class="col">
+                    
+                    <!-- Service link position -->
+                    <div class="col-4">
                         <a href="#" title="Service" class="container w-80">
                             <img class="image" width="400px" src="Shared/Image/Canon-printer-repair-malaysia-1024x576.jpg">
                             <div class="overlay">
@@ -36,13 +44,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             </div>
                         </a>
                     </div>
+                    
+                    <!-- Make div to center-->
                     <div class="col-2"></div>
                 </div>
             </div>
         </div>
         
+        <!-- Tape title -->
         <div class="fs-3 ms-5">Tape</div>
+        
         <div class="row m-5">
+            
+            <!-- One col(column) for each stationery product-->
             <div class="col">
                 <div class="card" style="width: 18rem;">
                     <img src="Shared/Image/tape1.jpg" class="card-img-top" alt="...">
@@ -54,6 +68,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </div>
             </div>
             
+            <!-- One col(column) for each stationery product-->
             <div class="col">
                 <div class="card" style="width: 18rem;">
                     <img src="Shared/Image/tape2.jpg" class="card-img-top" alt="...">
@@ -65,7 +80,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </div>
             </div>
             
-            
+            <!-- One col(column) for each stationery product-->
             <div class="col">
                 <div class="card" style="width: 18rem;">
                     <img src="Shared/Image/tape3.jpg" class="card-img-top" alt="...">
@@ -77,6 +92,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </div>
             </div>
             
+            <!-- One col(column) for each stationery product-->
             <div class="col">
                 <div class="card" style="width: 18rem;">
                     <img src="Shared/Image/tape4.jpg" class="card-img-top" alt="...">
@@ -89,8 +105,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             </div>
         </div>
         
+        
+        <!-- Pencil title -->
         <div class="fs-3 ms-5">Pencil</div>
+        
         <div class="row m-5">
+            
+            <!-- One col(column) for each stationery product-->
             <div class="col">
                 <div class="card" style="width: 18rem;">
                     <img src="Shared/Image/pencil1.jpg" class="card-img-top" alt="...">
@@ -102,6 +123,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </div>
             </div>
             
+            <!-- One col(column) for each stationery product-->
             <div class="col">
                 <div class="card" style="width: 18rem;">
                     <img src="Shared/Image/pencil2.jpg" class="card-img-top" alt="...">
@@ -113,6 +135,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </div>
             </div>
             
+            <!-- One col(column) for each stationery product-->
             <div class="col">
                 <div class="card" style="width: 18rem;">
                     <img src="Shared/Image/pencil3.jpg" class="card-img-top" alt="...">
@@ -124,6 +147,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </div>
             </div>
             
+            <!-- One col(column) for each stationery product-->
             <div class="col">
                 <div class="card" style="width: 18rem;">
                     <img src="Shared/Image/pencil4.jpg" class="card-img-top" alt="...">
@@ -137,7 +161,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         </div>
         
         <?php
-            include dirname(__FILE__).'/Shared/PHP/Footer.php';
+            include './Shared/PHP/Footer.php';
         ?>
     </body>
 </html>
