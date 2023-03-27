@@ -33,7 +33,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             <div class="col-10 fs-3 primary-color"></div>
                             
                             <!-- Submit button position-->
-                            <div class="col-2 text-end mb-2"><input type="Submit" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" value="Submit"></div>
+                            <div class="col-2 text-end mb-2"><input type="Submit" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" value="Submit"></div>
                         </div>
                     </div>
                 

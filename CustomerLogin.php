@@ -34,20 +34,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             
                             <!-- Email input position-->
                             <div class="col-4 primary-color mt-2 mb-2"><label for="email">Email : </label></div>
-                            <div class="col-8 mt-2 mb-2"><input type="email" id="email" placeholder="123@abc.com" maxlength="40"></div>
+                            <div class="col-8 mt-2 mb-2"><input type="email" class="form-control" id="email" placeholder="123@abc.com" maxlength="40"></div>
                             
                             <!-- Password input position -->
                             <div class="col-4 primary-color mt-2 mb-2"><label for="password">Password : </label></div>
-                            <div class="col-8 mt-2 mb-2"><input type="password" id="password" placeholder="********" maxlength="40"></div>
+                            <div class="col-8 mt-2 mb-2"><input type="password" class="form-control" id="password" placeholder="********" maxlength="40"></div>
                             
                             <!-- Customer register link position -->
                             <div class="col-3 mt-2 mb-2"></div>
-                            <div></div>
+                            <div class="col-6"><a href="CustomerRegister.php">Click here to register a new account</a></div>
                             <div class="col-3 mt-2 mb-2"></div>
                             
                             <!--Submit button position  -->
                             <div class="col-8 mt-2 mb-2"></div>
-                            <div class="col-4 mt-2 mb-2 "><input type="Submit" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" value="Submit"></div>
+                            <div class="col-4 mt-2 mb-2 "><input type="Submit" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" value="Submit"></div>
                         </div>
                     </form>
                 </div>
