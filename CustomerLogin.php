@@ -45,6 +45,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             <div class="col-6"><a href="CustomerRegister.php">Click here to register a new account</a></div>
                             <div class="col-3 mt-2 mb-2"></div>
                             
+                            <!-- Customer forget password link position -->
+                            <div class="col-3 mt-2 mb-2"></div>
+                            <div class="col-6"><a href="CustomerForgetPassword.php">Forgot Password</a></div>
+                            <div class="col-3 mt-2 mb-2"></div>
+                            
                             <!--Submit button position  -->
                             <div class="col-8 mt-2 mb-2"></div>
                             <div class="col-4 mt-2 mb-2 "><input type="Submit" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" value="Submit"></div>
