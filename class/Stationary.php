@@ -10,7 +10,7 @@ require_once 'Product.php';
  *
  * @author huatl
  */
-class stationary extends Product{
+class Stationary extends Product{
     private $qty,$uploadedID,$uploadedDate,$createdID,$createdDate,$uploadDate,$category;
     
     public function __construct($id, $name, $productTypeID, $status, $unitPrice, $uploadDate, $qty, $category, $uploadedID, $uploadedDate, $createdID, $createdDate) {
