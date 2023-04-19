@@ -59,7 +59,7 @@ class Staff extends Person{
        $this->updatedID = $s->updatedID;
        $this->updatedDate = $s->date("Y/m/d");
        $this->createdID = $s->createdID;
-       //$this->createdDate = $s->createdDate;
+       $this->createdDate = $s->createdDate;
        $this->password = $s->password;
    }
    
