@@ -11,56 +11,37 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="Shared/CSS/SharedCSS.css" rel="stylesheet" type="text/css"/>
-        <title>Customer Login</title>
+        <title>Reset Password</title>
     </head>
     <body>
-        <?php
-            include './Shared/PHP/Header.php';
-        ?>
-        
         <div class="row m-5 d-flex justify-content-center">
             <div class="col-3"></div>
                 <div class="col-6 text-center shadow-lg">
-                    <form action="action">
+                    <form action="" method="post">
                         <div class="row ">
-                            
-                            <!-- Login word position -->
-                            <div class="col-12 fs-3 primary-color m-2">Login</div>
+                            <div class="col-12 fs-3 primary-color m-2">Reset Password</div>
                             
                             <!-- Icon position -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-people-fill primary-color col-12 m-0" viewBox="0 0 16 16">
-                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-shield-lock-fill primary-color col-12" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.777 11.777 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7.159 7.159 0 0 0 1.048-.625 11.775 11.775 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.541 1.541 0 0 0-1.044-1.263 62.467 62.467 0 0 0-2.887-.87C9.843.266 8.69 0 8 0zm0 5a1.5 1.5 0 0 1 .5 2.915l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99A1.5 1.5 0 0 1 8 5z"/>
                             </svg>
+
                             
                             <!-- Email input position-->
-                            <div class="col-4 primary-color mt-2 mb-2"><label for="email">Email : </label></div>
-                            <div class="col-8 mt-2 mb-2"><input type="email" class="form-control" id="email" placeholder="123@abc.com" maxlength="40"></div>
-                            
-                            <!-- Password input position -->
                             <div class="col-4 primary-color mt-2 mb-2"><label for="password">Password : </label></div>
                             <div class="col-8 mt-2 mb-2"><input type="password" class="form-control" id="password" placeholder="********" maxlength="40"></div>
                             
-                            <!-- Customer register link position -->
-                            <div class="col-3 mt-2 mb-2"></div>
-                            <div class="col-6"><a href="CustomerRegister.php">Click here to register a new account</a></div>
-                            <div class="col-3 mt-2 mb-2"></div>
-                            
-                            <!-- Customer forget password link position -->
-                            <div class="col-3 mt-2 mb-2"></div>
-                            <div class="col-6"><a href="CustomerForgetPassword.php">Forgot Password</a></div>
-                            <div class="col-3 mt-2 mb-2"></div>
+                            <!-- Password input position -->
+                            <div class="col-4 primary-color mt-2 mb-2"><label for="re-password">Confirm Password : </label></div>
+                            <div class="col-8 mt-2 mb-2"><input type="password" class="form-control" id="re-password" placeholder="********" maxlength="40"></div>
                             
                             <!--Submit button position  -->
                             <div class="col-8 mt-2 mb-2"></div>
-                            <div class="col-4 mt-2 mb-2 "><input type="Submit" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" value="Login"></div>
+                            <div class="col-4 mt-2 mb-2 "><input type="Submit" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" value="Reset"></div>
                         </div>
                     </form>
                 </div>
             <div class="col-3"></div>
         </div>
-        
-        <?php
-            include './Shared/PHP/Footer.php';
-        ?>
     </body>
 </html>
