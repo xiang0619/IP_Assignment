@@ -11,17 +11,27 @@
  * @author huatl
  */
 class Product {
+
+    private $quantity;
     private $id,$name,$productTypeID,$status,$unitPrice;
     
-    public function __construct($id, $name, $productTypeID, $status, $unitPrice) {
+   
+    public function __construct($id=null, $name=null, $productTypeID=null, $status=null, $unitPrice=null,$quantity=null) {
         $this->id = $id;
         $this->name = $name;
         $this->productTypeID = $productTypeID;
         $this->status = $status;
         $this->unitPrice = $unitPrice;
+        $this->quantity = $quantity;
+    }
+    public function getQuantity() {
+        return $this->quantity;
+    }
+    public function setQuantity($quantity): void {
+        $this->quantity = $quantity;
     }
 
-    public function getId() {
+            public function getId() {
         return $this->id;
     }
 

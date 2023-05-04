@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT Cart (product*)>
+<!ELEMENT Product (id,name,qty,status,unitPrice)>
+<!ATTLIST Product id ID #REQUIRED>
+<!ELEMENT id ID (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT qty (#PCDATA)>
+<!ELEMENT status (#PCDATA)>
+<!ELEMENT unitPrice (#PCDATA)>

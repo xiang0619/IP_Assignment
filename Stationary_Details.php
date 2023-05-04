@@ -1,8 +1,10 @@
-<!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to edit this template
--->
+<?php
+
+
+// Check if the connection is successful
+
+   
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -10,10 +12,25 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <?php
-            include './Shared/PHP/Header.php';
-        ?>
         
-        <div class="row m-5 ">
+            include './Shared/PHP/Header.php';
+            include './class/Product.php';
+            include('config.php');
+            $stmt = $dbc->prepare("SELECT productID,name,quantity,status,unitPrice,image,description from product where productID ='P0001'");
+            $stmt->execute(); //execute bind 
+            $stmt->bind_result($id,$name,$quantity,$status,$unitPrice,$image,$description,); //bind result
+            while ($stmt->fetch()) {
+                        $product = new Product();
+                        $product->setId($id);
+                        $product->setName($name);
+                        $product->setStatus($status);
+                        $product->setUnitPrice($unitPrice);     
+                        $product->setQuantity($quantity);
+                        
+                        
+            }
+            
+            echo '<div class="row m-5 ">
             
             <!-- Make div to center-->
             <div class="col-1"></div>
@@ -25,7 +42,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     
                     <!-- Contribute 5/12 in a row, image position -->
                     <div class="col-5">
-                        <img src="Shared/Image/tape1.jpg" class="rounded float-start w-100 shadow" alt=""/>
+                        <img src='.$image.' class="rounded float-start w-100 shadow" alt=""/>
                     </div>
                     
                     <!-- Contribute 7/12 in a row, description position -->
@@ -33,7 +50,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                         
                         <!-- Product name position -->
                         <div class="fs-3 primary-color">
-                            Blue Tape
+                            '.$product->getName().'
                         </div>
                         
                         <!-- Next line-->
@@ -41,7 +58,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                         
                         <!-- Product price position -->
                         <div class="fs-4 primary-color">
-                            RM 10.00
+                            RM '.$product->getUnitPrice().'
                         </div>
                         
                         <!-- Product quantity for buy and availability position -->
@@ -52,7 +69,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             <input class="ms-2" type="number" value="1" id="quantity" name="quantity" min="1" max="20">
                             
                             <!-- Product available piece-->
-                            <p class="fs-5">20 piece Available</p>
+                            <p class="fs-5">'.$product->getQuantity().' piece Available</p>
                         </div>
                         
                         <!-- Add to cart and buy now position -->
@@ -79,8 +96,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             <h5>Description</h5>
                             
                             
-                            <p>Blue tape is a type of masking tape that is typically blue in color. It is often used in painting projects to create clean, sharp lines where one color meets another. Blue tape is also used in other types of projects where masking is needed, such as in woodworking, metalworking, and electronic assembly.</p>
-                            <p>One of the main benefits of blue tape is that it is designed to be easily removed without leaving residue or damaging the surface it was applied to. This makes it a popular choice for temporary masking applications.</p>
+                            <p>'.$description.'</p>
                         </div>
                     </div>
                 </div>
@@ -88,7 +104,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             
             <!-- Make div to center-->
             <div class="col-1"></div>
-        </div>
+        </div>'
+    
+            
+        ?>
+        
+        
         
         <?php
             include './Shared/PHP/Footer.php';

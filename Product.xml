@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Products SYSTEM 'Product.dtd'>
+<Products>
+    <Product >
+        <id>1</id>
+        <name>testing</name>
+        <qty>1</qty>
+        <status>on sales</status>
+        <unitPrice>10.00</unitPrice>
+    </Product>
+</Products>
+
