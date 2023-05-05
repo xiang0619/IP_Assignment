@@ -6,8 +6,12 @@
  */
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use League\OAuth2\Client\Provider\Google as GoogleProvider;
 
-require 'vendor/autoload.php';
+$projectFolder = realpath(__DIR__ . '/..');
+
+require $projectFolder . '\vendor\autoload.php';
+
 
 class EmailHelper {
 
@@ -17,45 +21,74 @@ class EmailHelper {
         $this->mail = new PHPMailer;
     }
 
-    public function sendEmail($to, $toName, $subject, $templateFile, $variables) {
-        // Set the From, To, Subject, and Body properties of the email message
-        $this->mail->setFrom("jeprinting7@gmail.com", "JEprintingSolution");
-        $this->mail->addAddress($to, $toName);
+    public function sendEmailOAuth($to, $subject, $templateFile) {
+        if (!filter_var($to, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Invalid email address: $to");
+        }
+        if (empty($subject)) {
+            throw new Exception("Subject is required");
+        }
+        
+        // Load Gmail credentials from a configuration file
+        $this->mail->SMTPAuth = true;  
+        $this->mail->FromName = "JE Printing Solution";
+        $this->mail->Password = "ckeaitqpfzywzsih";
+        $this->mail->AddAddress($to);
         $this->mail->Subject = $subject;
+
+        $this->mail->isSMTP();
+        $this->mail->SMTPSecure = 'tls';
+        $this->mail->Port = 587;
+        $this->mail->Host = 'smtp.gmail.com';
+        $this->mail->Username = "jeprinting7@gmail.com";
+
         $this->mail->isHTML(true);
 
-        // Include the HTML template file and assign its contents to the Body property of the email message
-        ob_start();
-        extract($variables);
-        include $templateFile;
-        $this->mail->Body = ob_get_clean();
+        // Assign email template to the Body property of the email message
+        $this->mail->Body = $templateFile;
 
-        // Send the email message
-        if ($this->mail->send()) {
-            return true;
-        } else {
+        try {
+            
+            $emailSended = $this->mail->send();
+            
+            echo "<script>";
+            echo "alert(\" ". print_r($emailSended) ." \");";
+            echo "</script>";
+            
+            return $emailSended;
+        } catch (Exception $e) {
+            
+            echo error_log($e->getMessage());
+            
+            echo "<script>";
+            echo "alert(\" ". $e->getMessage() ." \");";
+            echo "</script>";
+            
             return false;
         }
     }
+
     
-    function LoadEmailTemplate($emailTemplateName, $model = null) {
-    $emailTemplatePath = __DIR__ . "/EmailTemplates/" . $emailTemplateName;
+    
+    public function LoadEmailTemplate($emailTemplateName, $model = null) {
+        
+        $emailTemplatePath = realpath(__DIR__ . '/..') . "/EmailTemplates/" . $emailTemplateName;
 
-    $emailTemplate = file_get_contents($emailTemplatePath);
+        $emailTemplate = file_get_contents($emailTemplatePath);
 
-    if ($model != null) {
-        $props = get_object_vars($model);
+        if ($model != null) {
+            $props = get_object_vars($model);
 
-        foreach ($props as $key => $value) {
-            $toReplace = "[($key)]";
-            if (isset($value)) {
-                $emailTemplate = str_replace($toReplace, $value, $emailTemplate);
+            foreach ($props as $key => $value) {
+                $toReplace = "[($key)]";
+                if (isset($value)) {
+                    $emailTemplate = str_replace($toReplace, $value, $emailTemplate);
+                }
             }
         }
+        return $emailTemplate;
     }
-
-    return $emailTemplate;
-}
+    
 }
 
 

@@ -14,7 +14,7 @@
             include './Shared/PHP/Header.php';
         ?>
         
-        <form action="#">
+        <form action="/IP_Assignment/Validation/CustomerForgetPasswordValidation.php" method="post">
             <div class="row m-5">
                 
                 <!-- Make div center -->
@@ -27,9 +27,9 @@
 
                         <!-- Email input position-->
                         <div class="col-4 primary-color mt-2 mb-2 fs-5"><label for="email">Email : </label></div>
-                        <div class="col-8 mt-2 mb-2"><input type="email" class="form-control" id="email" placeholder="123@abc.com" maxlength="40"></div>
+                        <div class="col-8 mt-2 mb-2"><input type="email" name="email" class="form-control" id="email" placeholder="123@abc.com" maxlength="40"></div>
                     
-                        <div class="col-12 primary-color">Submit your email, we will send reset password pin to you.</div>
+                        <div class="col-12 primary-color">Submit your email, we will send reset password link to you.</div>
                         
                         <div class="col-8 mt-2 mb-2"></div>
                         <div class="col-4 mt-2 mb-2 "><input type="Submit" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" value="Submit"></div>
