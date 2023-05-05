@@ -1,0 +1,14 @@
+{
+    "name": "vendor/i-p-assignment",
+    "description": "Description of project IP_Assignment.",
+    "authors": [
+        {
+            "name": "User",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.5",
+        "league/oauth2-google": "^4.0"
+    }
+}
