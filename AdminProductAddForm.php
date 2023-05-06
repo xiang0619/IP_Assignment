@@ -1,3 +1,19 @@
+<?php
+require_once 'AdminProductFacade.php';
+
+$host = "localhost";
+$dbname = "ip";
+$user = "root";
+$password = "";
+$dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
+
+$pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
+$facade = new AdminProductFacade($pdo);
+
+$productTypeNames = $facade->retrieveProductType();
+
+?>
+
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -75,7 +91,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             </div>
                         </li>
                         <li>
-                            <div class="text-center mt-4">
+                            <div class="text-center mt-4 mb-3">
                                 <button type="button" class="btn btn-outline-danger">Log Out</button>
                             </div></li>
                       </ul>
@@ -147,11 +163,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <div class="mb-3">
                   <label for="category" class="form-label mt-2">Category:</label>
                   <select class="form-control" id="category" name="category" required>
-                    <option value="">Select a category</option>
-                    <option value="Pens">Pens</option>
-                    <option value="Books">Books</option>
-                    <option value="Pencils">Pencils</option>
-                    <option value="Erasers">Erasers</option>                  
+                    <option value="">Select a category</option>                   
+                    <?php foreach ($productTypeNames as $productType) { ?>
+                        <option value="<?php echo $productType['productTypeName']; ?>"><?php echo $productType['productTypeName']; ?></option>
+                    <?php } ?>
                   </select>
                 </div>
                 <div class="mb-3">
@@ -159,30 +174,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                   <input type="number" class="form-control" id="quantity" name="quantity" required>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label d-block mt-2">Status:</label>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="status" id="available" value="Available" required>
-                    <label class="form-check-label" for="available">
-                      Available
-                    </label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="status" id="not_available" value="Not Available" required>
-                    <label class="form-check-label" for="not_available">
-                      Not Available
-                    </label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="status" id="out_of_stock" value="Out of Stock" required>
-                    <label class="form-check-label" for="out_of_stock">
-                      Out of Stock
-                    </label>
-                  </div>
-                  <!-- Add more radio button groups as needed -->
-                </div>
-                <div class="mb-3">
                   <label for="unit_price" class="form-label mt-2">Unit Price:</label>
-                  <input type="number" class="form-control" id="unit_price" name="unit_price" required>
+                  <input type="number" step="0.01" class="form-control" id="unit_price" name="unit_price"" required>
                 </div>
                 <div class="mb-3">
                   <label for="image" class="form-label mt-2">Image:</label>
@@ -194,7 +187,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </div>
                 <div class="row mt-4">
                   <div class="col text-center">
-                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"  onclick="window.location.href='AdminProduct.php'">Cancel</button>
                     <button type="submit" class="btn btn-primary">Confirm</button>
                   </div>
                 </div>

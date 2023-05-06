@@ -87,7 +87,7 @@ $html = $xslt->transformToXML($xml);
                             </div>
                         </li>
                         <li>
-                            <div class="text-center mt-4">
+                            <div class="text-center mt-4 mb-3">
                                 <button type="button" class="btn btn-outline-danger">Log Out</button>
                             </div></li>
                       </ul>
@@ -146,6 +146,7 @@ $html = $xslt->transformToXML($xml);
 	</main>
         <main class="container-fluid">
             <button class="btn btn-primary"><a href="AdminProductAddForm.php" class="text-light">Add Product</a></button>
+            <button class="btn btn-primary"><a href="AdminProductAddForm.php" class="text-light">Add Product Type</a></button>
         </main>
         <main class="container-fluid" style="margin-top: 40px;">
 		<?php echo $html; ?>

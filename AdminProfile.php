@@ -72,7 +72,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             </div>
                         </li>
                         <li>
-                            <div class="text-center mt-4">
+                            <div class="text-center mt-4 mb-3">
                                 <button type="button" class="btn btn-outline-danger">Log Out</button>
                             </div></li>
                       </ul>

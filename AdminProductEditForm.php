@@ -1,3 +1,22 @@
+<?php
+require_once 'AdminProductFacade.php';
+
+$productID = $_GET['id'];
+
+$host = "localhost";
+$dbname = "ip";
+$user = "root";
+$password = "";
+$dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
+
+$pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
+$facade = new AdminProductFacade($pdo);
+
+$productTypeNames = $facade->retrieveProductType();
+$product = $facade->retrieveProduct($productID);
+
+?>
+
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -75,7 +94,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             </div>
                         </li>
                         <li>
-                            <div class="text-center mt-4">
+                            <div class="text-center mt-4 mb-3">
                                 <button type="button" class="btn btn-outline-danger">Log Out</button>
                             </div></li>
                       </ul>
@@ -142,38 +161,37 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
               <form method="post" action="process_form.php" enctype="multipart/form-data">
                 <div class="mb-3">
                   <label for="item_name" class="form-label mt-2">Name:</label>
-                  <input type="text" class="form-control" id="item_name" name="item_name" required>
+                  <input type="text" class="form-control" id="item_name" name="item_name" value="<?php echo $product['name']; ?>" required>
                 </div>
                 <div class="mb-3">
                   <label for="category" class="form-label mt-2">Category:</label>
                   <select class="form-control" id="category" name="category" required>
                     <option value="">Select a category</option>
-                    <option value="Electronics">Pens</option>
-                    <option value="Clothing">Books</option>
-                    <option value="Beauty">Pencils</option>
-                    <option value="Books">Erasers</option>                  
+                    <?php foreach ($productTypeNames as $productType) { ?>
+                        <option value="<?php echo $productType['productTypeName']; ?>"<?php if ($product['productTypeID'] == $productType['productTypeID']) echo ' selected'; ?>><?php echo $productType['productTypeName']; ?></option>
+                    <?php } ?>                
                   </select>
                 </div>
                 <div class="mb-3">
                   <label for="quantity" class="form-label mt-2">Quantity:</label>
-                  <input type="number" class="form-control" id="quantity" name="quantity" required>
+                  <input type="number" class="form-control" id="quantity" name="quantity" value="<?php echo $product['quantity']; ?>" required>
                 </div>
                 <div class="mb-3">
                   <label class="form-label d-block mt-2">Status:</label>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="status" id="available" value="Available" required>
+                    <input class="form-check-input" type="radio" name="status" id="available" value="Available" <?php if ($product['status'] == 'Available') echo ' checked'; ?> required>
                     <label class="form-check-label" for="available">
                       Available
                     </label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="status" id="not_available" value="Not Available" required>
+                    <input class="form-check-input" type="radio" name="status" id="not_available" value="Not Available" <?php if ($product['status'] == 'Not Available') echo ' checked'; ?> required>
                     <label class="form-check-label" for="not_available">
                       Not Available
                     </label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="status" id="out_of_stock" value="Out of Stock" required>
+                    <input class="form-check-input" type="radio" name="status" id="out_of_stock" value="Out of Stock" <?php if ($product['status'] == 'Out of Stock') echo ' checked'; ?> required>
                     <label class="form-check-label" for="out_of_stock">
                       Out of Stock
                     </label>
@@ -182,19 +200,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </div>
                 <div class="mb-3">
                   <label for="unit_price" class="form-label mt-2">Unit Price:</label>
-                  <input type="number" class="form-control" id="unit_price" name="unit_price" required>
+                  <input type="number" class="form-control" id="unit_price" name="unit_price" value="<?php echo $product['unitPrice']; ?>" required>
                 </div>
                 <div class="mb-3">
-                  <label for="image" class="form-label mt-2">Image:</label>
-                  <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                  <label for="image" class="form-label mt-2">Image:</label><br/><label for="image" class="form-label mt-2" value="<?php echo $product['image']; ?>"><?php echo $product['image']; ?></label>
+                  <input type="file" class="form-control" id="image" name="image" accept="image/*" required placeholder="<?php echo $product['image']; ?>">
                 </div>
                 <div class="mb-3">
                   <label for="description" class="form-label mt-2">Description:</label>
-                  <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                  <textarea class="form-control" id="description" name="description" rows="3" required><?php echo $product['description']; ?></textarea>
                 </div>
                 <div class="row mt-4">
                   <div class="col text-center">
-                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"   onclick="window.location.href='AdminProduct.php'">Cancel</button>
                     <button type="submit" class="btn btn-primary">Confirm</button>
                   </div>
                 </div>

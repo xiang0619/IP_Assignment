@@ -28,13 +28,7 @@
                 <th style="width:100px;">Status</th>
                 <th style="width:100px;">Price</th>                               
                 <th style="width:100px;">Description</th>
-                <th style="width:100px;">Image</th>
-                <th>Type ID</th>
-                <th>Upload Date</th>              
-                <th>Updated ID</th>
-                <th>Updated Date</th>
-                <th>Created ID</th>
-                <th>Created Date</th>  
+                <th style="width:100px;">Image</th>            
               </tr>
             </thead>
             <tbody style="background-color:white;">
@@ -66,13 +60,7 @@
                   <td><xsl:value-of select="product_status"/></td>
                   <td><xsl:value-of select="product_price"/></td>                                   
                   <td><xsl:value-of select="product_description"/></td>
-                  <td><xsl:value-of select="product_image"/></td>
-                  <td><xsl:value-of select="product_type_id"/></td>
-                  <td><xsl:value-of select="product_upload_date"/></td>                  
-                  <td><xsl:value-of select="product_updated_id"/></td>
-                  <td><xsl:value-of select="product_updated_date"/></td>
-                  <td><xsl:value-of select="product_create_id"/></td>
-                  <td><xsl:value-of select="product_created_date"/></td>   
+                  <td><xsl:value-of select="product_image"/></td> 
                 </tr>
               </xsl:for-each>
             </tbody>
