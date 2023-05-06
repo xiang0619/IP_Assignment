@@ -1,13 +1,14 @@
 <?php
 
-class Database{
+class Database {
+    private static $instance = null;
     private $host = 'localhost';
     private $dbname = 'ip';
     private $username = 'root';
     private $password = '';
     private $pdo;
     
-    public function __construct() {
+    private function __construct() {
         try {
             $this->pdo = new PDO("mysql:host={$this->host};dbname={$this->dbname}", $this->username, $this->password);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -15,8 +16,14 @@ class Database{
             die("Connection failed: " . $e->getMessage());
         }
     }
-
     
+    public static function getInstance() {
+        if (self::$instance == null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
     public function open(){
         try {
             $this->pdo = new PDO("mysql:host={$this->host};dbname={$this->dbname}", $this->username, $this->password);
@@ -57,40 +64,10 @@ class Database{
         return $stmt->execute($values);
     }
 
-    public function update($table, $data, $where) {
-        $set = array();
-        $values = array();
-        
-        foreach ($data as $key => $value) {
-            $set[] = "$key = ?";
-            $values[] = $value;
-        }
-        
-        $where_clause = array();
-        foreach ($where as $key => $value) {
-            $where_clause[] = "$key = ?";
-            $values[] = $value;
-        }
-        
-        $sql = "UPDATE $table SET " . implode(',', $set) . " WHERE " . implode(' AND ', $where_clause);
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute($values);
-    }
-
-    public function delete($table, $where) {
-        $where_clause = array();
-        $values = array();
-        foreach ($where as $key => $value) {
-            $where_clause[] = "$key = ?";
-            $values[] = $value;
-        }
-        $sql = "DELETE FROM $table WHERE " . implode(' AND ', $where_clause);
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute($values);
-    }
-    
     public function close() {
         $this->pdo = null;
     }
-}
 
+//    private function __clone() {}
+//    private function __wakeup() {}
+}

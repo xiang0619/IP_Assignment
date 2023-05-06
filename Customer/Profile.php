@@ -15,6 +15,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     <body>
         <?php
             include '../Shared/PHP/Header.php';
+            require '../Shared/Database/CustomerDatabase.php';
+            //到时候就是从session那边那data
+            //todo: Ng Wen Xiang get id from session
+            
+            $customerDatabase = new CustomerDatabase();
+            $customer = $customerDatabase->getProfile("YC+rP86LEkvnSmbNZnPq0rG2o2ndUe5V3iSkBQ1Gvd8=");
         ?>
         
         <div class="row">
@@ -32,17 +38,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     <div class="col-12 primary-color fs-3">Profile</div>
                     
                     <div class="col-4 fs-5 primary-color mt-2 mb-2">Email : </div>
-                    <div class="col-8 fs-5 primary-color mt-2 mb-2">ABC123@gmail.com</div>
+                    <div class="col-8 fs-5 primary-color mt-2 mb-2"><?php echo $customer->getEmail() ?></div>
                     
                     <div class="col-4 fs-5 primary-color mt-2 mb-2">Name : </div>
-                    <div class="col-8 fs-5 primary-color mt-2 mb-2"></div>
+                    <div class="col-8 fs-5 primary-color mt-2 mb-2"><?php echo $customer->getName() ?></div>
                     
                     <div class="col-4 fs-5 primary-color mt-2 mb-2">Mobile Number : </div>
-                    <div class="col-8 fs-5 primary-color mt-2 mb-2">012-345678910</div>
+                    <div class="col-8 fs-5 primary-color mt-2 mb-2"><?php echo $customer->getMobile() ?></div>
                     
-                    <div class="col-4 mt-2 mb-2"><a href="Change_Password.php" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;">Change Password</a></div>
+                    <div class="col-4 mt-2 mb-2"><a href="ChangePassword.php" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;">Change Password</a></div>
                     <div class="col-4 mt-2 mb-2"></div>
-                    <div class="col-4 mt-2 mb-2 "><a href="Edit_Profile.php" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;">Edit Profile</a></div>
+                    <div class="col-4 mt-2 mb-2 "><a href="EditProfile.php" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;">Edit Profile</a></div>
                 </div>
             </div>
             

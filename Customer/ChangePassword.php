@@ -17,7 +17,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             include '../Shared/PHP/Header.php';
         ?>
         
-        <form action="#">
+        <form action="../Validation/CustomerChangePassword.php" method="post">
             <div class="row">
                 <!-- Make div center -->
                 <div class="col-3"></div>
@@ -32,17 +32,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                         <div class="col-12 primary-color fs-3">Change Password</div>
 
                         <div class="col-4 fs-5 primary-color mt-2 mb-2"><label for="oldPassword">Old Password : </label></div>
-                        <div class="col-8 fs-5 primary-color mt-2 mb-2"><input type="password" class="form-control" id="oldPassword" placeholder="**********" maxlength="40"></div>
+                        <div class="col-8 fs-5 primary-color mt-2 mb-2"><input name="oldPass" type="password" class="form-control" id="oldPassword" placeholder="**********" maxlength="40" required></div>
 
                         <div class="col-4 fs-5 primary-color mt-2 mb-2"><label for="newPassword">New Password : </label></div>
-                        <div class="col-8 fs-5 primary-color mt-2 mb-2"><input type="password" class="form-control" id="newPassword" placeholder="**********" maxlength="40"></div>
+                        <div class="col-8 fs-5 primary-color mt-2 mb-2"><input name="newPass" type="password" class="form-control" id="newPassword" placeholder="**********" maxlength="40" required></div>
 
-                        <div class="col-4 fs-5 primary-color mt-2 mb-2"><label for="rePassword">Retype Password : </label></div>
-                        <div class="col-8 fs-5 primary-color mt-2 mb-2"><input type="password" class="form-control" id="rePassword" placeholder="**********" maxlength="40"></div>s
+                        <div class="col-4 fs-5 primary-color mt-2 mb-2"><label for="rePassword">Confirm Password : </label></div>
+                        <div class="col-8 fs-5 primary-color mt-2 mb-2"><input name="rePass" type="password" class="form-control" id="rePassword" placeholder="**********" maxlength="40" required></div>
 
                         <!--Edit button position  -->
-                        <div class="col-8 mt-2 mb-2"></div>
-                        <div class="col-4 mt-2 mb-2 "><input type="Submit" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" value="Change Password"></div>
+                        <div class="col-4 mt-2 mb-2"><button class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;"><a style="text-decoration: none;color: #2BDEDE;" href="Profile.php">Back To Profile</a></div>
+                        <div class="col-4 mt-2 mb-2"></div>
+                        <div class="col-4 mt-2 mb-2 "><input type="Submit" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" name="submit" value="Change Password"></div>
                     </div>
                 </div>
 

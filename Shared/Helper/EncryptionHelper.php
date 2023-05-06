@@ -21,6 +21,7 @@ class EncryptionHelper {
         $ivlen = openssl_cipher_iv_length($this->cipher);
         $iv = substr($data, 0, $ivlen);
         $ciphertext = substr($data, $ivlen);
-        return openssl_decrypt($ciphertext, $this->cipher, $this->key, OPENSSL_RAW_DATA, $iv);
+        $decrypted = openssl_decrypt($ciphertext, $this->cipher, $this->key, OPENSSL_RAW_DATA, $iv);
+        return $decrypted;
     }
 }

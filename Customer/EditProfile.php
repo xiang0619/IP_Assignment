@@ -15,9 +15,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     <body>
         <?php
             include '../Shared/PHP/Header.php';
+            require '../Shared/Database/CustomerDatabase.php';
+            //到时候就是从session那边那data
+            //todo: Ng Wen Xiang get id from session
+            $customerDatabase = new CustomerDatabase();
+            $customer = $customerDatabase->getProfile("YC+rP86LEkvnSmbNZnPq0rG2o2ndUe5V3iSkBQ1Gvd8=");
         ?>
         
-        <form action="#">
+        <form action="../Validation/CustomerEditProfile.php" method="post">
             <div class="row">
                 <!-- Make div center -->
                 <div class="col-3"></div>
@@ -32,17 +37,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                         <div class="col-12 primary-color fs-3">Profile</div>
 
                         <div class="col-4 fs-5 primary-color mt-2 mb-2">Email : </div>
-                        <div class="col-8 fs-5 primary-color mt-2 mb-2">ABC123@gmail.com</div>
+                        <div class="col-8 fs-5 primary-color mt-2 mb-2"><?php echo $customer->getEmail(); ?></div>
 
                         <div class="col-4 fs-5 primary-color mt-2 mb-2"><label for="name">Name : </label></div>
-                        <div class="col-8 fs-5 primary-color mt-2 mb-2"><input type="text" class="form-control" id="name" placeholder="Tan Ah Gao" maxlength="40"></div>
+                        <div class="col-8 fs-5 primary-color mt-2 mb-2"><input type="text" name="name" class="form-control" id="name" value="<?php echo $customer->getName() ?>" maxlength="40"></div>
 
                         <div class="col-4 fs-5 primary-color mt-2 mb-2"><label for="mobile">Mobile Number : </label></div>
-                        <div class="col-8 fs-5 primary-color mt-2 mb-2"><input type="text" class="form-control" id="mobile" placeholder="012-345678910" maxlength="40"></div>
+                        <div class="col-8 fs-5 primary-color mt-2 mb-2"><input type="text" name="mobile" class="form-control" id="mobile" value="<?php echo $customer->getMobile()?>" placeholder="012-345678910" maxlength="40"></div>
 
                         <!--Edit button position  -->
-                        <div class="col-8 mt-2 mb-2"></div>
-                        <div class="col-4 mt-2 mb-2 "><input type="Submit" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" value="Edit"></div>
+                        <div class="col-4 mt-2 mb-2"><button class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;"><a style="text-decoration: none;color: #2BDEDE;" href="Profile.php">Back To Profile</a></div>
+                        <div class="col-4 mt-2 mb-2"></div>
+                        <div class="col-4 mt-2 mb-2 "><input type="Submit" class="form-control" name="submit" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" value="Edit"></div>
                     </div>
                 </div>
 
