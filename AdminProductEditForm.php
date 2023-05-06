@@ -3,17 +3,6 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to edit this template
 -->
-<?php
-include "AdminProductRetrieve.php";
-$xslFile = "AdminProduct.xsl";
-
-// Apply the XSLT stylesheet to the XML data
-$xslt = new XSLTProcessor();
-$xsldoc = new DOMDocument();
-$xsldoc->load($xslFile);
-$xslt->importStylesheet($xsldoc);
-$html = $xslt->transformToXML($xml);
-?>
 <html>
     <head>
 	<meta charset="UTF-8">
@@ -41,7 +30,6 @@ $html = $xslt->transformToXML($xml);
               transform: translateX(-50%);
               top: 100%;
             }
-            
             body{
                 background-color: lightsteelblue;
             }
@@ -144,12 +132,77 @@ $html = $xslt->transformToXML($xml);
 	<main class="container-fluid mb-4 mt-4 text-center" style="">
 		<h1>Products</h1>
 	</main>
-        <main class="container-fluid">
-            <button class="btn btn-primary"><a href="AdminProductAddForm.php" class="text-light">Add Product</a></button>
+        
+        <main class="container mx-auto mt-5 mb-5" style="max-width: 600px;">
+          <div class="card border rounded-3">
+            <div class="card-header text-center">
+              <h4>Edit Product</h4>
+            </div>
+            <div class="card-body">
+              <form method="post" action="process_form.php" enctype="multipart/form-data">
+                <div class="mb-3">
+                  <label for="item_name" class="form-label mt-2">Name:</label>
+                  <input type="text" class="form-control" id="item_name" name="item_name" required>
+                </div>
+                <div class="mb-3">
+                  <label for="category" class="form-label mt-2">Category:</label>
+                  <select class="form-control" id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="Electronics">Pens</option>
+                    <option value="Clothing">Books</option>
+                    <option value="Beauty">Pencils</option>
+                    <option value="Books">Erasers</option>                  
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="quantity" class="form-label mt-2">Quantity:</label>
+                  <input type="number" class="form-control" id="quantity" name="quantity" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label d-block mt-2">Status:</label>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="status" id="available" value="Available" required>
+                    <label class="form-check-label" for="available">
+                      Available
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="status" id="not_available" value="Not Available" required>
+                    <label class="form-check-label" for="not_available">
+                      Not Available
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="status" id="out_of_stock" value="Out of Stock" required>
+                    <label class="form-check-label" for="out_of_stock">
+                      Out of Stock
+                    </label>
+                  </div>
+                  <!-- Add more radio button groups as needed -->
+                </div>
+                <div class="mb-3">
+                  <label for="unit_price" class="form-label mt-2">Unit Price:</label>
+                  <input type="number" class="form-control" id="unit_price" name="unit_price" required>
+                </div>
+                <div class="mb-3">
+                  <label for="image" class="form-label mt-2">Image:</label>
+                  <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                </div>
+                <div class="mb-3">
+                  <label for="description" class="form-label mt-2">Description:</label>
+                  <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                </div>
+                <div class="row mt-4">
+                  <div class="col text-center">
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </main>
-        <main class="container-fluid" style="margin-top: 40px;">
-		<?php echo $html; ?>
-        </main>
+
         </div>
     </body>
 </html>

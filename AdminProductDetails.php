@@ -3,17 +3,6 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to edit this template
 -->
-<?php
-include "AdminProductRetrieve.php";
-$xslFile = "AdminProduct.xsl";
-
-// Apply the XSLT stylesheet to the XML data
-$xslt = new XSLTProcessor();
-$xsldoc = new DOMDocument();
-$xsldoc->load($xslFile);
-$xslt->importStylesheet($xsldoc);
-$html = $xslt->transformToXML($xml);
-?>
 <html>
     <head>
 	<meta charset="UTF-8">
@@ -40,10 +29,6 @@ $html = $xslt->transformToXML($xml);
               left: 50%;
               transform: translateX(-50%);
               top: 100%;
-            }
-            
-            body{
-                background-color: lightsteelblue;
             }
         </style>
     </head>
@@ -144,11 +129,9 @@ $html = $xslt->transformToXML($xml);
 	<main class="container-fluid mb-4 mt-4 text-center" style="">
 		<h1>Products</h1>
 	</main>
+        
         <main class="container-fluid">
-            <button class="btn btn-primary"><a href="AdminProductAddForm.php" class="text-light">Add Product</a></button>
-        </main>
-        <main class="container-fluid" style="margin-top: 40px;">
-		<?php echo $html; ?>
+		
         </main>
         </div>
     </body>
