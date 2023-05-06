@@ -1,7 +1,7 @@
 <?php
 
-require_once('/Shared/Stripe/init.php');
-\Stripe\Stripe::setApiKey('sk_test_51N4IUNEd7cmSO65bnsVFQ59rs2hxKJvANEV2ZPsrcuw2Lvl3MNkr8dJhbadm5Yowv2cxrcc52xAMvr0lUBX9IiSW00y2ZokQ5z');
+//require_once('/Shared/Stripe/init.php');
+//\Stripe\Stripe::setApiKey('sk_test_51N4IUNEd7cmSO65bnsVFQ59rs2hxKJvANEV2ZPsrcuw2Lvl3MNkr8dJhbadm5Yowv2cxrcc52xAMvr0lUBX9IiSW00y2ZokQ5z');
 
 class Payment {
     private $token;
