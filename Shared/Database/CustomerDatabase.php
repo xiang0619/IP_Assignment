@@ -1,6 +1,5 @@
 <?php
 
-include '../Shared/Helper/EmailHelper.php';
 include '../Shared/Helper/EncryptionHelper.php';
 include '../Shared/Helper/GenerateRandomCodeHelper.php';
 include 'Database.php';
@@ -9,14 +8,12 @@ include '../class/Customer.php';
 class CustomerDatabase {
     
     private $pdo;
-    private $emailHelper;
     private $generateRandomCodeHelper;
     private $encryptionHelper;
 
     public function __construct()
     {
         $this->pdo = new Database();
-        $this->emailHelper = new EmailHelper();
         $this->generateRandomCodeHelper = new GenerateRandomCodeHelper();
         $this->encryptionHelper = new EncryptionHelper("Customer");
     }
@@ -66,43 +63,4 @@ class CustomerDatabase {
         return $stmt->rowCount();
     }
     
-    public function resetCustomerPassword($email){
-        $customer = $this->getCustomerByEmail($email);
-        
-        if($customer != null){
-            $randomCode = $this->generateRandomCodeHelper->generateCode();
-            $encryptedRandomCode = $this->encryptionHelper->encrypt($randomCode);
-            
-            $customer->setResetCode($randomCode);
-            
-            $this->updateCustomerResetCode($customer);
-            
-            try {
-                return $this->sendEmail($customer, "Reset Password", "CustomerResetPasswordTemplate.html");
-            } catch (Exception $e) {
-                echo "Message could not be sent. Error: {$e->ErrorInfo}";
-                return false;
-            }
-            
-            return false;
-        }
-        return false;
-    }
-    
-    private function sendEmail($customer, $subject, $emailTemplateName){
-        
-        return $this->emailHelper->sendEmailOAuth($customer->getEmail(), $subject, $this->emailHelper->LoadEmailTemplate($emailTemplateName,$customer));
-    
-    }
-    
-    private function updateCustomerResetCode($customer){        
-        $this->pdo->open();
-        
-        
-        $stmt = $this->pdo->prepare("UPDATE customer SET resetCode = ? WHERE email = ?");
-        $stmt->execute([$customer->getResetCode() , $customer->getEmail()]);
-        
-        $this->pdo->close();
-        return $stmt->rowCount();
-    }
 }
