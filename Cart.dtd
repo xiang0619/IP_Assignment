@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!ELEMENT Cart (product*)>
-<!ELEMENT Product (id,name,qty,status,unitPrice)>
-<!ATTLIST Product id ID #REQUIRED>
-<!ELEMENT id ID (#PCDATA)>
+<?xml version='1.0' encoding='UTF-8'?>
+<!ELEMENT Cart (Product)*>
+<!ELEMENT Product (productID,name,quantity,status,unitPrice,image,description)>
+<!ELEMENT productID (#PCDATA)>
 <!ELEMENT name (#PCDATA)>
-<!ELEMENT qty (#PCDATA)>
+<!ELEMENT quantity (#PCDATA)>
 <!ELEMENT status (#PCDATA)>
 <!ELEMENT unitPrice (#PCDATA)>
+<!ELEMENT image (#PCDATA)>
+<!ELEMENT description (#PCDATA)>

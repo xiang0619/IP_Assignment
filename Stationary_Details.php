@@ -1,7 +1,7 @@
 <?php
 
 
-// Check if the connection is successful
+
 
    
 ?>

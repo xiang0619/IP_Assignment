@@ -1,72 +1,48 @@
-<?php
-session_start();
-include('../includes/config.php');
-//login 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $userEmail = $_POST['email'];
-    $userPass = $_POST['pass']; //double encrypt to increase security sha1(md5())
-    
-    $stmt = $dbc->prepare("SELECT email_address, password, people_id  FROM  people WHERE (email_address = ? AND password = ?)"); //sql to log in user
-    $stmt->bind_param('ss',  $userEmail, $userPass); //bind fetched parameters
-    $stmt->execute(); //execute bind 
-    $stmt->bind_result($custEmail, $custPass, $peopleID); //bind result
-    $rs = $stmt->fetch();
-   
-    if ($rs) {
-         $_SESSION['peopleID'] = $peopleID;
-        echo '<script>alert("Login successful!");</script>';
-        header("location:homepage.php");
-    } else {
-        echo '<script>alert("Incorrect email or password");</script>';
-    }
-    
-    if (isset($_POST['submit'])) {
-    processForm();
-}
 
-    function processForm() {
-        // Perform some processing here
-        echo "Form submitted successfully!";
-    }
-}
-
-function display(){
-    
-} 
-?>
-
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <?php
-        display()
-        ?>
-        
-        
-            <?php
-        // Define the number of buttons to generate
-        $num_buttons = 2;
-        
-        // Generate the buttons and text elements
-        for ($i = 0; $i < $num_buttons; $i++) {
-            // Generate a random color for the button
-            $colors = array("red", "green", "blue");
-            $color = $colors[rand(0, count($colors) - 1)];
-            
-            // Generate the button and text HTML
-            $button_html = "<button id='increment-button-$i' style='background-color: $color;'>Click me!</button>";
-            $text_html = "<p id='text-$i'>0</p>";
-            
-            // Output the button and text HTML
-            echo $button_html;
-            echo $text_html;
-        }
-    ?>
-        
-         <script>
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+    
+    //<?php
+//// Establish a connection to the database
+//include 'config.php';
+//// Execute the query to retrieve the data
+//$sql = "SELECT productID,name,quantity,status,unitPrice,image,description from product where productID ='P0001'";
+//$result = mysqli_query($dbc, $sql);
+//
+//// Create a new DOM document object
+//$dom = new DOMDocument();
+//
+//// Load the DTD file
+//$dom->load('Cart.dtd');
+//
+//// Create the root element
+//$root = $dom->createElement('Cart');
+//$dom->appendChild($root);
+//
+//// Loop through the result set and add each row as an element
+//while ($row = mysqli_fetch_assoc($result)) {
+//    $product = $dom->createElement('Product');
+//    foreach ($row as $field => $value) {
+//        $element = $dom->createElement($field, $value);
+//        $product->appendChild($element);
+//    }
+//    $root->appendChild($product);
+//}
+//
+//// Set the header to "Content-Type: text/xml"
+//header('Content-Type: text/xml');
+//
+//// Output the XML
+//echo $dom->saveXML();
+//?>
+
+    
+    <script>
         // Add click event listeners to the buttons
         <?php for ($i = 0; $i < $num_buttons; $i++) { ?>
             var button<?php echo $i; ?> = document.getElementById("increment-button-<?php echo $i; ?>");
@@ -80,10 +56,9 @@ function display(){
         <?php } ?>
     </script>
     
-        <form method="POST">
-            <input type="submit" name="submit1" value="Submit Form 1">
-            <input type="submit" name="submit2" value="Submit Form 2">
-        </form>
-        
-    </body>
+    <form method="POST">
+        <input type="submit" name="submit1" value="Submit Form 1">
+        <input type="submit" name="submit2" value="Submit Form 2">
+    </form>
+</body>
 </html>
