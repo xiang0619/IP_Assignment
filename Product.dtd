@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!ELEMENT Products (Product)*>
-<!ELEMENT Product (id,name,qty,status,unitPrice)>
-<!ELEMENT id (#PCDATA)>
-<!ELEMENT name (#PCDATA)>
-<!ELEMENT qty (#PCDATA)>
-<!ELEMENT status (#PCDATA)>
-<!ELEMENT unitPrice (#PCDATA)>
