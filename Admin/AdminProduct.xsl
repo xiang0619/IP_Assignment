@@ -16,56 +16,52 @@
     -->
     <xsl:template match="/">
   
-      <div style="overflow-x:auto;">
-          <table class="table table-bordered" style="border:solid;">
-            <thead style="background-color:lightgray;">
-              <tr>
-                <th></th>
-                <th></th>
-                <th style="width:100px;">ID</th>
-                <th style="width:100px;">Name</th>                
-                <th style="width:100px;">Quantity</th>
-                <th style="width:100px;">Status</th>
-                <th style="width:100px;">Price</th>                               
-                <th style="width:100px;">Description</th>
-                <th style="width:100px;">Image</th>            
-              </tr>
-            </thead>
-            <tbody style="background-color:white;">
-              <xsl:for-each select="products/product">
-                <tr>
-                    <td>
-                        <button style="background-color:green; border:none; border-radius:4px; padding:10px;">
-                            <a>
-                                <xsl:attribute name="href">
-                                  <xsl:value-of select="concat('AdminProductEditForm.php?id=', product_id)" />
-                                </xsl:attribute>
-                                <span style="color:white;">Edit</span>
-                            </a>                            
-                        </button>
-                    </td>
-                  <td>
-                      <button style="background-color:red; border:none; border-radius:4px; padding:10px;">
-                            <a>
-                                <xsl:attribute name="href">
-                                  <xsl:value-of select="concat('AdminProductEditForm.php?id=', product_id)" />
-                                </xsl:attribute>
-                                <span style="color:white;">Delete</span>
-                            </a> 
-                        </button>
-                  </td>
-                  <td><xsl:value-of select="product_id"/></td>
-                  <td><xsl:value-of select="product_name"/></td>                  
-                  <td><xsl:value-of select="product_quantity"/></td>
-                  <td><xsl:value-of select="product_status"/></td>
-                  <td><xsl:value-of select="product_price"/></td>                                   
-                  <td><xsl:value-of select="product_description"/></td>
-                  <td><xsl:value-of select="product_image"/></td> 
-                </tr>
-              </xsl:for-each>
-            </tbody>
-          </table>
-       </div>      
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                <script src="https://unpkg.com/@popperjs/core@2.10.3/dist/bundle.min.js"></script>
+                <script src="https://unpkg.com/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                
+                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+      <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th></th>
+          <th></th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Status</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Image</th>
+        </tr>
+      </thead>
+      <tbody class="table-light">
+        <xsl:for-each select="products/product">
+          <tr>
+            <td>
+              <button class="btn btn-success">
+                <a href="AdminProductEditForm.php?id={product_id}" class="text-white">Edit</a>
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-danger">
+                <a href="AdminProductDeleteForm.php?id={product_id}" class="text-white">Delete</a>
+              </button>
+            </td>
+            <td><xsl:value-of select="product_id"/></td>
+            <td><xsl:value-of select="product_name"/></td>
+            <td><xsl:value-of select="product_quantity"/></td>
+            <td><xsl:value-of select="product_status"/></td>
+            <td><xsl:value-of select="product_price"/></td>
+            <td><xsl:value-of select="product_description"/></td>
+            <td><img src="../Shared/Image/{product_image}" alt="Product Image" width="50" height="50"/></td>
+          </tr>
+        </xsl:for-each>
+      </tbody>
+    </table>
+  </div>
  
 </xsl:template>
 
