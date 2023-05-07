@@ -10,7 +10,7 @@
  *
  * @author KahSeng
  */
-include_once 'class/ProductAdmin.php';
+include_once '../class/ProductAdmin.php';
 
 class AdminProductDA {
     private $conn;

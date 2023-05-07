@@ -11,7 +11,7 @@
  * @author KahSeng
  */
 
-include_once 'class/ProductAdmin.php';
+include_once '../class/ProductAdmin.php';
 include_once 'AdminProductDA.php';
 
 class AdminProductFacade {
