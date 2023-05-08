@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/phpmailer/vendor/autoload.php';
+require_once __DIR__ .  '/../../vendor/autoload.php';
 
 // Abstract class for login and register
 abstract class Authentication {
@@ -11,7 +11,7 @@ abstract class Authentication {
     protected $password;
     protected $resetCode;
 
-    public function __construct($email, $name, $phone, $password,$resetCode) {
+    public function __construct($email="", $name="", $phone="", $password="",$resetCode="") {
         $this->email = $email;
         $this->name = $name;
         $this->phone = $phone;
@@ -148,8 +148,8 @@ class ForgetPassword extends Authentication {
                 $mail->isSMTP();                                            // Send using SMTP
                 $mail->Host = 'smtp.gmail.com';                       // Set the SMTP server to send through
                 $mail->SMTPAuth = true;                                   // Enable SMTP authentication
-                $mail->Username = 'jasonlkc-pm19@student.tarc.edu.my';         // SMTP username
-                $mail->Password = '010722070473';                   // SMTP password
+                $mail->Username = 'jeprinting7@gmail.com';         // SMTP username
+                $mail->Password = 'ckeaitqpfzywzsih';                   // SMTP password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;          // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                 $mail->Port = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
                 // Recipients
@@ -237,7 +237,7 @@ class ResetPassword extends Authentication {
 // Factory class for creating login and register objects
 class AuthenticationFactory {
 
-    public static function createAuthentication($type, $email, $name, $phone, $password,$resetCode) {
+    public static function createAuthentication($type, $email, $name="", $phone="", $password="",$resetCode="") {
         if ($type == "login") {
             return new Login($email, null, null, $password,null);
         } elseif ($type == "register") {

@@ -63,7 +63,7 @@ class StaffDatabase implements ProfileObserver{
     public function updateProfile($staff) {
         self::$pdo->open();
         
-        $stmt = self::$pdo->prepare('UPDATE customer SET name = ?, mobile = ? WHERE id = ?');
+        $stmt = self::$pdo->prepare('UPDATE staff SET name = ?, mobile = ? WHERE id = ?');
 
         $stmt->execute([$staff->getName(),$staff->getMobile(),$staff->getId()]);
 
@@ -87,7 +87,7 @@ class StaffDatabase implements ProfileObserver{
         
         $password = $this->encryptionHelper->encrypt($password);
         
-        $stmt = self::$pdo->prepare('UPDATE customer SET password = ? WHERE customerId = ?');
+        $stmt = self::$pdo->prepare('UPDATE staff SET password = ? WHERE id = ?');
 
         $stmt->execute([$password,$id]);
 
