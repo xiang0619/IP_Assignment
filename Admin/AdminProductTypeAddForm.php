@@ -1,19 +1,24 @@
+<?php
+require_once 'AdminProductFacade.php';
+
+$host = "localhost";
+$dbname = "ip";
+$user = "root";
+$password = "";
+$dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
+
+$pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
+$facade = new AdminProductFacade($pdo);
+
+$productTypeNames = $facade->retrieveProductTypes();
+
+?>
+
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to edit this template
 -->
-<?php
-include "AdminProductRetrieve.php";
-$xslFile = "AdminProduct.xsl";
-
-// Apply the XSLT stylesheet to the XML data
-$xslt = new XSLTProcessor();
-$xsldoc = new DOMDocument();
-$xsldoc->load($xslFile);
-$xslt->importStylesheet($xsldoc);
-$html = $xslt->transformToXML($xml);
-?>
 <html>
     <head>
 	<meta charset="UTF-8">
@@ -23,7 +28,7 @@ $html = $xslt->transformToXML($xml);
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
-        <link href="Shared/CSS/SharedCSS.css" rel="stylesheet" type="text/css"/>
+        <link href="../Shared/CSS/SharedCSS.css" rel="stylesheet" type="text/css"/>
         
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -41,7 +46,6 @@ $html = $xslt->transformToXML($xml);
               transform: translateX(-50%);
               top: 100%;
             }
-            
             body{
                 background-color: lightsteelblue;
             }
@@ -49,7 +53,7 @@ $html = $xslt->transformToXML($xml);
     </head>
     <body>
         <div class="sticky-top">
-        <nav class="navbar navbar-dark bg-dark sticky-top>
+        <nav class="navbar navbar-dark bg-dark sticky-top">
           <div class="container-fluid">           
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -87,7 +91,7 @@ $html = $xslt->transformToXML($xml);
                             </div>
                         </li>
                         <li>
-                            <div class="text-center mt-4">
+                            <div class="text-center mt-4 mb-3">
                                 <button type="button" class="btn btn-outline-danger">Log Out</button>
                             </div></li>
                       </ul>
@@ -144,12 +148,29 @@ $html = $xslt->transformToXML($xml);
 	<main class="container-fluid mb-4 mt-4 text-center" style="">
 		<h1>Products</h1>
 	</main>
-        <main class="container-fluid">
-            <button class="btn btn-primary"><a href="AdminProductAddForm.php" class="text-light">Add Product</a></button>
+        
+        <main class="container mx-auto mt-5 mb-5" style="max-width: 600px;">
+          <div class="card border rounded-3">
+            <div class="card-header text-center">
+              <h4>Add Product Type</h4>
+            </div>
+            <div class="card-body ms-1 me-1">
+              <form method="post" action="AdminProductTypeAdd.php" enctype="multipart/form-data">
+                <div class="mb-3">
+                  <label for="productTypeName" class="form-label mt-2">Product Type Name:</label>
+                  <input type="text" class="form-control" id="productTypeName" name="productTypeName" required>
+                </div>
+                <div class="row mt-4">
+                  <div class="col text-center">
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"  onclick="window.location.href='AdminProduct.php'">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </main>
-        <main class="container-fluid" style="margin-top: 40px;">
-		<?php echo $html; ?>
-        </main>
+
         </div>
     </body>
 </html>

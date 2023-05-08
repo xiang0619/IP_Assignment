@@ -3,6 +3,17 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to edit this template
 -->
+<?php
+include "AdminProductRetrieve.php";
+$xslFile = "AdminProduct.xsl";
+
+// Apply the XSLT stylesheet to the XML data
+$xslt = new XSLTProcessor();
+$xsldoc = new DOMDocument();
+$xsldoc->load($xslFile);
+$xslt->importStylesheet($xsldoc);
+$html = $xslt->transformToXML($xml);
+?>
 <html>
     <head>
 	<meta charset="UTF-8">
@@ -12,7 +23,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
-        <link href="Shared/CSS/SharedCSS.css" rel="stylesheet" type="text/css"/>
+        <link href="../Shared/CSS/SharedCSS.css" rel="stylesheet" type="text/css"/>
         
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -30,11 +41,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
               transform: translateX(-50%);
               top: 100%;
             }
+            
+            body{
+                background-color: lightsteelblue;
+            }
         </style>
     </head>
     <body>
         <div class="sticky-top">
-        <nav class="navbar navbar-dark bg-dark sticky-top>
+        <nav class="navbar navbar-dark bg-dark sticky-top">
           <div class="container-fluid">           
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -42,10 +57,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             
             <ul class="nav justify-content-center">          
               <li class="nav-item">
-                <a class="nav-link text-light" href="AdminProduct.php">Products</a>
+                <a class="nav-link active" style="color: lightblue" href="AdminProduct.php">Products</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" style="color: lightblue" href="AdminService.php">Services</a>
+                <a class="nav-link text-light" href="AdminService.php">Services</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link text-light" href="AdminReport.php">Report</a>
@@ -72,7 +87,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             </div>
                         </li>
                         <li>
-                            <div class="text-center mt-4">
+                            <div class="text-center mt-4 mb-3">
                                 <button type="button" class="btn btn-outline-danger">Log Out</button>
                             </div></li>
                       </ul>
@@ -88,7 +103,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             
             <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
               <div class="offcanvas-header">                 
-                <h5 class="offcanvas-title mx-auto" id="offcanvasDarkNavbarLabel">            
+                <h5 class="offcanvas-title mx-auto" id="offcanvasDarkNavbarLabel">
                     <a class="navbar-brand fixed-end ms-3" href="AdminHome.php">JE</a>
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>                       
@@ -101,10 +116,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                   </li>
                   <hr class="bg-dark border-1 border-top border-light">
                   <li class="nav-item">
-                    <a class="nav-link" href="AdminProduct.php">Products</a>
+                    <a class="nav-link active" aria-current="page" href="AdminProduct.php">Products</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="AdminService.php">Services</a>
+                    <a class="nav-link" href="AdminService.php">Services</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="AdminReport.php">Report</a>
@@ -127,11 +142,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <!-- Main Content Area -->
         <div>
 	<main class="container-fluid mb-4 mt-4 text-center" style="">
-		<h1>Services</h1>
+		<h1>Products</h1>
 	</main>
-        
         <main class="container-fluid">
-		
+            <button class="btn btn-primary"><a href="AdminProductAddForm.php" class="text-light">Add Product</a></button>
+            <button class="btn btn-primary"><a href="AdminProductTypeAddForm.php" class="text-light">Add Product Type</a></button>
+        </main>
+        <main class="container-fluid" style="margin-top: 40px;">
+		<?php echo $html; ?>
         </main>
         </div>
     </body>

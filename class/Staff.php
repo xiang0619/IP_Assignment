@@ -4,7 +4,7 @@ require_once 'Person.php';
 class Staff extends Person{
    private $status,$position,$updatedID,$updatedDate,$createdID,$createdDate;
 
-   public function __construct($id, $email, $name,$mobile, $status, $position, $updatedID, $updatedDate, $createdID, $createdDate, $password,) {
+   public function __construct($id, $email="", $name="",$mobile="", $status="", $position="", $updatedID="", $updatedDate="", $createdID="", $createdDate="", $password="") {
        parent::__construct($id, $email, $name,$mobile,$password);
        $this->mobile=$mobile;
        $this->status = $status;

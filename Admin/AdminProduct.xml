@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Products>
+    <Product>
+        <id>7</id>
+        <name>ARTLINE 200 EK-200 (F) 0.4MM WRITING PEN</name>
+        <quantity>200</quantity>
+        <status>Available</status>
+        <unitPrice>12.00</unitPrice>
+        <image>ARTLINE-200-EK-200-F.png</image>
+        <description>Artline1</description>
+        <productTypeID>1</productTypeID>
+        <uploadDate>2023-05-08</uploadDate>
+        <updatedID>1</updatedID>
+        <updatedDate>2023-05-08</updatedDate>
+        <createID>1</createID>
+        <createdDate>2023-05-08</createdDate>
+    </Product>
+</Products>

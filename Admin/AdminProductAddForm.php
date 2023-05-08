@@ -1,3 +1,19 @@
+<?php
+require_once 'AdminProductFacade.php';
+
+$host = "localhost";
+$dbname = "ip";
+$user = "root";
+$password = "";
+$dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
+
+$pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
+$facade = new AdminProductFacade($pdo);
+
+$productTypeNames = $facade->retrieveProductTypes();
+
+?>
+
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -12,7 +28,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
-        <link href="Shared/CSS/SharedCSS.css" rel="stylesheet" type="text/css"/>
+        <link href="../Shared/CSS/SharedCSS.css" rel="stylesheet" type="text/css"/>
         
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -37,7 +53,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <div class="sticky-top">
-        <nav class="navbar navbar-dark bg-dark sticky-top>
+        <nav class="navbar navbar-dark bg-dark sticky-top">
           <div class="container-fluid">           
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -75,7 +91,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             </div>
                         </li>
                         <li>
-                            <div class="text-center mt-4">
+                            <div class="text-center mt-4 mb-3">
                                 <button type="button" class="btn btn-outline-danger">Log Out</button>
                             </div></li>
                       </ul>
@@ -136,22 +152,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <main class="container mx-auto mt-5 mb-5" style="max-width: 600px;">
           <div class="card border rounded-3">
             <div class="card-header text-center">
-              <h4>Edit Product</h4>
+              <h4>Add Product</h4>
             </div>
-            <div class="card-body">
-              <form method="post" action="process_form.php" enctype="multipart/form-data">
+            <div class="card-body ms-1 me-1">
+              <form method="post" action="AdminProductAdd.php" enctype="multipart/form-data">
                 <div class="mb-3">
                   <label for="item_name" class="form-label mt-2">Name:</label>
-                  <input type="text" class="form-control" id="item_name" name="item_name" required>
+                  <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="mb-3">
                   <label for="category" class="form-label mt-2">Category:</label>
                   <select class="form-control" id="category" name="category" required>
-                    <option value="">Select a category</option>
-                    <option value="Electronics">Pens</option>
-                    <option value="Clothing">Books</option>
-                    <option value="Beauty">Pencils</option>
-                    <option value="Books">Erasers</option>                  
+                    <option value="">Select a category</option>                   
+                    <?php foreach ($productTypeNames as $productType) { ?>
+                        <option value="<?php echo $productType['productTypeName']; ?>"><?php echo $productType['productTypeName']; ?></option>
+                    <?php } ?>
                   </select>
                 </div>
                 <div class="mb-3">
@@ -159,30 +174,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                   <input type="number" class="form-control" id="quantity" name="quantity" required>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label d-block mt-2">Status:</label>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="status" id="available" value="Available" required>
-                    <label class="form-check-label" for="available">
-                      Available
-                    </label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="status" id="not_available" value="Not Available" required>
-                    <label class="form-check-label" for="not_available">
-                      Not Available
-                    </label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="status" id="out_of_stock" value="Out of Stock" required>
-                    <label class="form-check-label" for="out_of_stock">
-                      Out of Stock
-                    </label>
-                  </div>
-                  <!-- Add more radio button groups as needed -->
-                </div>
-                <div class="mb-3">
                   <label for="unit_price" class="form-label mt-2">Unit Price:</label>
-                  <input type="number" class="form-control" id="unit_price" name="unit_price" required>
+                  <input type="number" step="0.01" class="form-control" id="unit_price" name="unit_price"" required>
                 </div>
                 <div class="mb-3">
                   <label for="image" class="form-label mt-2">Image:</label>
@@ -194,7 +187,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </div>
                 <div class="row mt-4">
                   <div class="col text-center">
-                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"  onclick="window.location.href='AdminProduct.php'">Cancel</button>
                     <button type="submit" class="btn btn-primary">Confirm</button>
                   </div>
                 </div>
