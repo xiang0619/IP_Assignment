@@ -49,7 +49,7 @@ class Staff extends Person{
    }
 
 
-   public function update(Staff $s){
+   public function update($s){
        parent:: update($s);
        $this->id = $s->id;
        $this->email = $s->email;

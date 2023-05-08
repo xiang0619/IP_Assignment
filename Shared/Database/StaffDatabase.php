@@ -29,7 +29,7 @@ class StaffDatabase implements ProfileObserver{
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($result) {
             $staff = new Staff($result['ID'], $result['email'], $result['name'], $result['mobile'],$result['status'],$result['position'],
-                                $result['updateID'],$result['updateDate'],$result['createdID'],$result['createdDate'],$result['password']);
+                                $result['updatedID'],$result['updatedDate'],$result['createdID'],$result['createdDate'],$result['password']);
             self::$pdo->close();
             return $staff;
         } else {
@@ -50,7 +50,7 @@ class StaffDatabase implements ProfileObserver{
         if ($result != null) {
             foreach ($result as $row) {
                $staff = new Staff($result['ID'], $result['email'], $result['name'], $result['mobile'],$result['status'],$result['position'],
-                                $result['updateID'],$result['updateDate'],$result['createdID'],$result['createdDate'],$result['password']);
+                                $result['updatedID'],$result['updatedDate'],$result['createdID'],$result['createdDate'],$result['password']);
                self::$pdo->close();
                return $staff;
             }
@@ -72,7 +72,7 @@ class StaffDatabase implements ProfileObserver{
         if ($result != null) {
             foreach ($result as $row) {
                $staff = new Staff($result['ID'], $result['email'], $result['name'], $result['mobile'],$result['status'],$result['position'],
-                                $result['updateID'],$result['updateDate'],$result['createdID'],$result['createdDate'],$result['password']);
+                                $result['updatedID'],$result['updatedDate'],$result['createdID'],$result['createdDate'],$result['password']);
                self::$pdo->close();
                return $staff;
             }

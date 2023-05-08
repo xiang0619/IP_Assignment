@@ -19,7 +19,7 @@ class Customer extends Person{
         return $this->resetCode;
     }
     
-    public function update(Person $p){
+    public function update(Person $p): void {
         parent::update($p);
         if($p instanceof Customer){
             $this->resetCode = $p->resetCode;
