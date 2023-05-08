@@ -49,7 +49,7 @@ $html = $xslt->transformToXML($xml);
     </head>
     <body>
         <div class="sticky-top">
-        <nav class="navbar navbar-dark bg-dark sticky-top>
+        <nav class="navbar navbar-dark bg-dark sticky-top">
           <div class="container-fluid">           
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -146,7 +146,7 @@ $html = $xslt->transformToXML($xml);
 	</main>
         <main class="container-fluid">
             <button class="btn btn-primary"><a href="AdminProductAddForm.php" class="text-light">Add Product</a></button>
-            <button class="btn btn-primary"><a href="AdminProductAddForm.php" class="text-light">Add Product Type</a></button>
+            <button class="btn btn-primary"><a href="AdminProductTypeAddForm.php" class="text-light">Add Product Type</a></button>
         </main>
         <main class="container-fluid" style="margin-top: 40px;">
 		<?php echo $html; ?>

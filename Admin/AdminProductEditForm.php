@@ -12,7 +12,7 @@ $dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
 $pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
 $facade = new AdminProductFacade($pdo);
 
-$productTypeNames = $facade->retrieveProductType();
+$productTypeNames = $facade->retrieveProductTypes();
 $product = $facade->retrieveProduct($productID);
 
 ?>
@@ -56,7 +56,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <div class="sticky-top">
-        <nav class="navbar navbar-dark bg-dark sticky-top>
+        <nav class="navbar navbar-dark bg-dark sticky-top">
           <div class="container-fluid">           
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -158,10 +158,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
               <h4>Edit Product</h4>
             </div>
             <div class="card-body">
-              <form method="post" action="process_form.php" enctype="multipart/form-data">
+              <form method="post" action="AdminProductEdit.php" enctype="multipart/form-data">
                 <div class="mb-3">
                   <label for="item_name" class="form-label mt-2">Name:</label>
-                  <input type="text" class="form-control" id="item_name" name="item_name" value="<?php echo $product['name']; ?>" required>
+                  <input type="text" class="form-control" id="name" name="name" value="<?php echo $product['name']; ?>" required>
                 </div>
                 <div class="mb-3">
                   <label for="category" class="form-label mt-2">Category:</label>
@@ -196,7 +196,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                       Out of Stock
                     </label>
                   </div>
-                  <!-- Add more radio button groups as needed -->
                 </div>
                 <div class="mb-3">
                   <label for="unit_price" class="form-label mt-2">Unit Price:</label>
@@ -204,7 +203,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </div>
                 <div class="mb-3">
                   <label for="image" class="form-label mt-2">Image:</label><br/><label for="image" class="form-label mt-2" value="<?php echo $product['image']; ?>"><?php echo $product['image']; ?></label>
-                  <input type="file" class="form-control" id="image" name="image" accept="image/*" required placeholder="<?php echo $product['image']; ?>">
+                  <input type="file" class="form-control" id="image" name="image" accept="image/*">
                 </div>
                 <div class="mb-3">
                   <label for="description" class="form-label mt-2">Description:</label>
@@ -216,6 +215,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     <button type="submit" class="btn btn-primary">Confirm</button>
                   </div>
                 </div>
+                <input type="hidden" id="uploadDate" name="uploadDate" value="<?php echo $product['uploadDate']; ?>">
+                <input type="hidden" name="updatedID" value="<?php echo $product['updatedID']; ?>">
+                <input type="hidden" name="updatedDate" value="<?php echo $product['updatedDate']; ?>">
+                <input type="hidden" name="createID" value="<?php echo $product['createID']; ?>">
+                <input type="hidden" name="createdDate" value="<?php echo $product['createdDate']; ?>">
+                <input type="hidden" name="productID" value="<?php echo $product['productID']; ?>">
+                <input type="hidden" name="image_default" value="<?php echo $product['image']; ?>">
               </form>
             </div>
           </div>

@@ -34,7 +34,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <div class="sticky-top">
-        <nav class="navbar navbar-dark bg-dark sticky-top>
+        <nav class="navbar navbar-dark bg-dark sticky-top">
           <div class="container-fluid">           
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>

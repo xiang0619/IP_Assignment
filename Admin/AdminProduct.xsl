@@ -27,7 +27,6 @@
       <thead class="table-dark">
         <tr>
           <th></th>
-          <th></th>
           <th>ID</th>
           <th>Name</th>
           <th>Quantity</th>
@@ -40,23 +39,22 @@
       <tbody class="table-light">
         <xsl:for-each select="products/product">
           <tr>
-            <td>
-              <button class="btn btn-success">
+            <td style="width:180px;">
+              <button class="btn btn-success me-2">
                 <a href="AdminProductEditForm.php?id={product_id}" class="text-white">Edit</a>
               </button>
-            </td>
-            <td>
+            
               <button class="btn btn-danger">
                 <a href="AdminProductDeleteForm.php?id={product_id}" class="text-white">Delete</a>
               </button>
             </td>
             <td><xsl:value-of select="product_id"/></td>
-            <td><xsl:value-of select="product_name"/></td>
+            <td><a href="AdminProductDetails.php?id={product_id}" class="text-dark"><xsl:value-of select="product_name"/></a></td>
             <td><xsl:value-of select="product_quantity"/></td>
             <td><xsl:value-of select="product_status"/></td>
             <td><xsl:value-of select="product_price"/></td>
             <td><xsl:value-of select="product_description"/></td>
-            <td><img src="../Shared/Image/{product_image}" alt="Product Image" width="50" height="50"/></td>
+            <td><img src="../Shared/Image/{product_image}" alt="{product_name}" width="50" height="50"/></td>
           </tr>
         </xsl:for-each>
       </tbody>

@@ -1,3 +1,24 @@
+<?php
+require_once 'AdminProductFacade.php';
+
+$productID = $_GET['id'];
+
+$host = "localhost";
+$dbname = "ip";
+$user = "root";
+$password = "";
+$dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
+
+$pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
+$facade = new AdminProductFacade($pdo);
+$facade->updateAdminProductXML($productID);
+
+// Load the XML file
+$xml = simplexml_load_file('AdminProduct.xml');
+$productTypeID = $xml->Product->productTypeID;
+$productTypeName = $facade->retrieveProductTypeName($productTypeID);
+
+?>
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -30,11 +51,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
               transform: translateX(-50%);
               top: 100%;
             }
+            
+            body{
+                background-color: lightsteelblue;
+            }
         </style>
     </head>
     <body>
         <div class="sticky-top">
-        <nav class="navbar navbar-dark bg-dark sticky-top>
+        <nav class="navbar navbar-dark bg-dark sticky-top">
           <div class="container-fluid">           
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -126,12 +151,64 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         </div>
         <!-- Main Content Area -->
         <div>
-	<main class="container-fluid mb-4 mt-4 text-center" style="">
+	<main class="container-fluid mb-5 mt-4 text-center" style="">
 		<h1>Products</h1>
 	</main>
         
-        <main class="container-fluid">
-		
+        <main class="container-fluid">	          
+          <div class="table-responsive">
+            <table class="table table-hover mx-auto" style="max-width: 600px;">
+              <tbody>
+                <tr>
+                  <td class="bg-light" colspan="2" style="text-align: center;"><img src="../Shared/Image/<?php echo $xml->Product->image; ?>" alt="<?php echo $xml->Product->name; ?>" width="150" height="150"/></td>
+                </tr>               
+                <tr>
+                  <th class="bg-dark text-light">ID</th>
+                  <td class="bg-light"><?php echo $xml->Product->id; ?></td>
+                </tr>
+                <tr>
+                  <th class="bg-light text-dark">Name</th>
+                  <td class="bg-light"><?php echo $xml->Product->name; ?></td>
+                </tr>
+                <tr>
+                  <th class="bg-dark text-light">Category</th>
+                  <td class="bg-light"><?php echo $productTypeName['productTypeName']; ?></td>
+                </tr>
+                <tr>
+                  <th class="bg-light text-dark">Quantity</th>
+                  <td class="bg-light"><?php echo $xml->Product->quantity; ?></td>
+                </tr>
+                <tr>
+                  <th class="bg-dark text-light">Status</th>
+                  <td class="bg-light"><?php echo $xml->Product->status; ?></td>
+                </tr>
+                <tr>
+                  <th class="bg-light text-dark">Unit Price</th>
+                  <td class="bg-light"><?php echo $xml->Product->unitPrice; ?></td>
+                </tr>
+                <tr>
+                  <th class="bg-dark text-light">Upload ID</th>
+                  <td class="bg-light"><?php echo $xml->Product->uploadDate; ?></td>
+                </tr>
+                <tr>
+                  <th class="bg-light text-dark">Updated ID</th>
+                  <td class="bg-light"><?php echo $xml->Product->updatedID; ?></td>
+                </tr>
+                <tr>
+                  <th class="bg-dark text-light">Updated Date</th>
+                  <td class="bg-light"><?php echo $xml->Product->updatedDate; ?></td>
+                </tr>
+                <tr>
+                  <th class="bg-light text-dark">Created ID</th>
+                  <td class="bg-light"><?php echo $xml->Product->createID; ?></td>
+                </tr>
+                <tr>
+                  <th class="bg-dark text-light">Created Date</th>
+                  <td class="bg-light"><?php echo $xml->Product->createdDate; ?></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </main>
         </div>
     </body>

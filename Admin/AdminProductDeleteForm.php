@@ -1,6 +1,8 @@
 <?php
 require_once 'AdminProductFacade.php';
 
+$productID = $_GET['id'];
+
 $host = "localhost";
 $dbname = "ip";
 $user = "root";
@@ -9,8 +11,12 @@ $dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
 
 $pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
 $facade = new AdminProductFacade($pdo);
+$facade->updateAdminProductXML($productID);
 
-$productTypeNames = $facade->retrieveProductTypes();
+// Load the XML file
+$xml = simplexml_load_file('AdminProduct.xml');
+$productTypeID = $xml->Product->productTypeID;
+$productTypeName = $facade->retrieveProductTypeName($productTypeID);
 
 ?>
 
@@ -152,45 +158,67 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <main class="container mx-auto mt-5 mb-5" style="max-width: 600px;">
           <div class="card border rounded-3">
             <div class="card-header text-center">
-              <h4>Add Product</h4>
+              <h4>Delete Product</h4>
             </div>
-            <div class="card-body ms-1 me-1">
-              <form method="post" action="AdminProductAdd.php" enctype="multipart/form-data">
-                <div class="mb-3">
-                  <label for="item_name" class="form-label mt-2">Name:</label>
-                  <input type="text" class="form-control" id="name" name="name" required>
-                </div>
-                <div class="mb-3">
-                  <label for="category" class="form-label mt-2">Category:</label>
-                  <select class="form-control" id="category" name="category" required>
-                    <option value="">Select a category</option>                   
-                    <?php foreach ($productTypeNames as $productType) { ?>
-                        <option value="<?php echo $productType['productTypeName']; ?>"><?php echo $productType['productTypeName']; ?></option>
-                    <?php } ?>
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <label for="quantity" class="form-label mt-2">Quantity:</label>
-                  <input type="number" class="form-control" id="quantity" name="quantity" required>
-                </div>
-                <div class="mb-3">
-                  <label for="unit_price" class="form-label mt-2">Unit Price:</label>
-                  <input type="number" step="0.01" class="form-control" id="unit_price" name="unit_price"" required>
-                </div>
-                <div class="mb-3">
-                  <label for="image" class="form-label mt-2">Image:</label>
-                  <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
-                </div>
-                <div class="mb-3">
-                  <label for="description" class="form-label mt-2">Description:</label>
-                  <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-                </div>
-                <div class="row mt-4">
-                  <div class="col text-center">
-                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"  onclick="window.location.href='AdminProduct.php'">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Confirm</button>
+            <div class="card-body">
+              <form method="post" action="AdminProductDelete.php?id=<?php echo $xml->Product->id; ?>" enctype="multipart/form-data">
+                <div class="table-responsive">
+                    <table class="table table-hover mx-auto" style="max-width: 600px;">
+                      <tbody>
+                        <tr>
+                          <td class="bg-light" colspan="2" style="text-align: center;"><img src="../Shared/Image/<?php echo $xml->Product->image; ?>" alt="<?php echo $xml->Product->name; ?>" width="150" height="150"/></td>
+                        </tr>               
+                        <tr>
+                          <th class="bg-dark text-light">ID</th>
+                          <td class="bg-light"><?php echo $xml->Product->id; ?></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light text-dark">Name</th>
+                          <td class="bg-light"><?php echo $xml->Product->name; ?></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-dark text-light">Category</th>
+                          <td class="bg-light"><?php echo $productTypeName['productTypeName']; ?></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light text-dark">Quantity</th>
+                          <td class="bg-light"><?php echo $xml->Product->quantity; ?></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-dark text-light">Status</th>
+                          <td class="bg-light"><?php echo $xml->Product->status; ?></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light text-dark">Unit Price</th>
+                          <td class="bg-light"><?php echo $xml->Product->unitPrice; ?></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-dark text-light">Upload ID</th>
+                          <td class="bg-light"><?php echo $xml->Product->uploadDate; ?></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light text-dark">Updated ID</th>
+                          <td class="bg-light"><?php echo $xml->Product->updatedID; ?></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-dark text-light">Updated Date</th>
+                          <td class="bg-light"><?php echo $xml->Product->updatedDate; ?></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light text-dark">Created ID</th>
+                          <td class="bg-light"><?php echo $xml->Product->createID; ?></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-dark text-light">Created Date</th>
+                          <td class="bg-light"><?php echo $xml->Product->createdDate; ?></td>
+                        </tr>                       
+                      </tbody>
+                    </table>
+                      <div class="text-center">
+                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"  onclick="window.location.href='AdminProduct.php'">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                      </div>
                   </div>
-                </div>
               </form>
             </div>
           </div>
