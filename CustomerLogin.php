@@ -15,52 +15,131 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <?php
-            include './Shared/PHP/Header.php';
-        ?>
+        include './Shared/PHP/Header.php';
+        include './Shared/DesignPattern/CustomerFactoryMethod.php';
+        $isValid = true;
         
+//        $servername = 'localhost';
+//        $username = 'root';
+//        $password = '';
+//        $dbname = 'ip';
+//        
+//        // Create connection
+//        $conn = mysqli_connect($servername, $username, $password, $dbname);
+//
+//        // Check connection
+//        if (!$conn) {
+//            die("Connection failed: " . mysqli_connect_error());
+//        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            if (empty($email)) {
+                $emailError = 'Please fill in your email address.';
+                $isValid = false;
+            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $emailError = 'Invalid email address.';
+                $isValid = false;
+            }
+
+
+            if (empty($password)) {
+                $passwordError = 'Please fill in your password.';
+                $isValid = false;
+            }
+
+            if ($isValid == true) {
+                $login = AuthenticationFactory::createAuthentication("login", $email, null, null,$password,null);
+                $login->authenticate();
+            }
+        }
+        ?>
+
         <div class="row m-5 d-flex justify-content-center">
             <div class="col-3"></div>
-                <div class="col-6 text-center shadow-lg">
-                    <form action="action">
-                        <div class="row ">
-                            
-                            <!-- Login word position -->
-                            <div class="col-12 fs-3 primary-color m-2">Login</div>
-                            
-                            <!-- Icon position -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-people-fill primary-color col-12 m-0" viewBox="0 0 16 16">
-                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
-                            </svg>
-                            
-                            <!-- Email input position-->
-                            <div class="col-4 primary-color mt-2 mb-2"><label for="email">Email : </label></div>
-                            <div class="col-8 mt-2 mb-2"><input type="email" class="form-control" id="email" placeholder="123@abc.com" maxlength="40"></div>
-                            
-                            <!-- Password input position -->
-                            <div class="col-4 primary-color mt-2 mb-2"><label for="password">Password : </label></div>
-                            <div class="col-8 mt-2 mb-2"><input type="password" class="form-control" id="password" placeholder="********" maxlength="40"></div>
-                            
-                            <!-- Customer register link position -->
-                            <div class="col-3 mt-2 mb-2"></div>
-                            <div class="col-6"><a href="CustomerRegister.php">Click here to register a new account</a></div>
-                            <div class="col-3 mt-2 mb-2"></div>
-                            
-                            <!-- Customer forget password link position -->
-                            <div class="col-3 mt-2 mb-2"></div>
-                            <div class="col-6"><a href="CustomerForgetPassword.php">Forgot Password</a></div>
-                            <div class="col-3 mt-2 mb-2"></div>
-                            
-                            <!--Submit button position  -->
-                            <div class="col-8 mt-2 mb-2"></div>
-                            <div class="col-4 mt-2 mb-2 "><input type="Submit" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" value="Login"></div>
+            <div class="col-6 text-center shadow-lg">
+                <form method="POST">
+                    <div class="row ">
+
+                        <!-- Login word position -->
+                        <div class="col-12 fs-3 primary-color m-2">Login</div>
+
+                        <!-- Icon position -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-people-fill primary-color col-12 m-0" viewBox="0 0 16 16">
+                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                        </svg>
+
+                        <!-- Email input position-->
+                        <div class="col-4 primary-color mt-2 mb-2"><label for="email">Email : </label></div>
+                        <div class="col-8 mt-2 mb-2"><input name="email" type="email" class="form-control" id="email" placeholder="Enter your email" maxlength="40" value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>"></div>
+
+                        <div class="col-12 text-danger text-left mt-2 mb-2">
+                            <?php
+                            if (isset($emailError)) {
+                                echo $emailError;
+                            }
+                            ?>
                         </div>
-                    </form>
-                </div>
+
+                        <!-- Password input position -->
+                        <div class="col-4 primary-color mt-2 mb-2"><label for="password">Password : </label></div>
+
+                        <div class="col-8 mt-2 mb-2">
+                            <div class="input-group">
+                                <input name="password" type="password" class="form-control" id="password" placeholder="Enter your password" maxlength="40" value="<?php echo isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; ?>">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" onclick="showPassword()">
+                                        <i class="fa fa-eye"  id="togglePassword" style="height: 22px"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 text-danger text-left mt-2 mb-2">
+                            <?php
+                            if (isset($passwordError)) {
+                                echo $passwordError;
+                            }
+                            ?>
+                        </div>
+                        <!-- Customer forget password link position -->             
+                        <div class="col-9 mt-2 mb-2"></div>
+                        <div class="col-3 mt-2 mb-2"><a href="CustomerForgetPassword.php">Forgot Password?</a></div>
+
+                        <div class="col-1 mt-2 mb-2 "></div>
+                        <!--Submit button position  -->              
+                        <div class="col-11 mt-2 mb-2 "><input type="Submit" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE" value="Login"></div>
+
+                        <!-- Customer register link position -->
+                        <div class="col-4 mt-2 mb-4"></div>
+                        <div class="col-5 mt-2 mb-4"><a href="CustomerRegister.php">Don't have an account?</a></div>
+                        <div class="col-3 mt-2 mb-4"></div>
+
+                    </div>
+                </form>
+
+            </div>
             <div class="col-3"></div>
-        </div>
-        
+        </div>    
         <?php
-            include './Shared/PHP/Footer.php';
+        include './Shared/PHP/Footer.php';
         ?>
     </body>
+    <script>
+        function showPassword() {
+            var passwordField = document.getElementById("password");
+            var toggleIcon = document.getElementById("togglePassword");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleIcon.classList.remove("fa-eye");
+                toggleIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                toggleIcon.classList.remove("fa-eye-slash");
+                toggleIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
 </html>
