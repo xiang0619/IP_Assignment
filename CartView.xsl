@@ -14,11 +14,18 @@
     <!-- TODO customize transformation rules 
          syntax recommendation http://www.w3.org/TR/xslt 
     -->
+    
     <xsl:template match="/">
-  
+    <xsl:variable name="totalPrice" select="sum(products/product/total)" />
     
         <html>
             <head>
+                <meta charset="UTF-8"/>
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
+                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+                <link href="../Shared/CSS/SharedCSS.css" rel="stylesheet" type="text/css"/>
+                <title>Cart</title>
                 <script>
                 function deleteCart(id) {
                    
@@ -31,6 +38,7 @@
                                 // you can update the UI or perform any other action here
                                 location.reload();
                                 
+                                
                             } else {
                                 console.error(xhr.statusText);
                                 // handle the error here
@@ -42,28 +50,111 @@
                 }
                     
                     function PayAll(){
-                        var xhr = new XMLHttpRequest();
-                        xhr.open('GET', 'delete_cart.php?id=' + id, true);
-                        xhr.onreadystatechange = function() {
-                          if (xhr.readyState === 4) { // the request is complete
-                                if (xhr.status === 200) { // success
-                                    console.log(xhr.responseText);
-                                    // you can update the UI or perform any other action here
-                                    location.reload();
-
-                                } else {
-                                    console.error(xhr.statusText);
-                                    // handle the error here
-
-                                }
-                            }
-                        };
-                    xhr.send();
+                        
                     }
+                    function updateDatabase(cartId, quantity) {
+                      
+                     console.log(cartId, quantity);
+                        // Create a new AJAX request
+                        var xhr = new XMLHttpRequest();
+
+                        // Set up the request
+                       xhr.open('GET', 'update_cart.php?id=' + cartId + '&amp;qty=' + quantity, true);
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 4) { // the request is complete
+                              if (xhr.status === 200) { // success
+                                console.log(xhr.responseText);
+                                
+                                // you can update the UI or perform any other action here
+                                location.reload();
+                              } else {
+                                console.error(xhr.statusText);
+                                // handle the error here
+                              }
+                            }
+                          };
+
+                        // Send the request
+                        xhr.send();
+                      }
             </script>
             </head>
-            <body >
-                <div style="overflow-x:auto;">
+            <body>
+                <div class="row m-5">
+
+
+                <div class="col-12">
+
+<!--                     Cart header position -->
+                    <div class="row shadow-sm">
+
+                        <div class="col-5 fs-4 primary-color">Product/Service</div>
+                        <div class="col-3 fs-4 primary-color">Unit Price</div>
+                        <div class="col-2 fs-4 primary-color">Quantity</div>
+                        <div class="col-2 fs-4 primary-color">Drop</div>
+
+                    </div>
+
+                </div>
+
+                <!-- For each stationery have 12/12 position -->
+                <div class="col-12">
+                    
+                    <xsl:for-each select="products/product">
+                        
+                        <div class="row shadow-sm">
+
+                        <div class="col-5 fs-4 primary-color"><img src="./Shared/Image/{productImage}" class="m-1" width="150px" height="150px" alt="alt"/><xsl:value-of select="name"/></div>
+                        <div class="col-3 fs-4 primary-color m-auto">RM <xsl:value-of select="productPrice"/></div>
+                        <div class="col-2 primary-color m-auto">
+                                <input type="number" min="1" max="99">
+                                    <xsl:attribute name="onchange" >
+                                        updateDatabase('<xsl:value-of select="cart_id"/>', this.value);
+                                    </xsl:attribute>
+                                    <xsl:attribute name="value">
+                                        <xsl:value-of select="quantity"/>
+                                    </xsl:attribute>
+                                </input>
+                        </div>
+                        <div class="col-2 primary-color m-auto">
+                            <button type="button" class="btn btn-danger">
+                                 <xsl:attribute name="onclick" >deleteCart(<xsl:value-of select="cart_id"/>);</xsl:attribute>
+                                 Drop
+                             </button>
+                        </div>
+
+                    </div>
+                    
+                    <script>
+                        var total= 
+                    </script>
+                    </xsl:for-each>
+                    
+                </div>
+                
+                
+
+                <div class="col-12">
+                    <div class="row shadow-sm">
+
+                        
+                        <div class="col-9 text-end primary-color fs-4 m-4">Total Price : RM <xsl:value-of select="$totalPrice"/></div>
+                        <div class="col-2 float-end m-4">
+                            <input type="Submit" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" value="Check Out"/>
+                                                             
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        
+                
+                
+                
+                
+                
+<!--                <div style="overflow-x:auto;">
           <table class="table table-bordered" style="">
             <thead>
               <tr>
@@ -119,13 +210,18 @@ border-radius: 25px; ">
                 
               </xsl:for-each>
               
-              <button>
-                                 <xsl:attribute name="onclick">PayAll();</xsl:attribute>
-                                 Pay All
-                             </button>
+              
             </tbody>
           </table>
-       </div>      
+       </div> 
+       <div style="width:100%;align:center;">
+           <button style="text-align:center;">
+                                 <xsl:attribute name="onclick">PayAll();</xsl:attribute>
+                                 Pay All
+                             </button> 
+           
+       </div >    -->
+       
 
             </body>
         </html>

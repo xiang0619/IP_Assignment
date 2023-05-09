@@ -15,6 +15,28 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     <body>
         <?php
             include './Shared/PHP/Header.php';
+            include './Shared/Helper/EncryptionHelper.php';
+            $encryptionHelper = new EncryptionHelper("id");
+            $eid= $encryptionHelper.encrypt(id);
+            
+            
+            include './Shared/PHP/Header.php';
+            include './class/Product.php';
+            include('config.php');
+            $stmt = $dbc->prepare("select * from product");
+            $stmt->execute(); //execute bind 
+            $stmt->bind_result($id,$name,$quantity,$status,$unitPrice,$image,$description,); //bind result
+            while ($stmt->fetch()) {
+                        $product = new Product();
+                        $product->setId($id);
+                        $product->setName($name);
+                        $product->setStatus($status);
+                        $product->setUnitPrice($unitPrice);     
+                        $product->setQuantity($quantity);
+                        
+                        
+            }
+            
         ?>
         
         <div class="row m-5">
