@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Customer SYSTEM "customer.dtd">
+<Customer customerID="12345">
+  <customerID datatype="integer">12345</customerID>
+  <email>john.doe@example.com</email>
+  <customerName>John Doe</customerName>
+  <mobile>555-1234</mobile>
+  <password>pa$$w0rd</password>
+  <resetCode>abc123</resetCode>
+</Customer>
