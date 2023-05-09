@@ -199,7 +199,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </div>
                 <div class="mb-3">
                   <label for="unit_price" class="form-label mt-2">Unit Price:</label>
-                  <input type="number" class="form-control" id="unit_price" name="unit_price" value="<?php echo $product['unitPrice']; ?>" required>
+                  <input type="number" step="0.01" class="form-control" id="unit_price" name="unit_price" value="<?php echo $product['unitPrice']; ?>" required>
                 </div>
                 <div class="mb-3">
                   <label for="image" class="form-label mt-2">Image:</label><br/><label for="image" class="form-label mt-2" value="<?php echo $product['image']; ?>"><?php echo $product['image']; ?></label>

@@ -1,3 +1,19 @@
+<?php
+require_once '../Shared/DesignPattern/AdminServiceFacade.php';
+
+$host = "localhost";
+$dbname = "ip";
+$user = "root";
+$password = "";
+$dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
+
+$pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
+$facade = new AdminServiceFacade($pdo);
+
+$serviceOrders = $facade->retrieveServiceOrder();
+
+?>
+
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -29,6 +45,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
               left: 50%;
               transform: translateX(-50%);
               top: 100%;
+            }
+            body{
+                background-color: lightsteelblue;
             }
         </style>
     </head>
@@ -131,7 +150,42 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 	</main>
         
         <main class="container-fluid">
-		
+		<div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead class="table-dark">
+                        <tr>
+                          <th>Cart ID</th>
+                          <th>Service ID</th>
+                          <th>Customer ID</th>
+                          <th>Customer Name</th>
+                          <th>Quantity</th>
+                          <th>File</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-light">                    
+                          <?php foreach ($serviceOrders as $serviceOrder): if($serviceOrder['serviceID'] != null || $serviceOrder['serviceID'] != "") {?>
+                            <tr>
+                                <td><?php echo $serviceOrder['cartID']; ?></td>
+                                <td><?php echo $serviceOrder['serviceID']; ?></td>
+                                <td><?php echo $serviceOrder['customerID']; ?></td>
+                                <td>
+                                    <?php
+                                        $customerName = $facade->retrieveCustomerName($serviceOrder['customerID']);
+                                        echo $customerName['customerName'];
+                                    ?>
+                                </td>
+                                <td><?php echo $serviceOrder['quantity']; ?></td>
+                                <td><?php
+                                    $file = $serviceOrder['file'];
+                                    $file_path = '../Shared/File/'.$file;
+                                    echo '<a href="' . $file_path . '" download>'.$file.'</a>';
+                            
+                                ?></td>
+                            </tr>
+                          <?php } endforeach; ?>             
+                      </tbody>
+                    </table>
+                  </div>
         </main>
         </div>
     </body>

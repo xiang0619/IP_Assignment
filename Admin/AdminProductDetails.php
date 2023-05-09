@@ -155,10 +155,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 		<h1>Products</h1>
 	</main>
         
-        <main class="container-fluid">	          
-          <div class="table-responsive">
+        <main class="container-fluid">	         
+          <div class="table-responsive">          
             <table class="table table-hover mx-auto" style="max-width: 600px;">
               <tbody>
+                <tr>
+                  <td class="" colspan="2" style="text-align: right;"><a href="AdminProduct.php">Back</a></td>
+                </tr>
                 <tr>
                   <td class="bg-light" colspan="2" style="text-align: center;"><img src="../Shared/Image/<?php echo $xml->Product->image; ?>" alt="<?php echo $xml->Product->name; ?>" width="150" height="150"/></td>
                 </tr>               
