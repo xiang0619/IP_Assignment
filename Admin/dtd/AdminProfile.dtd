@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT Staff (id, email, name, mobile?, password?, status?, position?, updatedID?, updatedDate?, createdID?, createdDate?)>
+<!ELEMENT id (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT mobile (#PCDATA)>
+<!ELEMENT password (#PCDATA)>
+<!ELEMENT status (#PCDATA)>
+<!ELEMENT position (#PCDATA)>
+<!ELEMENT updatedID (#PCDATA)>
+<!ELEMENT updatedDate (#PCDATA)>
+<!ELEMENT createdID (#PCDATA)>
+<!ELEMENT createdDate (#PCDATA)>
+<!ATTLIST Staff id ID #REQUIRED>
+<!ATTLIST id datatype (integer) #REQUIRED>
+
+<!ELEMENT __ROOT__ ANY>
+<!ATTLIST __ROOT__ version CDATA #REQUIRED>
+
