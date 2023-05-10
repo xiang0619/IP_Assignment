@@ -37,4 +37,16 @@ class AdminServiceDA {
         $customerName = $pstmt->fetch(PDO::FETCH_ASSOC);
         return $customerName;
     }
+    
+    public function updateServiceStatus($cartID) {
+        $updateStatus = "Downloaded";
+        $query = "UPDATE cart SET downloadStatus = ? WHERE cartID = ?";
+        $pstmt = $this->conn->prepare($query);
+        $pstmt->bindParam(1, $updateStatus);
+        $pstmt->bindParam(2, $cartID);       
+        $pstmt->execute();
+        
+        header("Location: AdminService.php");
+        exit();
+    }
 }

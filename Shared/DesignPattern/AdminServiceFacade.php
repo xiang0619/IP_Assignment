@@ -27,4 +27,8 @@ class AdminServiceFacade {
     public function retrieveCustomerName($customerID) {
         return $this->adminServiceDA->retrieveCustomerName($customerID);
     }
+    
+    public function updateServiceStatus($cartID) {
+        return $this->adminServiceDA->updateServiceStatus($cartID);
+    }
 }

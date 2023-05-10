@@ -159,11 +159,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <div class="mb-3">
                   <label for="productTypeName" class="form-label mt-2">Product Type Name:</label>
                   <input type="text" class="form-control" id="productTypeName" name="productTypeName" required>
+                  <span id="productTypeNameError" class="text-danger"></span>
                 </div>
                 <div class="row mt-4">
                   <div class="col text-center">
                     <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"  onclick="window.location.href='AdminProduct.php'">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Confirm</button>
+                    <button type="submit" id="confirm" class="btn btn-primary" onclick="return validateForm()">Confirm</button>
                   </div>
                 </div>
               </form>
@@ -178,3 +179,47 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 <!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
 
+<script>
+    function validateProductTypeName() {
+        // Get the name input element and its value
+        var productTypeNameInput = document.getElementById("productTypeName");
+        var productTypeNameValue = productTypeNameInput.value;
+        
+        // Check if the name input is empty
+        if (productTypeNameValue.trim() === "") {
+            // If the name input is empty, display an error message and return false
+            document.getElementById("productTypeNameError").textContent = "*Please enter a name for the type of product.";
+            return false;
+        }  else if (!/^[a-zA-Z0-9]+$/.test(productTypeNameValue)) {
+            // If the name input contains non-letter characters, display an error message and return false
+            document.getElementById("productTypeNameError").textContent = "*Please enter only letters & numbers.";
+        return false;
+        }  else {
+            // If the name input is not empty, clear any error message and return true
+            document.getElementById("productTypeNameError").textContent = "";
+            return true;
+        }
+    }
+    
+    document.getElementById("productTypeName").addEventListener("input", validateProductTypeName);
+    
+    function validateForm() {
+        // Get the values of all input fields
+        var productTypeNameValue = document.getElementById("productTypeName").value;
+        
+        // Check if all fields are valid
+        var isProductTypeNameValid = validateProductTypeName(productTypeNameValue);     
+        
+        // If any field is invalid, prevent the form from submitting and display error messages
+        if (!isProductTypeNameValid) {
+            event.preventDefault(); // Prevent the form from submitting
+            return false;
+        }
+        
+        // If all fields are valid, allow the form to submit
+        return true;
+    }
+    
+    // Add an event listener to the submit button that calls the validateForm function
+    document.getElementById("confirm").addEventListener("click", validateForm);
+    </script>

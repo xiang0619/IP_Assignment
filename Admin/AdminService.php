@@ -160,6 +160,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                           <th>Customer Name</th>
                           <th>Quantity</th>
                           <th>File</th>
+                          <th>Download Status</th>
                         </tr>
                       </thead>
                       <tbody class="table-light">                    
@@ -178,9 +179,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                                 <td><?php
                                     $file = $serviceOrder['file'];
                                     $file_path = '../Shared/File/'.$file;
-                                    echo '<a href="' . $file_path . '" download>'.$file.'</a>';
+                                    echo '<a href="' . $file_path . '" download onclick="setTimeout(function() { window.location.href = \'AdminServiceUpdateDownloadStatus.php?cartID=' . $serviceOrder['cartID'] . '\'; }, 1000);">'.$file.'</a>';
                             
                                 ?></td>
+                                <td><?php echo $serviceOrder['downloadStatus']; ?></td>
                             </tr>
                           <?php } endforeach; ?>             
                       </tbody>
@@ -193,4 +195,5 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 
 <!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+
 

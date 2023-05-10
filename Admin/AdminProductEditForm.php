@@ -162,6 +162,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <div class="mb-3">
                   <label for="item_name" class="form-label mt-2">Name:</label>
                   <input type="text" class="form-control" id="name" name="name" value="<?php echo $product['name']; ?>" required>
+                  <span id="nameError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                   <label for="category" class="form-label mt-2">Category:</label>
@@ -171,10 +172,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                         <option value="<?php echo $productType['productTypeName']; ?>"<?php if ($product['productTypeID'] == $productType['productTypeID']) echo ' selected'; ?>><?php echo $productType['productTypeName']; ?></option>
                     <?php } ?>                
                   </select>
+                  <span id="categoryError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                   <label for="quantity" class="form-label mt-2">Quantity:</label>
                   <input type="number" class="form-control" id="quantity" name="quantity" value="<?php echo $product['quantity']; ?>" required>
+                  <span id="quantityError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                   <label class="form-label d-block mt-2">Status:</label>
@@ -196,23 +199,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                       Out of Stock
                     </label>
                   </div>
+                  <span id="statusError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                   <label for="unit_price" class="form-label mt-2">Unit Price:</label>
                   <input type="number" step="0.01" class="form-control" id="unit_price" name="unit_price" value="<?php echo $product['unitPrice']; ?>" required>
+                  <span id="unitPriceError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                   <label for="image" class="form-label mt-2">Image:</label><br/><label for="image" class="form-label mt-2" value="<?php echo $product['image']; ?>"><?php echo $product['image']; ?></label>
                   <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                  <span id="imageError" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
                   <label for="description" class="form-label mt-2">Description:</label>
                   <textarea class="form-control" id="description" name="description" rows="3" required><?php echo $product['description']; ?></textarea>
+                  <span id="descriptionError" class="text-danger"></span>
                 </div>
                 <div class="row mt-4">
                   <div class="col text-center">
                     <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"   onclick="window.location.href='AdminProduct.php'">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Confirm</button>
+                    <button type="submit" id="confirm" class="btn btn-primary" onclick="return validateForm()">Confirm</button>
                   </div>
                 </div>
                 <input type="hidden" id="uploadDate" name="uploadDate" value="<?php echo $product['uploadDate']; ?>">
@@ -233,4 +240,167 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 
 <!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+
+<script>
+    function validateName() {
+        // Get the name input element and its value
+        var nameInput = document.getElementById("name");
+        var nameValue = nameInput.value;
+        
+        // Check if the name input is empty
+        if (nameValue.trim() === "") {
+            // If the name input is empty, display an error message and return false
+            document.getElementById("nameError").textContent = "*Please enter a name.";
+            return false;
+        } else {
+            // If the name input is not empty, clear any error message and return true
+            document.getElementById("nameError").textContent = "";
+            return true;
+        }
+    }
+    
+    // Add an event listener to the name input that calls the validateName function on input change
+    document.getElementById("name").addEventListener("input", validateName);
+
+    function validateCategory() {
+        var categoryInput = document.getElementById("category");
+        var categoryValue = categoryInput.value;
+        
+        if (categoryValue === "") {
+            document.getElementById("categoryError").textContent = "*Please select a category.";
+            return false;
+        } else {
+            document.getElementById("categoryError").textContent = "";
+            return true;
+        }
+    }
+    
+    document.getElementById("category").addEventListener("change", validateCategory);
+
+    function validateQuantity() {
+        var quantityInput = document.getElementById("quantity");
+        var quantityValue = quantityInput.value;
+        
+        if (quantityValue === "") {
+            document.getElementById("quantityError").textContent = "*Please enter a valid quantity.";
+            return false;
+        } else if (quantityValue <= 0) {
+            document.getElementById("quantityError").textContent = "*Quantity must be greater than 0.";
+            return false;
+        } else {
+            document.getElementById("quantityError").textContent = "";
+            return true;
+        }
+    }
+    
+    document.getElementById("quantity").addEventListener("input", validateQuantity);
+
+    function validateUnitPrice() {
+        var unitPriceInput = document.getElementById("unit_price");
+        var unitPriceValue = unitPriceInput.value;
+        
+        if (unitPriceValue === "") {
+            document.getElementById("unitPriceError").textContent = "*Please enter a valid unit price.";
+            return false;
+        } else if (unitPriceValue <= 0) {
+            document.getElementById("unitPriceError").textContent = "*Unit price must be greater than 0.";
+            return false;
+        } else {
+            document.getElementById("unitPriceError").textContent = "";
+            return true;
+        }
+    }
+    
+    document.getElementById("unit_price").addEventListener("input", validateUnitPrice);
+
+    function validateImage() {
+        var imageInput = document.getElementById("image");
+        var imageValue = imageInput.value;
+        
+        // Check if an image has been selected
+        if (imageValue === "") {
+            document.getElementById("imageError").textContent = "";
+            return true;
+        } else {
+            // Get the file extension of the selected file
+            var fileExtension = imageValue.split('.').pop().toLowerCase();
+            
+            // Check if the file extension is valid
+            if (fileExtension !== "jpg" && fileExtension !== "jpeg" && fileExtension !== "png") {
+                document.getElementById("imageError").textContent = "*Please select a valid image file (JPG or PNG).";
+                return false;
+            } else {
+                document.getElementById("imageError").textContent = "";
+                return true;
+            }
+        }
+    }
+    
+    document.getElementById("image").addEventListener("change", validateImage);
+
+    function validateDescription() {
+        var descriptionInput = document.getElementById("description");
+        var descriptionValue = descriptionInput.value;
+        
+        if (descriptionValue.trim() === "") {
+            document.getElementById("descriptionError").textContent = "*Please enter a description.";
+            return false;
+        } else {
+            document.getElementById("descriptionError").textContent = "";
+            return true;
+        }
+    }
+    
+    document.getElementById("description").addEventListener("input", validateDescription);
+
+    function validateStatus() {
+      var statusInputs = document.getElementsByName("status");
+      var statusSelected = false;
+      for (var i = 0; i < statusInputs.length; i++) {
+        if (statusInputs[i].checked) {
+          statusSelected = true;
+          break;
+        }
+      }
+      if (!statusSelected) {
+        document.getElementById("statusError").textContent = "*Please select a status.";
+        return false;
+      } else {
+        document.getElementById("statusError").textContent = "";
+        return true;
+      }
+    }
+
+    function validateForm() {
+        // Get the values of all input fields
+        var nameValue = document.getElementById("name").value;
+        var categoryValue = document.getElementById("category").value;
+        var quantityValue = document.getElementById("quantity").value;
+        var unitPriceValue = document.getElementById("unit_price").value;
+        var imageValue = document.getElementById("image").value;
+        var descriptionValue = document.getElementById("description").value;
+        var statusValue = document.querySelector('input[name="status"]:checked').value;
+        
+        // Check if all fields are valid
+        var isNameValid = validateName(nameValue);
+        var isCategoryValid = validateCategory(categoryValue);
+        var isQuantityValid = validateQuantity(quantityValue);
+        var isUnitPriceValid = validateUnitPrice(unitPriceValue);
+        var isImageValid = validateImage(imageValue);
+        var isDescriptionValid = validateDescription(descriptionValue);
+        var isStatusValid = validateStatus();
+        
+        // If any field is invalid, prevent the form from submitting and display error messages
+        if (!isNameValid || !isCategoryValid || !isQuantityValid || !isUnitPriceValid || !isImageValid || !isDescriptionValid || !isStatusValid) {
+            event.preventDefault(); // Prevent the form from submitting
+            return false;
+        }
+        
+        // If all fields are valid, allow the form to submit
+        return true;
+    }
+    
+    // Add an event listener to the submit button that calls the validateForm function
+    document.getElementById("confirm").addEventListener("click", validateForm);
+</script>
 
