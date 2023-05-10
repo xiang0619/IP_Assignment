@@ -83,7 +83,7 @@ class CustomerDatabase implements ProfileObserver {
     public function updatePassword($id,$password) {
         self::$pdo->open();
         
-        $password = $this->encryptionHelper->encrypt($password);
+        $password = password_hash($password, PASSWORD_DEFAULT);
         
         $stmt = self::$pdo->prepare('UPDATE customer SET password = ? WHERE customerId = ?');
 
