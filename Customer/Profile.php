@@ -6,7 +6,7 @@
         //todo: Ng Wen Xiang get id from session
             
         $customerDatabase = new CustomerDatabase();
-        $customer = $customerDatabase->getProfile("YC+rP86LEkvnSmbNZnPq0rG2o2ndUe5V3iSkBQ1Gvd8=");
+        $customer = $customerDatabase->getProfile("R0vNZbEve2LIfsluujMibO00yy0/OfO6VSSkn97H5o4=");
         
         $xml = new SimpleXMLElement('<Customer/>');
 
