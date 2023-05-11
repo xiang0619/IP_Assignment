@@ -14,7 +14,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <?php
-        include './Shared/PHP/Header.php';
+        include './Shared/PHP/CustomerHeader.php';
         include('config.php');?>
         
         <div class="row m-5">
@@ -131,7 +131,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         </div>
         
         <?php
-            include './Shared/PHP/Footer.php';
+            include './Shared/PHP/CustomerFooter.php';
         ?>
     </body>
 </html>

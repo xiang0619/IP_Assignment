@@ -32,6 +32,12 @@ if(isset($_POST['submit'])){
         echo 'window.location.href = "http://localhost/IP_Assignment/Admin/AdminEditProfile.php";';
         echo '</script>';
         exit();
+    }else if (!preg_match("/^01[0-46-9]-\d{7,8}$/ ", $mobile)) {
+        echo '<script>';
+        echo 'alert("Please mobile valid number!!");';
+        echo 'window.location.href = "http://localhost/IP_Assignment/Customer/EditProfile.php";';
+        echo '</script>';
+        exit();
     }
     
     if($name != null && $mobile != null){

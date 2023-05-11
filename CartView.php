@@ -22,9 +22,9 @@ $html = $xslt->transformToXML($xml);
 <body>
             <?php
         
-            include './Shared/PHP/Header.php';
+            include './Shared/PHP/CustomerHeader.php';
             echo $html; 
-            include './Shared/PHP/Footer.php';?>
+            include './Shared/PHP/CustomerFooter.php';?>
             
 </body>
 </html>

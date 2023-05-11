@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to edit this template
--->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -14,17 +10,77 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <?php
-            include '../Shared/PHP/Header.php';
+            include '../Shared/PHP/CustomerHeader.php';
+            
             require '../Shared/Database/CustomerDatabase.php';
-            //到时候就是从session那边那data
-            //todo: Ng Wen Xiang get id from session
+
+            $json_response = null;
+            $message1 = null;
+            
             $customerID = $_SESSION['customerID'];
 
             $customerDatabase = new CustomerDatabase();
             $customer = $customerDatabase->getProfile($customerID);
+            $encryptionHelper = new EncryptionHelper("Customer");
+
+            if (isset($_POST['submit'])) {
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $name = isset($_POST['name']) ? $_POST['name'] : null;
+                    $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : null;
+
+                    if ($name == null || $mobile == null) {
+                        response(400, "Please fill in name and phone number", NULL);
+                        exit();
+                    } else if (!preg_match("/^01[0-46-9]-\d{7,8}$/", $mobile)) {
+                        response(400, "Invalid Mobile Number", NULL);
+                        exit();
+                    } else {
+                        $customer->setName($name);
+                        $customer->setMobile($mobile);
+
+                        $customerDatabase->updateProfile($customer);
+
+                        response(200, "Profile Updated", NULL);
+                        exit();
+                    }
+                } else {
+                    response(400, "Invalid Request", NULL);
+                }
+            }
+
+            function response($status, $message, $data) {
+                header("HTTP/1.1 " . $status);
+                $response['status'] = $status;
+                $response['message'] = $message;
+                $response['data'] = $data;
+                $json_response = json_encode($response);
+
+                // Output the JSON response
+                if ($json_response != null) {
+                $decoded_response = json_decode($json_response, true);
+                $message1 = $decoded_response['message'];
+                $status1 = $decoded_response['status'];
+
+                    if ($status1 == 200) {
+                        echo '<script>';
+                        echo 'alert("Profile Updated.");';
+                        echo 'window.location.href = "http://localhost/IP_Assignment/Customer/Profile.php";';
+                        echo '</script>';
+                        exit();
+                    }else{
+                        echo '<script>';
+                        echo 'alert("'.$message1.'.");';
+                        echo 'window.location.href = "http://localhost/IP_Assignment/Customer/EditProfile.php";';
+                        echo '</script>';
+                        exit();
+                    }
+                }
+            }
+            
+            
         ?>
         
-        <form action="../Validation/CustomerEditProfile.php" method="post">
+        <form method="post">
             <div class="row">
                 <!-- Make div center -->
                 <div class="col-3"></div>
@@ -46,7 +102,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 
                         <div class="col-4 fs-5 primary-color mt-2 mb-2"><label for="mobile">Mobile Number : </label></div>
                         <div class="col-8 fs-5 primary-color mt-2 mb-2"><input type="text" name="mobile" class="form-control" id="mobile" value="<?php echo $customer->getMobile()?>" placeholder="012-345678910" maxlength="40"></div>
-
+                        
                         <!--Edit button position  -->
                         <div class="col-4 mt-2 mb-2"><button class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;"><a style="text-decoration: none;color: #2BDEDE;" href="Profile.php">Back To Profile</a></div>
                         <div class="col-4 mt-2 mb-2"></div>
@@ -60,7 +116,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             </div>
         </form>
         <?php
-            include '../Shared/PHP/Footer.php';
+            include '../Shared/PHP/CustomerFooter.php';
         ?>
     </body>
 </html>

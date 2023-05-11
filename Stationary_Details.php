@@ -26,7 +26,7 @@ include './Shared/Helper/EncryptionHelper.php';
             $did= $encryptionHelper->decrypt($id);
 
 
-include './Shared/PHP/Header.php';
+include './Shared/PHP/CustomerHeader.php';
             include './class/Product.php';
             include('config.php');
             $stmt = $dbc->prepare("SELECT productID,name,quantity,status,unitPrice,image,description from product where productID ='{$did}'");
@@ -142,7 +142,7 @@ include './Shared/PHP/Header.php';
 ?>
         
         <?php
-            include './Shared/PHP/Footer.php';
+            include './Shared/PHP/CustomerFooter.php';
         ?>
     </body>
 </html>

@@ -10,7 +10,7 @@
     </head>
     <body>
         <?php
-            include '../Shared/PHP/Header.php';
+            include '../Shared/PHP/CustomerHeader.php';
         ?>
         
         <?php
@@ -43,7 +43,7 @@
         ?>
         
         <?php
-            include '../Shared/PHP/Footer.php';
+            include '../Shared/PHP/CustomerFooter.php';
         ?>
     </body>
 </html>

@@ -15,7 +15,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <?php
-            include './Shared/PHP/Header.php';
+            include './Shared/PHP/CustomerHeader.php';
         ?>
         
         <!-- Stationery and Service link position-->
@@ -162,7 +162,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         </div>
         
         <?php
-            include './Shared/PHP/Footer.php';
+            include './Shared/PHP/CustomerFooter.php';
         ?>
     </body>
 </html>
