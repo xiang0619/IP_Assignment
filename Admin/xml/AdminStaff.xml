@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Staffs>
+    <Staff>
+        <id></id>
+        <email></email>
+        <name></name>
+        <password></password>
+        <status></status>
+        <position></position>
+        <updatedID></updatedID>
+        <updatedDate></updatedDate>
+        <createdID></createdID>
+        <createdDate></createdDate>
+    </Staff>
+</Staffs>
+

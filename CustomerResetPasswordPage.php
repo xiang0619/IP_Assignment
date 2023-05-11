@@ -17,7 +17,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <?php
         include './Shared/PHP/Header.php';
         include './Shared/DesignPattern/CustomerFactoryMethod.php';
-                
+        include './Shared/errorPage.php';
         $isValid = true;
         $id = $_GET['id'];
 
@@ -65,10 +65,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 
                 if ($isValid == true) {
                     mysqli_close($conn);
-                    $resetPassword = AuthenticationFactory::createAuthentication("resetPassword", null, null, null, $password,$id);
+                    $resetPassword = AuthenticationFactory::createAuthentication("resetPassword", null, null, null, $password, $id);
                     $resetPassword->authenticate();
                 }
             }
+        } else {
+            trigger_error('An error occurred', E_USER_ERROR);
         }
         ?>
 

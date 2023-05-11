@@ -34,10 +34,12 @@
 
                             <div class="col-4 fs-5 mt-2 mb-2">Mobile Number : </div>
                             <div class="col-8 fs-5 mt-2 mb-2"><xsl:value-of select="Staff/Staff/mobile"/></div>
+                            
+                            <div class="col-4 fs-5 mt-2 mb-2">Status : </div>
+                            <div class="col-8 fs-5 mt-2 mb-2"><xsl:value-of select="Staff/Staff/status"/></div>
 
-                            <div class="col-4 mt-2 mb-2"><a href="AdminChangePassword.php" class="form-control" style="border-radius: 25px;background-color: none; ">Change Password</a></div>
-                            <div class="col-4 mt-2 mb-2"></div>
-                            <div class="col-4 mt-2 mb-2 "><a href="AdminEditProfile.php" class="form-control" style="border-radius: 25px;background-color: none;">Edit Profile</a></div>
+                            <div class="col-8 mt-2 mb-2"></div>
+                            <div class="col-4 mt-2 mb-2 "><a href="AdminEditProfile.php" class="form-control" style="border-radius: 25px;background-color: none;">Change Status</a></div>
                         </div>
                     </div>
 

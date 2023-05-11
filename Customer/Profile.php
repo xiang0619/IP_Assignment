@@ -1,29 +1,4 @@
 <!DOCTYPE html>
-    <?php
-        $xslFile = "../Customer/xsl/CustomerProfile.xsl";
-        require '../Shared/Database/CustomerDatabase.php';
-        //到时候就是从session那边那data
-        //todo: Ng Wen Xiang get id from session
-            
-        $customerDatabase = new CustomerDatabase();
-        $customer = $customerDatabase->getProfile("R0vNZbEve2LIfsluujMibO00yy0/OfO6VSSkn97H5o4=");
-        
-        $xml = new SimpleXMLElement('<Customer/>');
-
-        $profile = $xml->addChild('Customer');
-        
-        $profile->addChild('id', $customer->getID());
-        $profile->addChild('email', $customer->getEmail());
-        $profile->addChild('customerName', $customer->getName());
-        $profile->addChild('mobile', $customer->getMobile());
-        $profile->addChild('password', $customer->getPassword());
-        
-        $xslt = new XSLTProcessor();
-        $xsldoc = new DOMDocument();
-        $xsldoc->load($xslFile);
-        $xslt->importStylesheet($xsldoc);
-        $html = $xslt->transformToXML($xml);
-    ?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -39,6 +14,31 @@
         ?>
         
         <?php
+            $xslFile = "../Customer/xsl/CustomerProfile.xsl";
+            require '../Shared/Database/CustomerDatabase.php';
+
+            $customerID = $_SESSION['customerID'];
+
+            $customerDatabase = new CustomerDatabase();
+            $customer = $customerDatabase->getProfile($customerID);
+
+            $xml = new SimpleXMLElement('<Customer/>');
+
+            $profile = $xml->addChild('Customer');
+
+            $profile->addChild('id', $customer->getID());
+            $profile->addChild('email', $customer->getEmail());
+            $profile->addChild('customerName', $customer->getName());
+            $profile->addChild('mobile', $customer->getMobile());
+            $profile->addChild('password', $customer->getPassword());
+
+            $xslt = new XSLTProcessor();
+            $xsldoc = new DOMDocument();
+            $xsldoc->load($xslFile);
+            $xslt->importStylesheet($xsldoc);
+            $html = $xslt->transformToXML($xml);
+        
+        
             echo $html;
         ?>
         

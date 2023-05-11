@@ -3,12 +3,13 @@
 require '../Shared/Database/CustomerDatabase.php';
 
 if(isset($_POST['submit'])){
+    session_start();
     
-    //到时候就是从session那边那data
-    //todo: Ng Wen Xiang get id from session            
+    $customerID = $_SESSION['customerID'];
+
     $customerDatabase = new CustomerDatabase();
+    $customer = $customerDatabase->getProfile($customerID);
     $encryptionHelper = new EncryptionHelper("Customer");
-    $customer = $customerDatabase->getProfile("YC+rP86LEkvnSmbNZnPq0rG2o2ndUe5V3iSkBQ1Gvd8=");
     
     $name = isset($_POST['name']) && !empty($_POST['name']) ? $_POST['name'] : null;
     $mobile = isset($_POST['mobile']) && !empty($_POST['mobile']) ? $_POST['mobile'] : null;

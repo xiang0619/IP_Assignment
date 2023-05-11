@@ -16,7 +16,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <?php
         include './Shared/PHP/Header.php';
         include './Shared/DesignPattern/CustomerFactoryMethod.php';
-
+        
         $servername = 'localhost';
         $username = 'root';
         $serverPassword = '';

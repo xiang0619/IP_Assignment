@@ -18,8 +18,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             require '../Shared/Database/CustomerDatabase.php';
             //到时候就是从session那边那data
             //todo: Ng Wen Xiang get id from session
+            $customerID = $_SESSION['customerID'];
+
             $customerDatabase = new CustomerDatabase();
-            $customer = $customerDatabase->getProfile("YC+rP86LEkvnSmbNZnPq0rG2o2ndUe5V3iSkBQ1Gvd8=");
+            $customer = $customerDatabase->getProfile($customerID);
         ?>
         
         <form action="../Validation/CustomerEditProfile.php" method="post">
