@@ -1,6 +1,6 @@
 <?php
 include './Shared/Helper/EncryptionHelper.php';
-
+include 'config.php';
 
 
 if(isset($_POST['submit'])){
@@ -12,25 +12,27 @@ if(isset($_POST['submit'])){
     
     $customerID = 1001;
     
-    $encryptionHelper = new EncryptionHelper("id");
-    $eid= $encryptionHelper->encrypt($productid);
-    
+    if($productid!=null){
+        $encryptionHelper = new EncryptionHelper("id");
+        $eid= $encryptionHelper->encrypt($productid);
+    }
+
     if($customerID==null){
         echo '<script>';
         echo "alert('you haven't log in yet, the cart function will be open when you logged in');";
         echo '</script>';
         //send user back to log in
-        //header("Location: Login.php");
+        
     }
-    if($quantity==null){
+    if($quantity==null&&$type=="product"){
         echo '<script>';
         echo 'alert("unexpected value of quantity detected. error");';
         echo '</script>';
-        header("Location: Stationary_Details.php?id='{$eid}'");
+        header("Location: ./Stationary_Details.php?id='{$eid}'");
     }
-    if($quantity!=null &&$productid!=null&&$customerID!=null&&$type=="product"){
+    if($quantity!=-1 &&$productid!=-1&&$customerID!=null&&$type=="product"){
         
-        include 'config.php';
+        
         
         $stmt = $dbc->prepare("SELECT cartID from cart where customerID='{$customerID}' AND productID='{$productid}'");
             $stmt->execute(); //execute bind 
@@ -55,24 +57,96 @@ if(isset($_POST['submit'])){
                     $stmt = $dbc->prepare("update cart set quantity = '{$newqty}' where cartID = '{$cartID}'");
                     $stmt->execute();
                     echo "<script>";
-                        echo "alert('$doubleAdd');";
-                        echo "window.location.href = 'Stationary_Details.php?id={$eid}';";
-                        echo "</script>";
-                    
-                    
+                    echo "alert('$doubleAdd');";
+                    echo "setTimeout(function(){window.location.href='./Stationary_Details.php?id={$eid}';}, 500);"; // delay redirection by 3 seconds (3000 milliseconds)
+                    echo "</script>";
 
             }
             else
             {
                 $stmt = $dbc->prepare("insert into cart (customerID,status,productID,type,quantity ) values ({$customerID},'pending',{$productid},'Product',{$quantity});");
                 $stmt->execute(); //execute bind 
-                echo "alert('$addCart');";
-                        echo "window.location.href = 'Stationary_Details.php?id={$eid}';";
-                        echo "</script>";
-                
-                
+                echo "<script>";
+                    echo "alert('$addCart');";
+                    echo "setTimeout(function(){window.location.href='./Stationary_Details.php?id={$eid}';}, 500);"; // delay redirection by 3 seconds (3000 milliseconds)
+                    echo "</script>";
             }
     
+    }
+    else if($customerID!=-1&&$type=="service"){
+        //service
+        if ($_FILES["pdf_file"]["type"] == "application/pdf") {
+            
+            require_once('fpdf/fpdf.php');
+            require_once('fpdi/src/autoload.php');
+            
+            $filename=$customerID.$_FILES['pdf_file']['name'];
+            
+            
+            $stmt = $dbc->prepare("select file from cart where customerID='{$customerID}' AND file='{$filename}'");
+            $stmt->execute(); //execute bind 
+            $stmt->bind_result($result); //bind result
+            $stmt->fetch();
+            
+            if($result!=null){
+                //error double upload the file
+                echo "<script>";
+                    echo "alert('$doubleAdd');";
+                    echo "setTimeout(function(){window.location.href='./Service.php';}, 500);"; // delay redirection by 3 seconds (3000 milliseconds)
+                    echo "</script>";
+                
+            }
+            else
+            {
+                // Get the uploaded file and its MIME type
+                $file = $_FILES['pdf_file']['tmp_name'];
+                $file_type = $_FILES['pdf_file']['type'];
+
+                // Check if the file is a PDF
+                if ($file_type != 'application/pdf') {
+                    echo 'Selected file is not a PDF';
+                    exit;
+                }
+
+
+                // Upload the file to the server
+                $target_dir = './Shared/pdfFile/';
+                $target_file = $target_dir.$customerID . basename($_FILES['pdf_file']['name']);
+                move_uploaded_file($_FILES['pdf_file']['tmp_name'], $target_file);
+            
+                function check($path)
+                {
+                  $pdf = file_get_contents($path);
+                  $number = preg_match_all("/\/Page\W/", $pdf, $dummy);
+                  return $number;
+                }
+            
+               $path = $target_file;
+                $totalPages = check($path);
+
+                
+
+
+
+            
+                //update database
+                
+                $stmt = $dbc->prepare("insert into cart (customerID, status, serviceID,type,quantity,file,downloadStatus) "
+                        . "values ($customerID,'pending',1,'Service','{$totalPages}','{$filename}','pending');");
+                $stmt->execute(); //execute bind 
+                
+                 echo "<script>";
+                    echo "alert('$addCart');";
+                    echo "setTimeout(function(){window.location.href='./Service.php';}, 500);"; // delay redirection by 3 seconds (3000 milliseconds)
+                    echo "</script>";
+            }
+            
+            
+            
+            
+        } else {
+            echo "Please select a PDF file.";
+}
     }
 }
 ?>

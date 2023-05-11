@@ -14,178 +14,107 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <?php
-            include './Shared/PHP/Header.php';
-            include './Shared/Helper/EncryptionHelper.php';
-            $encryptionHelper = new EncryptionHelper("id");
-            $eid= $encryptionHelper.encrypt(id);
-            
-            
-            include './Shared/PHP/Header.php';
-            include './class/Product.php';
-            include('config.php');
-            $stmt = $dbc->prepare("select * from product");
-            $stmt->execute(); //execute bind 
-            $stmt->bind_result($id,$name,$quantity,$status,$unitPrice,$image,$description,); //bind result
-            while ($stmt->fetch()) {
-                        $product = new Product();
-                        $product->setId($id);
-                        $product->setName($name);
-                        $product->setStatus($status);
-                        $product->setUnitPrice($unitPrice);     
-                        $product->setQuantity($quantity);
-                        
-                        
-            }
-            
-        ?>
+        include './Shared/PHP/Header.php';
+        include('config.php');?>
         
         <div class="row m-5">
             
             <!-- Make div to center -->
             <div class="col-1"></div>
             
-            <!-- Make it become sidebar -->
+             <!-- Make it become sidebar -->
             <div class="col-2 offcanvas-body">
                 
-                <!-- Set list to unlisted style -->
+                
+             <!-- Set list to unlisted style -->
                 <ul class="list-unstyled">
-                    
-                    <!-- Listed stationery product category -->
-                    <li class="m-2"><a href="#" class="fs-5 nav-link primary-color">Pencil</a></li>
-                    <li class="m-2"><a href="#" class="fs-5 nav-link primary-color">Tape</a></li>
-                    <li class="m-2"><a href="#" class="fs-5 nav-link primary-color">Pen</a></li>
-                    <li class="m-2"><a href="#" class="fs-5 nav-link primary-color">Erase</a></li>
-                    <li class="m-2"><a href="#" class="fs-5 nav-link primary-color">Paper</a></li>
-                    <li class="m-2"><a href="#" class="fs-5 nav-link primary-color">Note Book</a></li>
-                    <li class="m-2"><a href="#" class="fs-5 nav-link primary-color">Scissors</a></li>
-                
-                
+                    <li><a href="?category=all">All</a></li>
+            <?php
+           
+            
+            
+            $a = $dbc->prepare("select productTypeName from producttype");
+            $a->execute(); //execute bind 
+            $a->bind_result($category); //bind result
+            while ($a->fetch()) {
+               echo '<li><a href="?category='.$category.'">'.$category.'</a></li>';
+            }
+
+            
+        ?>
+      
                 </ul>
             </div>
             
-            <!-- Listed stationery product -->
+           <!-- Listed stationery product -->
             <div class="col-8 d-flex">
                 
                 
                 <div class="row">
                     
-                    <!-- One col(column) for each stationery product-->
-                    <div class="col">
-                        <div class="card m-2" style="width: 16rem; height:30rem">
-                            <img src="Shared/Image/tape1.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Yellow Tape</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
+                    
+                    
+                    <?php
+                    
+                    
+                include './Shared/Helper/EncryptionHelper.php';
+           
+                    $category = isset($_GET['category']) ? $_GET['category'] : 'all';
 
-                    <!-- One col(column) for each stationery product-->
-                    <div class="col">
-                        <div class="card m-2" style="width: 16rem; height:30rem">
-                            <img src="Shared/Image/tape2.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">White Tape</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- One col(column) for each stationery product-->
-                    <div class="col">
-                        <div class="card m-2" style="width: 16rem; height:30rem">
-                            <img src="Shared/Image/tape3.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Black Tape</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- One col(column) for each stationery product-->
-                    <div class="col">
-                        <div class="card m-2" style="width: 16rem; height:30rem">
-                            <img src="Shared/Image/tape4.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">White Tape</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <!-- One col(column) for each stationery product-->
-                    <div class="col">
-                        <div class="card m-2" style="width: 16rem; height:30rem">
-                            <img src="Shared/Image/pencil1.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Yellow Pencil</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- One col(column) for each stationery product-->
-                    <div class="col">
-                        <div class="card m-2" style="width: 16rem; height:30rem">
-                            <img src="Shared/Image/pencil2.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Red Pencil</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- One col(column) for each stationery product-->
-                    <div class="col">
-                        <div class="card m-2" style="width: 16rem; height:30rem">
-                            <img src="Shared/Image/pencil3.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Black Pencil</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
+                    // build the SQL query
+                    if ($category == 'all') {
+                      $sql = "select productID,name,status,unitPrice,image, description from product;";
+                    } else {
+                      $sql = "select productID,name,status,unitPrice,image, description from product p, producttype pt  WHERE p.productTypeID=pt.productTypeID AND pt.productTypeName = '{$category}'";
+                    }
+           
+                    
+                    
+                    
+                    
+            include './class/Product.php';
+//            include('config.php');
+            $stmt = $dbc->prepare($sql);
+            $stmt->execute(); //execute bind 
+            $stmt->bind_result($id,$name,$status,$unitPrice,$image,$description,); //bind result
+            while ($stmt->fetch()) {
+                        $product = new Product();
+                        $product->setId($id);
+                        $product->setName($name);
+                        $product->setStatus($status);
+                        $product->setUnitPrice($unitPrice);     
+                        
+                        
+                        $encryptionHelper = new EncryptionHelper("id");
+                        $eid= $encryptionHelper->encrypt($product->getId());
+                        
+                        
+                        echo '
                     
                     <!-- One col(column) for each stationery product-->
                     <div class="col">
                         <div class="card m-2" style="width: 16rem; height:30rem">
-                            <img src="Shared/Image/pencil4.jpg" class="card-img-top" alt="...">
+                            <img src="Shared/Image/'.$image.'" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">Blue Pencil</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <h5 class="card-title">'.$product->getName().'</h5>
+                                <p class="card-text">'.$description.'</p>
+                                <a href="./Stationary_Details.php?id='.$eid.'" class="btn btn-primary">Product Detail</a>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- One col(column) for each stationery product-->
-                    <div class="col">
-                        <div class="card m-2" style="width: 16rem; height:30rem">
-                            <img src="Shared/Image/pencil4.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Blue Pencil</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
                         </div>
-                    </div>
+                    ';
+
+            }?>
                     
-                    <!-- Make it contribute a row place -->
+<!--                     Make it contribute a row place 
                     <div class="col w-100 mt-3">
                         
                     <nav aria-label="Page navigation example">
                         
-                        <!-- Allocated pagination icon to right side -->
+                         Allocated pagination icon to right side 
                         <ul class="pagination justify-content-end">
                             
-                            <!-- List page, previous and next button -->
+                             List page, previous and next button 
                             <li class="page-item"><a class="page-link primary-color" href="#">Previous</a></li>
                             <li class="page-item"><a class="page-link primary-color" href="#">1</a></li>
                             <li class="page-item"><a class="page-link primary-color" href="#">2</a></li>
@@ -193,7 +122,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             <li class="page-item"><a class="page-link primary-color" href="#">Next</a></li>
                         </ul>
                     </nav>
-                </div>
+                </div>-->
                 </div>
             </div>
             
