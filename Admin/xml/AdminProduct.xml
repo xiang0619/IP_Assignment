@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Products>
+    <Product>
+        <id>8</id>
+        <name>fwefsd@!!!!!!#</name>
+        <quantity>33</quantity>
+        <status>Available</status>
+        <unitPrice>33.00</unitPrice>
+        <image>FABER-CASTELL-CLICK-X7.jpg</image>
+        <description>afa</description>
+        <productTypeID>3</productTypeID>
+        <uploadDate>2023-05-11</uploadDate>
+        <updatedID>1</updatedID>
+        <updatedDate>2023-05-11</updatedDate>
+        <createID>1</createID>
+        <createdDate>2023-05-11</createdDate>
+    </Product>
+</Products>

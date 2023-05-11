@@ -1,5 +1,5 @@
 <?php
-require_once 'AdminProductFacade.php';
+require_once '../Shared/DesignPattern/AdminProductFacade.php';
 
 $productID = $_GET['id'];
 

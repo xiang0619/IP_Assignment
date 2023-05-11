@@ -1,6 +1,6 @@
 <?php
 
-include 'AdminProductFacade.php';
+include '../Shared/DesignPattern/AdminProductFacade.php';
 
 $name = $_POST["name"];
 $quantity = $_POST["quantity"];

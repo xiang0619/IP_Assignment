@@ -1,5 +1,5 @@
 <?php
-require_once 'AdminProductFacade.php';
+require_once '../Shared/DesignPattern/AdminProductFacade.php';
 
 $productID = $_GET['id'];
 
@@ -14,7 +14,7 @@ $facade = new AdminProductFacade($pdo);
 $facade->updateAdminProductXML($productID);
 
 // Load the XML file
-$xml = simplexml_load_file('AdminProduct.xml');
+$xml = simplexml_load_file('xml/AdminProduct.xml');
 $productTypeID = $xml->Product->productTypeID;
 $productTypeName = $facade->retrieveProductTypeName($productTypeID);
 
@@ -114,23 +114,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                   <td class="bg-light"><?php echo $xml->Product->unitPrice; ?></td>
                 </tr>
                 <tr>
-                  <th class="bg-dark text-light">Upload ID</th>
+                  <th class="bg-dark text-light">Description</th>
+                  <td class="bg-light"><?php echo $xml->Product->description; ?></td>
+                </tr>
+                <tr>
+                  <th class="bg-light text-dark">Upload ID</th>
                   <td class="bg-light"><?php echo $xml->Product->uploadDate; ?></td>
                 </tr>
                 <tr>
-                  <th class="bg-light text-dark">Updated ID</th>
+                  <th class="bg-dark text-light">Updated ID</th>
                   <td class="bg-light"><?php echo $xml->Product->updatedID; ?></td>
                 </tr>
                 <tr>
-                  <th class="bg-dark text-light">Updated Date</th>
+                  <th class="bg-light text-dark">Updated Date</th>
                   <td class="bg-light"><?php echo $xml->Product->updatedDate; ?></td>
                 </tr>
                 <tr>
-                  <th class="bg-light text-dark">Created ID</th>
+                  <th class="bg-dark text-light">Created ID</th>
                   <td class="bg-light"><?php echo $xml->Product->createID; ?></td>
                 </tr>
                 <tr>
-                  <th class="bg-dark text-light">Created Date</th>
+                  <th class="bg-light text-dark">Created Date</th>
                   <td class="bg-light"><?php echo $xml->Product->createdDate; ?></td>
                 </tr>
               </tbody>

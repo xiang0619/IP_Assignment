@@ -12,7 +12,7 @@
  */
 
 include_once '../class/ProductAdmin.php';
-include_once 'AdminProductDA.php';
+include_once '../Shared/Database/AdminProductDA.php';
 
 class AdminProductFacade {
     private $adminProductDA;
@@ -32,6 +32,10 @@ class AdminProductFacade {
 
     public function retrieveProduct($productID) {
         return $this->adminProductDA->retrieve($productID);
+    }
+    
+    public function retrieveProducts() {
+        return $this->adminProductDA->retrieveAll();
     }
     
     public function updateAdminProductXML($productID) {

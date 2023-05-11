@@ -76,8 +76,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             </div>
                         </li>
                         <li>
-                            <div class="text-center mt-4 mb-3">
-                                <button type="button" class="btn btn-outline-danger">Log Out</button>
+                            <div class="d-flex align-items-center justify-content-center mt-4 mb-2" style="">
+                                 <button type="button" class="btn btn-outline-danger">Log Out</button>
                             </div></li>
                       </ul>
                   </div>
@@ -118,8 +118,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     <a class="nav-link" id="adminProfile" href="AdminProfile.php">Profile</a>
                   </li> 
                   <li class="nav-item">
-                      <div class="text-center mt-5 mb-3">
-                        <button type="button" class="btn btn-outline-danger">Log Out</button>
+                      <div class="d-flex align-items-center justify-content-center mt-4" style="">
+                         <button type="button" class="btn btn-outline-danger">Log Out</button>
                       </div>
                   </li> 
                 </ul>  
