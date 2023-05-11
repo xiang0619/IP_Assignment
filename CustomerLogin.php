@@ -51,7 +51,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             }
 
             if ($isValid == true) {
-                        $login = AuthenticationFactory::createAuthentication("login", $email, null, null, $password, null);
+                $login = AuthenticationFactory::createAuthentication("login", $email, null, null, $password, null);
                 $login->authenticate();
             }
         }

@@ -16,7 +16,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <?php
         include './Shared/PHP/Header.php';
         include './Shared/DesignPattern/CustomerFactoryMethod.php';
-        
+
         $servername = 'localhost';
         $username = 'root';
         $serverPassword = '';
@@ -54,6 +54,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             $staffEmailstmt->execute();
             $staffEmailResult = $staffEmailstmt->get_result();
 
+            $staffPhonestmt = $conn->prepare("SELECT * FROM staff WHERE mobile = ?");
+            $staffPhonestmt->bind_param("s", $phone);
+            $staffPhonestmt->execute();
+            $staffPhoneResult = $staffPhonestmt->get_result();
+
             if ($customerEmailResult->num_rows > 0) {
                 $emailError = "Email already exists, please choose a different one.";
                 $isValid = false;
@@ -64,6 +69,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             }
             if ($staffEmailResult->num_rows > 0) {
                 $emailError = "Email already exists, please choose a different one.";
+                $isValid = false;
+            }
+            if ($staffPhoneResult->num_rows > 0) {
+                $phoneError = "Mobile number already exists, please choose a different one.";
                 $isValid = false;
             }
 
@@ -82,14 +91,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             if (empty($password)) {
                 $passwordError = 'Please fill in your password.';
                 $isValid = false;
-            }else if (strlen($password) < 8){
+            } else if (strlen($password) < 8) {
                 $passwordError = 'Password should be at least 8 characters long.';
                 $isValid = false;
-            }else if (!preg_match('/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/', $password)) {
-               $passwordError = "The password must contain a combination of letters, numbers, and special characters such as !@#$%^&*()_+-=[]{}|;':\",./<>?";
+            } else if (!preg_match('/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/', $password)) {
+                $passwordError = "The password must contain a combination of letters, numbers, and special characters such as !@#$%^&*()_+-=[]{}|;':\",./<>?";
                 $isValid = false;
             }
-            
+
             if (empty($confirmPassword)) {
                 $confirmPasswordError = 'Please fill in your confirm password.';
                 $isValid = false;
@@ -108,7 +117,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 
             if ($isValid == true) {
                 mysqli_close($conn);
-                $register = AuthenticationFactory::createAuthentication("register", $email, $name,$phone,$password,null);
+                $register = AuthenticationFactory::createAuthentication("register", $email, $name, $phone, $password, null);
                 $register->authenticate();
             }
         }

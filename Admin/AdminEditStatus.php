@@ -26,7 +26,7 @@
               transform: translateX(-50%);
               top: 100%;
             }      
-            #adminService1, #adminReport1, #adminProduct1{
+            #adminService1, #adminReport1, #adminProduct1,#adminStaff{
                 color:white;
             }
         </style>

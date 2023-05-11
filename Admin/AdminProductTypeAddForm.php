@@ -59,7 +59,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 color: white;
             }
                        
-            #adminService1, #adminReport1{
+            #adminService1, #adminReport1,#adminStaff{
                 color:white;
             }
         </style>

@@ -57,15 +57,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 background-color: lightsteelblue;
             }
                        
-            #adminProduct1 {
+            #adminStaff {
                 color: lightsteelblue;
             }
             
-            #adminProduct2 {
+            #adminStaff1 {
                 color: white;
             }
                        
-            #adminService1, #adminReport1,#adminStaff{
+            #adminService1, #adminReport1,#adminProduct1{
                 color:white;
             }
         </style>

@@ -9,7 +9,7 @@
     function errorHandler($errno, $errstr, $errfile, $errline) {
         // header is set to 500 to indicate a server error
         header('HTTP/1.1 500 Internal Server Error');
-
+        
         // HTML code to display the error message to the user
         echo "<table style=\" margin: 50px auto 0;box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);background-color: white;\">
                   <thead>
@@ -26,7 +26,7 @@
                       </tr>
                       <tr>
                           <td style=\"text-align: center;padding-bottom: 15px\"><h5></br>    <div style=\"text-align: center;\">
-                                      <a href=\"Homepage.php\" style=\"background-color: rgba(43,222,222,255); color: white; border: none; padding:5px 25px;text-decoration: none;\">Return Home</a>
+                                      <a href=\"javascript:history.back()\" style=\"background-color: rgba(43,222,222,255); color: white; border: none; padding:5px 25px;text-decoration: none;\">Go Back</a>
                                   </div></h5>
                           </td>
                       </tr>

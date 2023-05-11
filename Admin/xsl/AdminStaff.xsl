@@ -39,7 +39,7 @@
               </button>
             
               <button class="btn btn-danger">
-                <a href="#" class="text-white">Delete</a>
+                <a href="AdminStaffDelete.php?id={staff_id}" class="text-white">Delete</a>
               </button>
             </td>
             <td><xsl:value-of select="staff_id"/></td>

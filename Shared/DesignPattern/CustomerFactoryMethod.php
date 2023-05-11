@@ -1,7 +1,8 @@
 <?php
 
-require_once __DIR__ .  '/../../vendor/autoload.php';
-require_once __DIR__  . '/../../Shared/Helper/EncryptionHelper.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../Shared/Helper/EncryptionHelper.php';
+
 // Abstract class for login and register
 abstract class Authentication {
 
@@ -11,7 +12,7 @@ abstract class Authentication {
     protected $password;
     protected $resetCode;
 
-    public function __construct($email="", $name="", $phone="", $password="",$resetCode="") {
+    public function __construct($email = "", $name = "", $phone = "", $password = "", $resetCode = "") {
         $this->email = $email;
         $this->name = $name;
         $this->phone = $phone;
@@ -49,11 +50,11 @@ class Login extends Authentication {
         // User found, check if password is cor rect
         if (password_verify($this->password, $hashedPassword)) {
             // Set session variables
-            
+
             $encryptionHelper = new EncryptionHelper("Customer");
-            
+
             $encryptCustomerID = $encryptionHelper->encrypt($customer['customerID']);
-            
+
             $_SESSION['customerID'] = $encryptCustomerID;
 
             // Redirect to the homepage
@@ -67,26 +68,30 @@ class Login extends Authentication {
         $staffStmt->execute();
         $staffResult = $staffStmt->get_result();
         $staff = $staffResult->fetch_assoc();
-        
-//        $staffHashedPassword = $staff['password']?? null;
-        // User found, check if password is correct
-//        if (password_verify($this->password, $staff['password'])) {
-        if (password_verify($this->password, $hashedPassword)) {
-            
-            $encryptionHelper = new EncryptionHelper("Staff");
-            
-            $encryptStaffID = $encryptionHelper->encrypt($staff['id']);
-            
-            // Set session variables
-            $_SESSION['staffID'] = $encryptStaffID;
-            
-            $_SESSION['position'] = $staff['position'];
 
-            // Redirect to the homepage
-            echo '<script>window.location.href = "AdminHome.php";</script>';
+        $staffHashedPassword = $staff['password'] ?? null;
+        $status = $staff['status'] ?? null;
+        if ($status != "resigned" || $status != "disabled") {
+            if (password_verify($this->password, $staffHashedPassword)) {
+
+                $encryptionHelper = new EncryptionHelper("Staff");
+
+                $encryptStaffID = $encryptionHelper->encrypt($staff['ID']);
+
+                // Set session variables
+                $_SESSION['staffID'] = $encryptStaffID;
+
+                $_SESSION['position'] = $staff['position'];
+
+                // Redirect to the homepage
+                echo '<script>window.location.href = "http://localhost/IP_Assignment/Admin/AdminHome.php";</script>';
+            } else {
+                echo '<script>alert("Login failed. Please check your email and password.");</script>';
+            }
         } else {
             echo '<script>alert("Login failed. Please check your email and password.");</script>';
         }
+
 
         $staffStmt->close();
         mysqli_close($conn);
@@ -250,15 +255,15 @@ class ResetPassword extends Authentication {
 // Factory class for creating login and register objects
 class AuthenticationFactory {
 
-    public static function createAuthentication($type, $email, $name="", $phone="", $password="",$resetCode="") {
+    public static function createAuthentication($type, $email, $name = "", $phone = "", $password = "", $resetCode = "") {
         if ($type == "login") {
-            return new Login($email, null, null, $password,null);
+            return new Login($email, null, null, $password, null);
         } elseif ($type == "register") {
-            return new Register($email, $name, $phone, $password,null);
+            return new Register($email, $name, $phone, $password, null);
         } elseif ($type == "forgetPassword") {
             return new ForgetPassword($email, null, null, null);
         } elseif ($type == "resetPassword") {
-            return new ResetPassword(null, null, null, $password,$resetCode);
+            return new ResetPassword(null, null, null, $password, $resetCode);
         } else {
             throw new Exception("Invalid authentication type");
         }
