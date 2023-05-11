@@ -1,6 +1,6 @@
 <?php
 
-include 'AdminProductFacade.php';
+include '../Shared/DesignPattern/AdminProductFacade.php';
 
 $productTypeName = $_POST["productTypeName"];
 

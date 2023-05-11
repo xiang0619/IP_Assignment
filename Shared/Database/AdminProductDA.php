@@ -58,6 +58,14 @@ class AdminProductDA {
         return $product;
     }
     
+    public function retrieveAll() {
+        $query = "SELECT * FROM product";
+        $pstmt = $this->conn->prepare($query);
+        $pstmt->execute();
+        $product = $pstmt->fetchAll(PDO::FETCH_ASSOC);
+        return $product;
+    }
+    
     public function updateAdminProductXML($productID) {
         $query = "SELECT * FROM product WHERE productID = ?";
         $pstmt = $this->conn->prepare($query);
@@ -80,7 +88,7 @@ class AdminProductDA {
 
         // Load the XML file and locate the element to update
         $xmlDoc = new DOMDocument();
-        $xmlDoc->load('AdminProduct.xml');
+        $xmlDoc->load('xml/AdminProduct.xml');
         $productElement = $xmlDoc->getElementsByTagName('Product')->item(0);
 
         // Update the value of each child element

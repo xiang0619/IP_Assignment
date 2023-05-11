@@ -1,8 +1,13 @@
 <?php?>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+        <link href="Shared/CSS/SharedCSS.css" rel="stylesheet" type="text/css"/>
+        <title>Stationary Detail</title>
         
     </head>
     <body>
@@ -13,16 +18,12 @@ include './Shared/Helper/EncryptionHelper.php';
 //data decrypt
             //var userid = '<?php echo $_SESSION['id'];?/>
 
-
+            $id = $_GET['id'];
 
             $encryptionHelper = new EncryptionHelper("id");
-            $id=1;
-            
-            //encrypt for testing
-            $eid=$encryptionHelper->encrypt($id);
 
             //decrypt id 
-            $did= $encryptionHelper->decrypt($eid);
+            $did= $encryptionHelper->decrypt($id);
 
 
 include './Shared/PHP/Header.php';
@@ -31,8 +32,9 @@ include './Shared/PHP/Header.php';
             $stmt = $dbc->prepare("SELECT productID,name,quantity,status,unitPrice,image,description from product where productID ='{$did}'");
             $stmt->execute(); //execute bind 
             $stmt->bind_result($id,$name,$quantity,$status,$unitPrice,$image,$description,); //bind result
+            $product = new Product();
             while ($stmt->fetch()) {
-                        $product = new Product();
+                        
                         $product->setId($id);
                         $product->setName($name);
                         $product->setStatus($status);
@@ -42,12 +44,12 @@ include './Shared/PHP/Header.php';
                         
             }
             
-
-                
-            echo '
+            if($product!=null){
+                echo '
                 
             <form action="./add_cart.php" method="post">
             <input type="hidden" name="productid" value='.$product->getId().'>
+                <input type="hidden" name="test" value='.$did.'>
                 <input type="hidden" name="type" value="product">
                 <input type="hidden" name="addCart" value="the product is added to your cart.">
                 <input type="hidden" name="doubleAdd" value="Double add to cart detected, increase the cart value.">
@@ -126,7 +128,15 @@ include './Shared/PHP/Header.php';
             <div class="col-1"></div>
         </div>
         
-        </form>'
+        </form>';
+            }
+            else
+            {
+                echo 'error ';
+            }
+
+                
+            
     
             
 ?>

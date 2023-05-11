@@ -1,41 +1,35 @@
 <?php
-// Replace the variables with your database credentials
-$servername = "localhost";
-$username = "root";
-$password = "";
+require_once '../Shared/DesignPattern/AdminProductFacade.php';
+
+$host = "localhost";
 $dbname = "ip";
+$user = "root";
+$password = "";
 
-// Create a connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
 
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
-// Get the data from the database
-$sql = "SELECT * FROM product";
-$result = $conn->query($sql);
+$pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
+$facade = new AdminProductFacade($pdo);
+$productDetails = $facade->retrieveProducts();
 
 // Convert the data to XML format
 $xml = new SimpleXMLElement('<products/>');
-while ($row = $result->fetch_assoc()) {
-    $product = $xml->addChild('product');
-    $product->addChild('product_id', $row['productID']);
-    $product->addChild('product_name', $row['name']);
-    $product->addChild('product_type_id', $row['productTypeID']);
-    $product->addChild('product_upload_date', $row['uploadDate']);
-    $product->addChild('product_quantity', $row['quantity']);
-    $product->addChild('product_status', $row['status']);
-    $product->addChild('product_price', $row['unitPrice']);
-    $product->addChild('product_updated_id', $row['updatedID']);
-    $product->addChild('product_updated_date', $row['updatedDate']);
-    $product->addChild('product_create_id', $row['createID']);
-    $product->addChild('product_created_date', $row['createdDate']);
-    $product->addChild('product_image', $row['image']);
-    $product->addChild('product_description', $row['description']);
-}
 
-// Close the database connection 
-$conn->close();
+foreach ($productDetails as $productDetail){
+    $productTypeName = $facade->retrieveProductTypeName($productDetail['productTypeID']);
+    $product = $xml->addChild('product');
+    $product->addChild('product_id', $productDetail['productID']);
+    $product->addChild('product_name', $productDetail['name']);
+    $product->addChild('product_type_id', $productTypeName['productTypeName']);
+    $product->addChild('product_upload_date', $productDetail['uploadDate']);
+    $product->addChild('product_quantity', $productDetail['quantity']);
+    $product->addChild('product_status', $productDetail['status']);
+    $product->addChild('product_price', $productDetail['unitPrice']);
+    $product->addChild('product_updated_id', $productDetail['updatedID']);
+    $product->addChild('product_updated_date', $productDetail['updatedDate']);
+    $product->addChild('product_create_id', $productDetail['createID']);
+    $product->addChild('product_created_date', $productDetail['createdDate']);
+    $product->addChild('product_image', $productDetail['image']);
+    $product->addChild('product_description', $productDetail['description']);
+}
 ?>

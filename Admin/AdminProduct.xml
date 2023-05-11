@@ -6,12 +6,12 @@
         <quantity>100</quantity>
         <status>Available</status>
         <unitPrice>11.00</unitPrice>
-        <image>https://utrading.com.my/wp-content/uploads/2021/01/PILOT-BL-G2-10-M.jpg</image>
+        <image>FABER-CASTELL-CLICK-X7.jpg</image>
         <description>pen</description>
         <productTypeID>1</productTypeID>
         <uploadDate>2023-04-19</uploadDate>
         <updatedID>S0001</updatedID>
-        <updatedDate>2023-04-19</updatedDate>
+        <updatedDate>2023-05-11</updatedDate>
         <createID>S0001</createID>
         <createdDate>2023-04-19</createdDate>
     </Product>
