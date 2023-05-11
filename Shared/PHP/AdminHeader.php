@@ -30,6 +30,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
               transform: translateX(-50%);
               top: 100%;
             }
+            
+            a {
+                text-decoration: none;
+            }
         </style>
     </head>
     <header>
@@ -42,13 +46,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             
             <ul class="nav justify-content-center">          
               <li class="nav-item">
-                <a class="nav-link text-light" href="AdminProduct.php">Products</a>
+                <a class="nav-link" id="adminProduct1" href="AdminProduct.php">Products</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-light" href="AdminService.php">Services</a>
+                <a class="nav-link" id="adminService1" href="AdminService.php">Services</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link text-light" href="AdminReport.php">Report</a>
+                  <a class="nav-link" id="adminReport1" href="AdminReport.php">Report</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link text-light" href="#">|</a>
@@ -101,13 +105,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                   </li>
                   <hr class="bg-dark border-1 border-top border-light">
                   <li class="nav-item">
-                    <a class="nav-link" href="AdminProduct.php">Products</a>
+                    <a class="nav-link" id="adminProduct2" href="AdminProduct.php">Products</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="AdminService.php">Services</a>
+                    <a class="nav-link" id="adminService2"  href="AdminService.php">Services</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="AdminReport.php">Report</a>
+                    <a class="nav-link" id="adminReport2" href="AdminReport.php">Report</a>
                   </li> 
                   <hr class="bg-dark border-1 border-top border-light">
                   <li class="nav-item">

@@ -64,6 +64,10 @@ $html = $xslt->transformToXML($xml);
             #adminProfile {
                 color:white;
             }
+            
+            #adminProduct1, #adminService1, #adminReport1{
+                color:white;
+            }
         </style>
     </head>
     <body>
