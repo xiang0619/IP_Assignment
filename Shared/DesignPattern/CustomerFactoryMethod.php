@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ .  '/../../vendor/autoload.php';
-
+require_once __DIR__  . '/../../Shared/Helper/EncryptionHelper.php';
 // Abstract class for login and register
 abstract class Authentication {
 

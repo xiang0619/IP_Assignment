@@ -18,7 +18,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         include './Shared/PHP/Header.php';
         include './Shared/DesignPattern/CustomerFactoryMethod.php';
         $isValid = true;
-        
+
 //        $servername = 'localhost';
 //        $username = 'root';
 //        $password = '';
@@ -51,12 +51,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             }
 
             if ($isValid == true) {
-                $login = AuthenticationFactory::createAuthentication("login", $email, null, null,$password,null);
+                        $login = AuthenticationFactory::createAuthentication("login", $email, null, null, $password, null);
                 $login->authenticate();
             }
         }
         ?>
-
         <div class="row m-5 d-flex justify-content-center">
             <div class="col-3"></div>
             <div class="col-6 text-center shadow-lg">

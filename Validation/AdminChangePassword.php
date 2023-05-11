@@ -30,7 +30,7 @@ if(isset($_POST['submit'])){
         echo 'window.location.href = "http://localhost/IP_Assignment/Admin/AdminChangePassword.php";';
         echo '</script>';
         exit();
-    }else if (strlen($newPpassword) < 8){
+    }else if (strlen($newPassword) < 8){
         echo '<script>';
         echo 'alert("Password should be at least 8 characters long.");';
         echo 'window.location.href = "http://localhost/IP_Assignment/Customer/ChangePassword.php";';
