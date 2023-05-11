@@ -3,12 +3,13 @@
 require '../Shared/Database/StaffDatabase.php';
 
 if(isset($_POST['submit'])){
+    session_start();
     
-    //到时候就是从session那边那data
-    //todo: Ng Wen Xiang get id from session            
+    $staffID = $_SESSION['staffID'];
+
     $staffDatabase = new StaffDatabase();
+    $staff = $staffDatabase->getProfile($staffID);
     $encryptionHelper = new EncryptionHelper("Staff");
-    $staff = $staffDatabase->getProfile("jcyMiBKoHb1EYUTrTg+QdsFySTEE0EjVFf+ae5stzQA=");
     
     $name = isset($_POST['name']) && !empty($_POST['name']) ? $_POST['name'] : null;
     $mobile = isset($_POST['mobile']) && !empty($_POST['mobile']) ? $_POST['mobile'] : null;

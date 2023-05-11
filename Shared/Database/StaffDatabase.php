@@ -7,7 +7,7 @@ include '../class/Staff.php';
 include '../Shared/DesignPattern/ProfileObserver.php';
 
 class StaffDatabase implements ProfileObserver{
-     private static $pdo;
+    private static $pdo;
     private $generateRandomCodeHelper;
     private $encryptionHelper;
 
@@ -49,12 +49,12 @@ class StaffDatabase implements ProfileObserver{
         
         if ($result != null) {
             foreach ($result as $row) {
-               $staff = new Staff($result['ID'], $result['email'], $result['name'], $result['mobile'],$result['status'],$result['position'],
-                                $result['updatedID'],$result['updatedDate'],$result['createdID'],$result['createdDate'],$result['password']);
-               self::$pdo->close();
-               return $staff;
+                $staff = new Staff($row['ID'], $row['email'], $row['name'], $row['mobile'], $row['status'], $row['position'],
+                                 $row['updatedID'], $row['updatedDate'], $row['createdID'], $row['createdDate'], $row['password']);
+                self::$pdo->close();
+                return $staff;
             }
-        } else {
+        }else {
             self::$pdo->close();
             return null;
         }
@@ -95,7 +95,8 @@ class StaffDatabase implements ProfileObserver{
         
         if ($result != null) {
             foreach ($result as $row) {
-               $staff = new Customer($row['customerID'], $row['email'], $row['customerName'], $row['mobile']);
+               $staff = new Staff($result['ID'], $result['email'], $result['name'], $result['mobile'],$result['status'],$result['position'],
+                                $result['updatedID'],$result['updatedDate'],$result['createdID'],$result['createdDate'],$result['password']);
                self::$pdo->close();
                return $staff;
             }
@@ -104,4 +105,30 @@ class StaffDatabase implements ProfileObserver{
             return null;
         }
     }
+    
+    public function getStaffList(){
+        self::$pdo->open();
+
+        $stmt = self::$pdo->prepare('SELECT * FROM staff WHERE position = "normal staff"');
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $staffList = array();
+
+        if ($result != null) {
+            foreach ($result as $row) {
+                $encryptedID = $this->encryptionHelper->encrypt($row['ID']);
+                $staff = new Staff($encryptedID, $row['email'], $row['name'], $row['mobile'], $row['status'], $row['position'],
+                                    $row['updatedID'], $row['updatedDate'], $row['createdID'], $row['createdDate'], $row['password']);
+                $staffList[] = $staff;
+            }
+
+            self::$pdo->close();
+            return $staffList;
+        } else {
+            self::$pdo->close();
+            return null;
+        }
+    }
+
 }

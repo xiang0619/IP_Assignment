@@ -1,38 +1,5 @@
 <!DOCTYPE html>
-<?php
-$xslFile = "../Admin/xsl/AdminProfile.xsl";
 
-require '../Shared/Database/StaffDatabase.php';
-//到时候就是从session那边那data
-//todo: Ng Wen Xiang get id from session
-            
-$staffDatabase = new StaffDatabase();
-$staff = $staffDatabase->getProfile("jcyMiBKoHb1EYUTrTg+QdsFySTEE0EjVFf+ae5stzQA=");
-
-$xml = new SimpleXMLElement('<Staff/>');
-
-$profile = $xml->addChild('Staff');
-
-$profile->addChild('id', $staff->getID());
-$profile->addChild('email', $staff->getEmail());
-$profile->addChild('name', $staff->getName());
-$profile->addChild('mobile', $staff->getMobile());
-$profile->addChild('password', $staff->getPassword());
-$profile->addChild('status', $staff->getStatus());
-$profile->addChild('position', $staff->getPosition());
-$profile->addChild('updatedID', $staff->getUpdatedID());
-$profile->addChild('updatedDate', $staff->getUpdatedDate());
-$profile->addChild('createdID', $staff->getCreatedID());
-$profile->addChild('createdDate', $staff->getCreatedDate());
-
-// Apply the XSLT stylesheet to the XML data
-$xslt = new XSLTProcessor();
-$xsldoc = new DOMDocument();
-$xsldoc->load($xslFile);
-$xslt->importStylesheet($xsldoc);
-$html = $xslt->transformToXML($xml);
-
-?>
 <html>
     <head>
 	<meta charset="UTF-8">
@@ -76,7 +43,47 @@ $html = $xslt->transformToXML($xml);
         ?>
         <!-- Main Content Area -->
         
+        <main class="container-fluid mb-4 mt-4 text-center" style="">
+            <h1>Profile</h1>
+	</main>
+        
         <?php
+            $xslFile = "../Admin/xsl/AdminProfile.xsl";
+
+            require '../Shared/Database/StaffDatabase.php';
+            //到时候就是从session那边那data
+            //todo: Ng Wen Xiang get id from session
+
+            $staffDatabase = new StaffDatabase();
+            
+            $staffID = $_SESSION['staffID'];
+            
+            $staff = $staffDatabase->getProfile($staffID);
+
+            $xml = new SimpleXMLElement('<Staff/>');
+
+            $profile = $xml->addChild('Staff');
+
+            $profile->addChild('id', $staff->getID());
+            $profile->addChild('email', $staff->getEmail());
+            $profile->addChild('name', $staff->getName());
+            $profile->addChild('mobile', $staff->getMobile());
+            $profile->addChild('password', $staff->getPassword());
+            $profile->addChild('status', $staff->getStatus());
+            $profile->addChild('position', $staff->getPosition());
+            $profile->addChild('updatedID', $staff->getUpdatedID());
+            $profile->addChild('updatedDate', $staff->getUpdatedDate());
+            $profile->addChild('createdID', $staff->getCreatedID());
+            $profile->addChild('createdDate', $staff->getCreatedDate());
+
+            // Apply the XSLT stylesheet to the XML data
+            $xslt = new XSLTProcessor();
+            $xsldoc = new DOMDocument();
+            $xsldoc->load($xslFile);
+            $xslt->importStylesheet($xsldoc);
+            $html = $xslt->transformToXML($xml);
+            
+        
             echo $html;
         ?>
         

@@ -49,7 +49,12 @@ class Login extends Authentication {
         // User found, check if password is cor rect
         if (password_verify($this->password, $hashedPassword)) {
             // Set session variables
-            $_SESSION['customerID'] = $customer['customerID'];
+            
+            $encryptionHelper = new EncryptionHelper("Customer");
+            
+            $encryptCustomerID = $encryptionHelper->encrypt($customer['customerID']);
+            
+            $_SESSION['customerID'] = $encryptCustomerID;
 
             // Redirect to the homepage
             echo '<script>window.location.href = "Homepage.php";</script>';
@@ -67,8 +72,15 @@ class Login extends Authentication {
         // User found, check if password is correct
 //        if (password_verify($this->password, $staff['password'])) {
         if (password_verify($this->password, $hashedPassword)) {
+            
+            $encryptionHelper = new EncryptionHelper("Staff");
+            
+            $encryptStaffID = $encryptionHelper->encrypt($staff['id']);
+            
             // Set session variables
-            $_SESSION['staffID'] = $staff['ID'];
+            $_SESSION['staffID'] = $encryptStaffID;
+            
+            $_SESSION['position'] = $staff['position'];
 
             // Redirect to the homepage
             echo '<script>window.location.href = "AdminHome.php";</script>';

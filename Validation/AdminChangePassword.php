@@ -2,11 +2,13 @@
 require '../Shared/Database/StaffDatabase.php';
 
 if(isset($_POST['submit'])){
-    //到时候就是从session那边那data
-    //todo: Ng Wen Xiang get id from session            
+    session_start();
+    
+    $staffID = $_SESSION['staffID'];
+
     $staffDatabase = new StaffDatabase();
+    $staff = $staffDatabase->getProfile($staffID);
     $encryptionHelper = new EncryptionHelper("Staff");
-    $staff = $staffDatabase->getProfile("jcyMiBKoHb1EYUTrTg+QdsFySTEE0EjVFf+ae5stzQA=");
     
     $oldPassword = isset($_POST['oldPass']) && !empty($_POST['oldPass']) ? $_POST['oldPass'] : null;
     $newPassword = isset($_POST['newPass']) && !empty($_POST['newPass']) ? $_POST['newPass'] : null;
@@ -28,6 +30,18 @@ if(isset($_POST['submit'])){
         echo 'window.location.href = "http://localhost/IP_Assignment/Admin/AdminChangePassword.php";';
         echo '</script>';
         exit();
+    }else if (strlen($newPpassword) < 8){
+        echo '<script>';
+        echo 'alert("Password should be at least 8 characters long.");';
+        echo 'window.location.href = "http://localhost/IP_Assignment/Customer/ChangePassword.php";';
+        echo '</script>';
+        exit();
+    }else if (!preg_match('/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/', $newPassword)) {
+        echo '<script>';
+        echo 'alert("The password must contain a combination of letters, numbers, and special characters such as !@#$%^&*()_+-=[]{}|;");';
+        echo 'window.location.href = "http://localhost/IP_Assignment/Customer/ChangePassword.php";';
+        echo '</script>';
+        exit();
     }
     
     if($rePassword == null){
@@ -39,7 +53,7 @@ if(isset($_POST['submit'])){
         exit();
     }
     
-    if($oldPassword != $encryptionHelper->decrypt($staff->getPassword())){
+    if(!password_verify($oldPassword, $customer->getPassword())){
         echo '<script>';
         echo 'alert("Invalid old password!!");';
         echo 'window.location.href = "http://localhost/IP_Assignment/Admin/AdminChangePassword.php";';
@@ -55,7 +69,7 @@ if(isset($_POST['submit'])){
         exit();
     }
     
-    if($oldPassword == $encryptionHelper->decrypt($staff->getPassword()) 
+    if(password_verify($oldPassword, $customer->getPassword()) 
             && $newPassword == $rePassword){
         
         $staffDatabase->updatePassword($staff->getId(), $newPassword);
