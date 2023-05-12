@@ -19,6 +19,10 @@
             
             $customerID = $_SESSION['customerID'];
 
+            if($customerID == null){
+                header("Location : http://localhost/IP_Assignment/Homepage.php");
+            }
+            
             $customerDatabase = new CustomerDatabase();
             $customer = $customerDatabase->getProfile($customerID);
             $encryptionHelper = new EncryptionHelper("Customer");
