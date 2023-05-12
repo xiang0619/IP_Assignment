@@ -15,7 +15,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <?php
-        include './Shared/PHP/Header.php';
+        include './Shared/PHP/CustomerHeader.php';
         include './Shared/DesignPattern/CustomerFactoryMethod.php';
         $isValid = true;
 
@@ -123,7 +123,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             <div class="col-3"></div>
         </div>    
         <?php
-        include './Shared/PHP/Footer.php';
+        include './Shared/PHP/CustomerFooter.php';
         ?>
     </body>
     <script>
