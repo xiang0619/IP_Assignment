@@ -93,7 +93,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             if ($status1 == 200) {
                 echo '<script>';
                 echo 'alert("Profile Updated.");';
-                echo 'window.location.href = "http://localhost/IP_Assignment/Staff/Profile.php";';
+                echo 'window.location.href = "http://localhost/IP_Assignment/Staff/AdminProfile.php";';
                 echo '</script>';
                 exit();
             } else {

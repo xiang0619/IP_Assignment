@@ -69,7 +69,7 @@ class Login extends Authentication {
         $staffResult = $staffStmt->get_result();
         $staff = $staffResult->fetch_assoc();
         $staffHashedPassword = $staff['password'] ?? null;
-        $staffStatus = $staff['status'];
+        $staffStatus = $staff['status'] ?? null;
 
         if ($staffStatus != "resigned" || $staffStatus != "disabled") {
             if (password_verify($this->password, $staffHashedPassword)) {
