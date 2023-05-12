@@ -37,16 +37,11 @@ $apiKey = 'sk_test_51N4IUNEd7cmSO65bnsVFQ59rs2hxKJvANEV2ZPsrcuw2Lvl3MNkr8dJhbadm
 $gateway = new IP_StripePaymentGateway($apiKey);
 
 try {
-
-   
-    //$charge = $gateway->charge(1000, '4242424242424242', '123', '1225', 'myr');
-    
-    
     // assuming $customerID has already been set from the session
     $cartID = null;
-    $productID = null;
+    $productIDs = array();
 
-// retrieve cart ID from database using customer ID
+    // retrieve cart ID from database using customer ID
     $stmt = $dbc->prepare("SELECT cartID FROM cart WHERE customerID = ?");
     $stmt->bind_param('i', $customerID);
     $stmt->execute();
@@ -55,42 +50,54 @@ try {
     $stmt->close();
 
     if ($cartID) {
-        // retrieve product ID from cart using cart ID
+        // retrieve product IDs from cart using cart ID
         $stmt = $dbc->prepare("SELECT productID FROM cart WHERE cartID = ?");
         $stmt->bind_param('i', $cartID);
         $stmt->execute();
-        $stmt->bind_result($productID);
-        $stmt->fetch();
-        $stmt->close();
+        $result = $stmt->get_result();
 
-        if ($productID) {
+        // add each product ID to the array
+        while ($row = $result->fetch_assoc()) {
+            $productIDs[] = $row['productID'];
+        }
+
+        $stmt->close();
+$charge = $gateway->charge($amount, $cardNumber, $cvv, $expDate, $currency);
+        // loop through each product ID and process payment
+        foreach ($productIDs as $productID) {
             // insert new payment record into payment table
             $method = 'Stripe'; // example payment method
             $current_time = date('Y-m-d H:i:s');
             
-             $charge = $gateway->charge($amount, $cardNumber, $cvv, $expDate, $currency);
-
+            
+             
             $stmt = $dbc->prepare("INSERT INTO payment (customerID, paymentMethod, paymentDate, productID, totalPayment, payment_status) VALUES (?, ?, ?, ?, ?, 'Paid')");
             $stmt->bind_param('issii', $customerID, $method, $current_time, $productID, $amount);
             $stmt->execute();
             
-            
-            $stmt = $dbc->prepare("UPDATE cart SET quantity = ? WHERE cartID = ?");
-            $stmt->bind_param('is', $qty,$id );
-            $stmt->execute(); // execute bind 
+            $stmt = $dbc->prepare("UPDATE cart SET status = 'Paid' WHERE productID = ? AND cartID = ?");
+            $stmt->bind_param('ii', $productID, $cartID );
+            $stmt->execute();
             
             $stmt->close();
-            
         }
     }
 
+//    echo '<script>';
+//    echo "alert('Payment successful!');";
+//    echo '</script>';
+    
+    echo "<script>";
+    echo "if(confirm('Payment successful. Click OK to continue.'))";
+    echo "{";
+    echo "window.location.href = 'Homepage.php';";
+    echo "}";
+    echo "</script>";
 
-
-    echo '<script>';
-    echo "alert('Payment successful!');";
-    echo '</script>';
-    header("Location: CartView.php");
-    //echo 'Payment successful!';
+    
+    
+    
+    //header("Location: Homepage.php" );
 } catch (Exception $e) {
     echo 'Payment failed: ' . $e->getMessage();
 }

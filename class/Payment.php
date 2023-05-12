@@ -1,29 +1,84 @@
 <?php
-
-//require_once('/Shared/Stripe/init.php');
-//\Stripe\Stripe::setApiKey('sk_test_51N4IUNEd7cmSO65bnsVFQ59rs2hxKJvANEV2ZPsrcuw2Lvl3MNkr8dJhbadm5Yowv2cxrcc52xAMvr0lUBX9IiSW00y2ZokQ5z');
+//Author : Tham Jun Yuan
 
 class Payment {
-    private $token;
+    private $id;
+    private $status;
+    private $method;
     private $amount;
-    private $name;
-    private $email;
     private $order_id;
     private $items;
     private $currency;
-    
-    
-    public function __construct($token, $amount, $name, $email, $order_id, $items, $currency) {
-        $this->token = $token;
+   
+        
+    public function __construct($id, $status, $method, $amount, $order_id, $items, $currency) {
+        $this->id = $id;
+        $this->status = $status;
+        $this->method = $method;
         $this->amount = $amount;
-        $this->name = $name;
-        $this->email = $email;
         $this->order_id = $order_id;
         $this->items = $this->getOrderItems($order_id);
+        $this->currency = $currency;
     }
     
     public function getOrderItems($order_id){
         
+    }
+    
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getStatus() {
+        return $this->status;
+    }
+
+    public function getMethod() {
+        return $this->method;
+    }
+
+    public function getAmount() {
+        return $this->amount;
+    }
+
+    public function getOrder_id() {
+        return $this->order_id;
+    }
+
+    public function getItems() {
+        return $this->items;
+    }
+
+    public function getCurrency() {
+        return $this->currency;
+    }
+
+    public function setId($id): void {
+        $this->id = $id;
+    }
+
+    public function setStatus($status): void {
+        $this->status = $status;
+    }
+
+    public function setMethod($method): void {
+        $this->method = $method;
+    }
+
+    public function setAmount($amount): void {
+        $this->amount = $amount;
+    }
+
+    public function setOrder_id($order_id): void {
+        $this->order_id = $order_id;
+    }
+
+    public function setItems($items): void {
+        $this->items = $items;
+    }
+
+    public function setCurrency($currency): void {
+        $this->currency = $currency;
     }
     
     public function charge(){

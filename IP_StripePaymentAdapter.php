@@ -1,6 +1,10 @@
 <?php
 //For the adapter implementation
-
+/**
+ * 
+ *
+ * @author Tham Jun Yuan
+ */
 require_once 'Shared/DesignPattern/IP_StripePaymentAdapterInterface.php';
 require_once 'IP_StripePaymentService.php';
 require_once __DIR__ . '/Shared/Test/init.php';

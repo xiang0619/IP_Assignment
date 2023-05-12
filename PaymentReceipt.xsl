@@ -1,3 +1,4 @@
+<!-- @author: Tham Jun Yuan --> 
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
@@ -40,13 +41,13 @@
                                 <th>Total</th>
                             </tr>
                         </thead>
-
+                        <xsl:for-each select="paymentReceipt/payment">
                         <tbody>
                             <tr>
                                 <td class="center">1</td>
 
                                 <td>
-                                    <a href="#">google.com</a>
+                                    <xsl:value-of select="transaction_date"/>
                                 </td>
                                 <td class="hidden-xs">
                                     1 year domain registration
@@ -55,18 +56,6 @@
                                 <td>$10</td>
                             </tr>
 
-                            <tr>
-                                <td class="center">2</td>
-
-                                <td>
-                                    <a href="#">yahoo.com</a>
-                                </td>
-                                <td class="hidden-xs">
-                                    5 year domain registration
-                                </td>
-                                <td class="hidden-480"> 5% </td>
-                                <td>$45</td>
-                            </tr>
 
                             <tr>
                                 <td class="center">3</td>
@@ -84,6 +73,7 @@
                                 <td>$250</td>
                             </tr>
                         </tbody>
+                        </xsl:for-each>
                     </table>
                 </div>
 

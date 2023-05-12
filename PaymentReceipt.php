@@ -1,3 +1,62 @@
+<!-- @author: Tham Jun Yuan --> 
+<?php
+    include 'config.php';
+    include './Shared/Helper/EncryptionHelper.php';
+
+    session_start();
+    $z = new EncryptionHelper("Customer");
+
+    // Decrypt customer ID
+    $customerID = $z->decrypt($_SESSION['customerID']);
+
+    // Redirect to customer login page if customer is not logged in
+    if ($customerID == null) {
+        echo '<script>';
+        echo "alert('Please log in first.');";
+        echo '</script>';
+        header("Location: ./CustomerLogin.php");
+    }
+
+    // Retrieve payment details from database
+    $stmt = $dbc->prepare("SELECT * FROM payment WHERE customerID = ?");
+    $stmt->bind_param('i', $customerID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $payment = $result->fetch_assoc();
+    $stmt->close();
+
+    // Create the root element
+    $xml = new SimpleXMLElement('<paymentReceipt/>');
+
+    // Add child elements to the root element using the $payment variable
+    $paymentNode = $xml->addChild('payment');
+    $paymentNode->addChild('paymentID', $payment['paymentID']);
+    $paymentNode->addChild('customerID', $payment['customerID']);
+    $paymentNode->addChild('paymentMethod', $payment['paymentMethod']);
+    $paymentNode->addChild('paymentDate', $payment['paymentDate']);
+    $paymentNode->addChild('productID', $payment['productID']);
+    $paymentNode->addChild('totalPayment', $payment['totalPayment']);
+    $paymentNode->addChild('payment_status', $payment['payment_status']);
+
+    // Save XML to a file
+    $xml->asXML('PaymentReceipt.xml');
+
+    // Load the XML file and XSL stylesheet
+    $xmlDoc = new DOMDocument();
+    $xmlDoc->load('PaymentReceipt.xml');
+
+    $xslDoc = new DOMDocument();
+    $xslDoc->load('PaymentReceipt.xsl');
+
+    // Create an XSLT processor and import the XSL stylesheet
+    $proc = new XSLTProcessor();
+    $proc->importStylesheet($xslDoc);
+
+    // Transform the XML file using the XSL stylesheet and output the result
+    echo $proc->transformToXML($xmlDoc);
+?>
+
+
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -119,7 +178,7 @@ echo date("d-m-Y") ?></span>
                                 <div class="space"></div>
 
                                 <!------ !!!!!!!!!!!!!!!!!!! -------------> 
-                                
+                                <?php echo $html; ?>
 
                                 <div class="space-6"></div>
 

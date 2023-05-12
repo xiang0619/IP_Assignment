@@ -31,7 +31,6 @@
 //    // You can now use the $cardToken variable to create a charge or save the card for later use
 //}
 $totalPay = $_POST['total'];
-echo $totalPay;
 
 include "CartRetrieve.php";
 $xslFile = "Payment.xsl";
@@ -105,7 +104,7 @@ $html = $xslt->transformToXML($xml);
                                     </div>
                                 </div>
 <!--                                <label for="save_card">Save card details to wallet</label>  -->
-                                <button type="submit" name="payBtn" class="btn" style="border: 1px;" >Pay Now</button>
+                                <button type="submit" name="payBtn" class="btn" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" >Pay Now</button>
                                 <input type="hidden" value="<?php echo $totalPay; ?>" id="price" name="price" /> 
                             </form>
                         </div>                        

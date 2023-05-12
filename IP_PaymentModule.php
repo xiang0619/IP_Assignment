@@ -1,6 +1,10 @@
 <?php
 //For the client code that uses the adapter
-
+/**
+ * 
+ *
+ * @author Tham Jun Yuan
+ */
 require_once __DIR__ . '/Shared/DesignPattern/IP_PaymentModuleInterface.php';
 //require_once('/../Shared/DesignPattern/PaymentModuleInterface.php');
 require_once('IP_StripePaymentAdapter.php');
