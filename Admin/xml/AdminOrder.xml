@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Orders>
+    <Order>
+        <paymentID></paymentID>
+        <customerID></customerID>
+        <paymentMethod></paymentDate>
+        <totalPayment></totalPayment>
+        <orderID></orderID>
+        <customerName></customerName>
+    </Order>
+</Orders>
