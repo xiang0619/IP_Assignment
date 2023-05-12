@@ -70,4 +70,16 @@ class AdminProductFacade {
     public function checkNameExist() {
         return $this->adminProductDA->checkNameExist();
     }
+    
+    public function getNoOfCustomer() {
+        return $this->adminProductDA->getNoOfCustomer();
+    }
+    
+    public function retrieveAllOrders() {
+        return $this->adminProductDA->retrieveAllOrders();
+    }
+    
+    public function totalSales() {
+        return $this->adminProductDA->totalSales();
+    }
 }
