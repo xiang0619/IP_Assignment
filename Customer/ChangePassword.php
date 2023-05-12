@@ -16,9 +16,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <?php
             include '../Shared/PHP/CustomerHeader.php';
             
-            $customerID = $_SESSION['customerID'];
-            
-            if($customerID == null){
+            if($_SESSION['customerID'] == null){
                 header("Location : http://localhost/IP_Assignment/Homepage.php");
             }
         ?>

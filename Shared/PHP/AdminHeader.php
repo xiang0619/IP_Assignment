@@ -2,9 +2,7 @@
 <?php
 session_start();
             
-$staffID = $_SESSION['staffID'];
-            
-if($staffID == null){
+if($_SESSION['staffID'] == null){
     header("Location : http://localhost/IP_Assignment/Homepage.php");
 }
 ?>
