@@ -1,3 +1,21 @@
+html::-webkit-scrollbar
+{
+    width: 12px;
+    border: 1px solid black;  /*so the the white border of scrollbar change color*/
+    background: black;
+}
+
+html::-webkit-scrollbar-thumb
+{
+    background: linear-gradient(to bottom, #bdc3c7, #2c3e50);
+    /*background: linear-gradient(to bottom, rgba(94, 205, 223, 0.6), rgba(241, 140, 236, 0.8));*/
+    border-radius: 3px;
+}
+
+html::-webkit-scrollbar-corner { 
+  background: black; 
+}
+
 body{
     min-height: 100vh;
     display: flex;
