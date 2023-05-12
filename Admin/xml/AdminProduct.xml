@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Products>
     <Product>
-        <id>34</id>
-        <name>wsegfew</name>
-        <quantity>34</quantity>
+        <id>2</id>
+        <name>english book</name>
+        <quantity>100</quantity>
         <status>Available</status>
-        <unitPrice>4234.00</unitPrice>
-        <image>FABER-CASTELL-CLICK-X7.jpg</image>
-        <description>3242</description>
-        <productTypeID>6</productTypeID>
-        <uploadDate>2023-05-12</uploadDate>
-        <updatedID>1</updatedID>
-        <updatedDate>2023-05-12</updatedDate>
-        <createID>1</createID>
-        <createdDate>2023-05-12</createdDate>
+        <unitPrice>13.00</unitPrice>
+        <image>https://media.karousell.com/media/photos/products/2022/2/16/eph_english_learning_book__pri_1644983823_bcbfe504_progressive</image>
+        <description>everythings you need to know about Enlish</description>
+        <productTypeID>2</productTypeID>
+        <uploadDate>2023-04-19</uploadDate>
+        <updatedID>S0001</updatedID>
+        <updatedDate>2023-04-19</updatedDate>
+        <createID>S0001</createID>
+        <createdDate>2023-04-19</createdDate>
     </Product>
 </Products>
