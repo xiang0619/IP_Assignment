@@ -1,8 +1,7 @@
 <?php
 include './Shared/Helper/EncryptionHelper.php';
 include 'config.php';
-
-
+    
 if(isset($_POST['submit'])){
     $productid = $_POST['productid'];
     $quantity = $_POST['quantity'];
@@ -10,8 +9,12 @@ if(isset($_POST['submit'])){
     $addCart = $_POST['addCart'];
     $doubleAdd = $_POST['doubleAdd'];
     
+     
     session_start();
-    $customerID = isset($_SESSION['customerID']) ? $_SESSION['customerID'] : null;
+    $z = new EncryptionHelper("Customer");
+    
+    //decrypt id 
+    $customerID= $z->decrypt($_SESSION['customerID']);
 
     if($customerID==null){
         header("Location: ./CustomerLogin.php");
