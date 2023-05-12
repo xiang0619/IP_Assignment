@@ -29,7 +29,9 @@
                     <xsl:for-each select="orders/order">
                         <tr>                           
                             <td>
-                                <xsl:value-of select="orderID"/>
+                                <a href="AdminOrderDetails.php?oid={orderID}" class="text-dark">
+                                    <xsl:value-of select="orderID"/>
+                                </a>
                             </td>
                             <td>
                                 <xsl:value-of select="customerID"/>

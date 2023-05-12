@@ -155,7 +155,7 @@ $productTypeNames = $facade->retrieveProductTypes();
           document.getElementById("products-container1").style.display = "none";
           console.log('getProducts called with category:', category);
           var xhr = new XMLHttpRequest();
-          xhr.open("GET", "AdminProductRESTFilter.php?category=" + category, true);
+          xhr.open("GET", "api/AdminProductRESTFilter.php?category=" + category, true);
           xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
               if (xhr.status == 200) {
@@ -311,7 +311,7 @@ $productTypeNames = $facade->retrieveProductTypes();
           document.getElementById("products-container1").style.display = "none";
           console.log('searchProducts called with productName:', productName);
           var xhr = new XMLHttpRequest();
-          xhr.open("GET", "AdminProductRESTSearch.php?productName=" + productName, true);
+          xhr.open("GET", "api/AdminProductRESTSearch.php?productName=" + productName, true);
           xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
               if (xhr.status == 200) {

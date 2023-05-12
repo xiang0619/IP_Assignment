@@ -42,6 +42,10 @@ class AdminProductFacade {
         $this->adminProductDA->updateAdminProductXML($productID);
     }
     
+    public function updateAdminOrderXML($orderID, $cartID, $customerName, $paymentID, $paymentMethod, $totalPayment) {
+        $this->adminProductDA->updateAdminOrderXML($orderID, $cartID, $customerName, $paymentID, $paymentMethod, $totalPayment);
+    }
+    
     public function retrieveProductTypeName($productTypeID) {
         return $this->adminProductDA->retrieveProductTypeName($productTypeID);
     }
@@ -79,7 +83,15 @@ class AdminProductFacade {
         return $this->adminProductDA->retrieveAllOrders();
     }
     
+    public function retrieveOrderDetails($orderID) {
+        return $this->adminProductDA->retrieveOrderDetails($orderID);
+    }
+    
     public function totalSales() {
         return $this->adminProductDA->totalSales();
+    }
+    
+    public function retrieveCartID($orderID) {
+        return $this->adminProductDA->retrieveCartID($orderID);
     }
 }
