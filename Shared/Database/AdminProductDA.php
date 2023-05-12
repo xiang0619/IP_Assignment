@@ -8,7 +8,7 @@
 /**
  * Description of AdminProductDA
  *
- * @author KahSeng
+ * @author Chin Kah Seng
  */
 include_once '../class/ProductAdmin.php';
 

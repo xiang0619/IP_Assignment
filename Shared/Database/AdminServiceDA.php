@@ -8,7 +8,7 @@
 /**
  * Description of AdminServiceDA
  *
- * @author KahSeng
+ * @author Chin Kah Seng
  */
 
 class AdminServiceDA {

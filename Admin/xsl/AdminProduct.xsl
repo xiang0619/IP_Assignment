@@ -3,7 +3,7 @@
 <!--
     Document   : AdminProduct.xsl
     Created on : 5 May 2023, 5:45 pm
-    Author     : KahSeng
+    Author     : Chin Kah Seng
     Description:
         Purpose of transformation follows.
 -->
