@@ -1,3 +1,4 @@
+<!--Author: Jason Lee Kar Chun -->
 <?php
 // Replace the variables with your database credentials
 $servername = "localhost";
