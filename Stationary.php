@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to edit this template
--->
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -15,7 +11,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     <body>
         <?php
         include './Shared/PHP/CustomerHeader.php';
-        include('config.php');?>
+        require_once 'config.php';
+        ?>
         
         <div class="row m-5">
             
@@ -29,6 +26,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
              <!-- Set list to unlisted style -->
                 <ul class="list-unstyled">
                     <li><a href="?category=all">All</a></li>
+                    <li><a href="./topSalesApi.php">Highest Sales</a></li>
             <?php
            
             
@@ -57,32 +55,43 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     <?php
                     
                     
-                include './Shared/Helper/EncryptionHelper.php';
+                
            
                     $category = isset($_GET['category']) ? $_GET['category'] : 'all';
 
                     // build the SQL query
-                    if ($category == 'all') {
+                    if($category == 'topSales'){
+                        
+                        
+                    }
+                    else
+                    {
+                        if ($category == 'all') {
                       $sql = "select productID,name,status,unitPrice,image, description from product;";
-                    } else {
-                      $sql = "select productID,name,status,unitPrice,image, description from product p, producttype pt  WHERE p.productTypeID=pt.productTypeID AND pt.productTypeName = '{$category}'";
+                      $stmt = $dbc->prepare($sql);
+                    }else {
+                      $sql = "select productID,name,status,unitPrice,image, description from product p, producttype pt  WHERE p.productTypeID=pt.productTypeID AND pt.productTypeName = ?";
+                      $stmt = $dbc->prepare($sql);
+                      $stmt->bind_param('s', $category);
                     }
            
                     
                     
                     
-                    
-            include './class/Product.php';
+                    include './Shared/Helper/EncryptionHelper.php';
+                    include './class/Product.php';
 //            include('config.php');
-            $stmt = $dbc->prepare($sql);
+            
             $stmt->execute(); //execute bind 
-            $stmt->bind_result($id,$name,$status,$unitPrice,$image,$description,); //bind result
+            $stmt->bind_result($id,$name,$status,$unitPrice,$image,$description); //bind result
             while ($stmt->fetch()) {
                         $product = new Product();
                         $product->setId($id);
                         $product->setName($name);
-                        $product->setStatus($status);
-                        $product->setUnitPrice($unitPrice);     
+                        $product->setStatus($status);              
+                        $product->setUnitPrice($unitPrice);
+                        $product->setImage($image);
+                        $product->setDescription($description);
                         
                         
                         $encryptionHelper = new EncryptionHelper("id");
@@ -94,35 +103,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     <!-- One col(column) for each stationery product-->
                     <div class="col">
                         <div class="card m-2" style="width: 16rem; height:30rem">
-                            <img src="Shared/Image/'.$image.'" class="card-img-top" alt="...">
+                            <img src="Shared/Image/'.$product->getImage().'" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">'.$product->getName().'</h5>
-                                <p class="card-text">'.$description.'</p>
+                                <p class="card-text">'.$product->getDescription().'</p>
                                 <a href="./Stationary_Details.php?id='.$eid.'" class="btn btn-primary">Product Detail</a>
                             </div>
                         </div>
                         </div>
                     ';
 
-            }?>
+            }
+                    }
+                    ?>
                     
-<!--                     Make it contribute a row place 
-                    <div class="col w-100 mt-3">
-                        
-                    <nav aria-label="Page navigation example">
-                        
-                         Allocated pagination icon to right side 
-                        <ul class="pagination justify-content-end">
-                            
-                             List page, previous and next button 
-                            <li class="page-item"><a class="page-link primary-color" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link primary-color" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link primary-color" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link primary-color" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link primary-color" href="#">Next</a></li>
-                        </ul>
-                    </nav>
-                </div>-->
                 </div>
             </div>
             

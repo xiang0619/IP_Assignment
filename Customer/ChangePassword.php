@@ -15,6 +15,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     <body>
         <?php
             include '../Shared/PHP/CustomerHeader.php';
+            
+            if($_SESSION['customerID'] == null){
+                header("Location : http://localhost/IP_Assignment/Homepage.php");
+            }
         ?>
         
         <form action="../Validation/CustomerChangePassword.php" method="post">

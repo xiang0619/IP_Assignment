@@ -107,14 +107,19 @@
                         <div class="col-5 fs-4 primary-color"><img src="./Shared/Image/{productImage}" class="m-1" width="150px" height="150px" alt="alt"/><xsl:value-of select="name"/></div>
                         <div class="col-3 fs-4 primary-color m-auto">RM <xsl:value-of select="productPrice"/></div>
                         <div class="col-2 primary-color m-auto">
+                            
+                            
                                 <input type="number" min="1" max="99">
-                                    <xsl:attribute name="onchange" >
-                                        updateDatabase('<xsl:value-of select="cart_id"/>', this.value);
+                                    <xsl:if test="type = 'Service'">
+                                      <xsl:attribute name="disabled">disabled</xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:attribute name="onchange">
+                                      updateDatabase('<xsl:value-of select="cart_id"/>', this.value);
                                     </xsl:attribute>
                                     <xsl:attribute name="value">
-                                        <xsl:value-of select="quantity"/>
+                                      <xsl:value-of select="quantity"/>
                                     </xsl:attribute>
-                                </input>
+                                  </input>
                         </div>
                         <div class="col-2 primary-color m-auto">
                             <button type="button" class="btn btn-danger">

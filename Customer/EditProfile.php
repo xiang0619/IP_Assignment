@@ -17,8 +17,10 @@
             $json_response = null;
             $message1 = null;
             
+            if($_SESSION['customerID'] == null){
+                header("Location : http://localhost/IP_Assignment/Homepage.php");
+            }
             $customerID = $_SESSION['customerID'];
-
             $customerDatabase = new CustomerDatabase();
             $customer = $customerDatabase->getProfile($customerID);
             $encryptionHelper = new EncryptionHelper("Customer");

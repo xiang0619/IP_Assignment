@@ -52,8 +52,6 @@
         $xslFile = "../Admin/xsl/AdminProfile.xsl";
 
         require '../Shared/Database/StaffDatabase.php';
-        //到时候就是从session那边那data
-        //todo: Ng Wen Xiang get id from session
 
         $staffDatabase = new StaffDatabase();
 

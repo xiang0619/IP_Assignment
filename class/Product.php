@@ -4,27 +4,53 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
  */
-
+require_once 'Observer.php';
 /**
  * Description of Product
  *
  * @author huatl
  */
-class Product {
+class Product implements Observer{
 
     private $quantity;
-    private $id,$name,$productTypeID,$status,$unitPrice;
-    
+    private $id,$name,$productTypeID,$status,$unitPrice,$image,$description;
    
-    public function __construct($id=null, $name=null, $productTypeID=null, $status=null, $unitPrice=null,$quantity=null) {
+    public function __construct($id=null, $name=null, $productTypeID=null, $status=null, $unitPrice=null,$quantity=null,$image=null,$description=null) {
         $this->id = $id;
         $this->name = $name;
         $this->productTypeID = $productTypeID;
         $this->status = $status;
         $this->unitPrice = $unitPrice;
         $this->quantity = $quantity;
+        $this->image = $image;
+        $this->description = $description;
     }
-    public function getQuantity() {
+    public function getImage() {
+        return $this->image;
+    }
+    public function update(\Product $p) {
+        $this->id = $p->id;
+        $this->name = $p->name;
+        $this->productTypeID = $p->productTypeID;
+        $this->status = $p->status;
+        $this->unitPrice = $p->unitPrice;
+        $this->quantity = $p->quantity;
+        $this->image = $p->image;
+        $this->description = $p->description;
+    }
+
+    public function getDescription() {
+        return $this->description;
+    }
+    public function setImage($image): void {
+        $this->image = $image;
+    }
+
+    public function setDescription($description): void {
+        $this->description = $description;
+    }
+
+            public function getQuantity() {
         return $this->quantity;
     }
     public function setQuantity($quantity): void {

@@ -29,7 +29,8 @@ include './Shared/Helper/EncryptionHelper.php';
 include './Shared/PHP/CustomerHeader.php';
             include './class/Product.php';
             include('config.php');
-            $stmt = $dbc->prepare("SELECT productID,name,quantity,status,unitPrice,image,description from product where productID ='{$did}'");
+            $stmt = $dbc->prepare("SELECT productID,name,quantity,status,unitPrice,image,description from product where productID = ?");
+            $stmt->bind_param('s',  $did);
             $stmt->execute(); //execute bind 
             $stmt->bind_result($id,$name,$quantity,$status,$unitPrice,$image,$description,); //bind result
             $product = new Product();

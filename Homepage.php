@@ -28,7 +28,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     
                     <!-- Stationery link position -->
                     <div class="col-4">
-                        <a href="#" title="Stationery" class="container w-60">
+                        <a href="./Stationary.php" title="Stationery" class="container w-60">
                             <img class="image" width="400px" src="Shared/Image/_107080905_gettyimages-654239286.jpg">
                             <div class="overlay">
                                 <div class="primary-color fs-2 text">Stationery</div>
@@ -38,7 +38,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     
                     <!-- Service link position -->
                     <div class="col-4">
-                        <a href="#" title="Service" class="container w-80">
+                        <a href="./Service.php" title="Service" class="container w-80">
                             <img class="image" width="400px" src="Shared/Image/Canon-printer-repair-malaysia-1024x576.jpg">
                             <div class="overlay">
                                 <div class="primary-color fs-2 text">Service</div>
