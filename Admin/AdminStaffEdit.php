@@ -192,6 +192,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                                     <option value="">Select a status</option>                   
                                     <option value="employed" <?php if ($statusValue === 'employed') echo 'selected'; ?>>Employed</option> 
                                     <option value="resigned" <?php if ($statusValue === 'resigned') echo 'selected'; ?>>Resigned</option> 
+                                    <option value="disabled" <?php if ($statusValue === 'disabled') echo 'selected'; ?>>Disabled</option>
                                 </select>
                                 <span id="positionError" class="text-danger">
 
