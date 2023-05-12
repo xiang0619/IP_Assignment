@@ -12,7 +12,7 @@ session_start();
     }
 
 // Get the data from the database
-$sql = "SELECT c.cartid, c.customerid,c.type, p.productid,p.name,c.quantity,p.image,p.unitPrice  FROM cart c , product p where c.productID = p. productID AND customerID= '{$customerID}'";
+$sql = "SELECT c.cartid, c.customerid,c.type, p.productid,p.name,c.quantity,p.image,p.unitPrice  FROM cart c , product p where c.productID = p. productID AND customerID= '{$customerID}' AND c.status='pending'";
 $result = $dbc->query($sql);
 
 
@@ -36,7 +36,7 @@ while ($row = $result->fetch_assoc()) {
 
 }
 
-$sql = "SELECT c.cartid, c.customerid,c.type,c.quantity, s.serviceID, s.pricePerPage,c.file FROM cart c , service s where c.serviceID = s.serviceID AND customerID= '{$customerID}'";
+$sql = "SELECT c.cartid, c.customerid,c.type,c.quantity, s.serviceID, s.pricePerPage,c.file FROM cart c , service s where c.serviceID = s.serviceID AND customerID= '{$customerID}' AND c.status='pending'";
 $result = $dbc->query($sql);
 while ($row = $result->fetch_assoc()) {
     
