@@ -1,8 +1,8 @@
 <?php
 
 
-function getData(){
-require_once 'config.php';
+function getData($dbc){
+
 require './class/Product.php';
     $stmt = $dbc->prepare("SELECT  c.productID, SUM(c.quantity) AS total_quantity,p.name,c.status,unitPrice,image,description
 FROM cart c
@@ -17,7 +17,7 @@ ORDER BY total_quantity DESC
        
             $list = new SplDoublyLinkedList();
        
-            $stmt->fetch();
+            while($stmt->fetch()){
                 $product = new Product();
                         $product->setId($productID);
                         $product->setName($name);
@@ -30,9 +30,9 @@ ORDER BY total_quantity DESC
                 //echo $productID.' '.$total.$name.'</br>';
             
 //              echo $product->getName();
+            }
             return $list;
 }
 
 
 ?>
-

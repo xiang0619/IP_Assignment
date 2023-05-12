@@ -1,7 +1,8 @@
 <?php
 require_once './topSalesData.php';
+include 'config.php';
 include './Shared/Helper/EncryptionHelper.php';
-$list= getData();
+$list= getData($dbc);
 
 if(empty($list)){
     echo("Empty Data");
@@ -23,6 +24,34 @@ else
         include './Shared/PHP/CustomerHeader.php';
         echo '<h3>The most Sales Product </h3>'
     . '</body></html>';
+        
+        echo '<div class="row m-5">
+            
+            <!-- Make div to center -->
+            <div class="col-1"></div>
+            
+             <!-- Make it become sidebar -->
+            <div class="col-2 offcanvas-body">
+                
+                
+             <!-- Set list to unlisted style -->
+                <ul class="list-unstyled">
+                    <li><a href="./Stationary.php?category=all">All</a></li>
+                    <li><a href="./topSalesApi.php">Highest Sales</a></li>';
+        
+        
+        $a = $dbc->prepare("select productTypeName from producttype");
+            $a->execute(); //execute bind 
+            $a->bind_result($category); //bind result
+            while ($a->fetch()) {
+               echo '<li><a href="./Stationary.php?category='.$category.'">'.$category.'</a></li>';
+            }
+
+             $a->close();
+        
+             echo '</ul>
+            </div>';
+             
         foreach($list as $item){
                             $encryptionHelper = new EncryptionHelper("id");
                         $eid= $encryptionHelper->encrypt($item->getId());
