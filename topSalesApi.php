@@ -1,3 +1,4 @@
+<!--Author: ONG ENG HUAT-->
 <?php
 require_once './topSalesData.php';
 include 'config.php';
@@ -22,10 +23,13 @@ else
     </head>
     <body>';
         include './Shared/PHP/CustomerHeader.php';
-        echo '<h3>The most Sales Product </h3>'
+        echo ''
     . '</body></html>';
         
-        echo '<div class="row m-5">
+        echo ' 
+
+            <div class="row m-5">
+            
             
             <!-- Make div to center -->
             <div class="col-1"></div>
@@ -50,13 +54,14 @@ else
              $a->close();
         
              echo '</ul>
-            </div>';
-             
+            </div>
+            <!-- Make div to center -->
+            ';
         foreach($list as $item){
                             $encryptionHelper = new EncryptionHelper("id");
                         $eid= $encryptionHelper->encrypt($item->getId());
                             echo'<!-- One col(column) for each stationery product-->
-                    <div class="col">
+                    <div class="col-8">
                         <div class="card m-2" style="width: 16rem; height:30rem">
                             <img src="Shared/Image/'.$item->getImage().'" class="card-img-top" alt="...">
                             <div class="card-body">
@@ -65,7 +70,9 @@ else
                                 <a href="./Stationary_Details.php?id='.$eid.'" class="btn btn-primary">Product Detail</a>
                             </div>
                         </div>
-                        </div>';
+                        </div>
+                        <!-- Make div to center -->
+            <div class="col-1"></div>';
                         }
 include './Shared/PHP/CustomerFooter.php';
    

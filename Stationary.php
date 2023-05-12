@@ -1,4 +1,4 @@
-
+<!--Author: ONG ENG HUAT-->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -67,10 +67,10 @@
                     else
                     {
                         if ($category == 'all') {
-                      $sql = "select productID,name,status,unitPrice,image, description from product;";
+                      $sql = "select productID,name,status,unitPrice,image, description from product where status = 'Available';";
                       $stmt = $dbc->prepare($sql);
                     }else {
-                      $sql = "select productID,name,status,unitPrice,image, description from product p, producttype pt  WHERE p.productTypeID=pt.productTypeID AND pt.productTypeName = ?";
+                      $sql = "select productID,name,status,unitPrice,image, description from product p, producttype pt  WHERE p.productTypeID=pt.productTypeID AND pt.productTypeName = ? AND status = 'Available'";
                       $stmt = $dbc->prepare($sql);
                       $stmt->bind_param('s', $category);
                     }

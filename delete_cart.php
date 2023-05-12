@@ -1,4 +1,6 @@
-<?php
+
+<!--Author: ONG ENG HUAT-->
+    <?php
 $id = $_GET['id'];
 
 include 'config.php';
