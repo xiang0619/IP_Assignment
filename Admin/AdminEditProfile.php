@@ -41,6 +41,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 </head>
 <body>
     <?php
+            include '../Shared/PHP/AdminHeader.php';
+    ?>
+    <?php
     require '../Shared/Database/StaffDatabase.php';
 
     $json_response = null;
