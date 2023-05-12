@@ -80,7 +80,7 @@
             </script>
             </head>
             <body>
-                <form action="./Payment.php" method="post">
+                
                 <div class="row m-5">
 
 
@@ -154,7 +154,7 @@
                 </div>
 
             </div>
-        </form>
+        
                 
                 
                 
