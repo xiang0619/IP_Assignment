@@ -1,3 +1,4 @@
+<!--Author: NG WEN XIANG-->
 <?php
 
 include '../Shared/Helper/EncryptionHelper.php';
@@ -38,7 +39,8 @@ class CustomerDatabase implements ProfileObserver {
         }
     }
 
-    public function getCustomerByEmail($email){
+    public function getCustomerByEmail($email)
+    {
         self::$pdo->open();
         
         $stmt = self::$pdo->prepare('SELECT * FROM customer WHERE email = ?');
@@ -59,7 +61,8 @@ class CustomerDatabase implements ProfileObserver {
         }
     }
     
-    public function updateProfile($customer) {
+    public function updateProfile($customer) 
+    {
         self::$pdo->open();
         
         $stmt = self::$pdo->prepare('UPDATE customer SET customerName = ?, mobile = ? WHERE customerId = ?');
@@ -80,7 +83,8 @@ class CustomerDatabase implements ProfileObserver {
         }
     }
     
-    public function updatePassword($id,$password) {
+    public function updatePassword($id,$password) 
+    {
         self::$pdo->open();
         
         $password = password_hash($password, PASSWORD_DEFAULT);

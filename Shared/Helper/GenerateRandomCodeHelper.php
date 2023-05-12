@@ -1,3 +1,4 @@
+<!--Author: NG WEN XIANG-->
 <?php
 
 class GenerateRandomCodeHelper {
