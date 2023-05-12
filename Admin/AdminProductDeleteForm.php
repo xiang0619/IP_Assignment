@@ -14,7 +14,7 @@ $facade = new AdminProductFacade($pdo);
 $facade->updateAdminProductXML($productID);
 
 // Load the XML file
-$xml = simplexml_load_file('AdminProduct.xml');
+$xml = simplexml_load_file('../Admin/xml/AdminProduct.xml');
 $productTypeID = $xml->Product->productTypeID;
 $productTypeName = $facade->retrieveProductTypeName($productTypeID);
 

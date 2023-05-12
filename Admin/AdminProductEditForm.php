@@ -101,7 +101,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             $productTypeNames = $facade->retrieveProductTypes();
             $product = $facade->retrieveProduct($productID);
 
-            $staffID = $_GET['staffID'];
+            $staffID = $_SESSION['staffID'];
             $encryptionHelper = new EncryptionHelper("Staff");
             $encryptStaffID = $encryptionHelper->decrypt($staffID);
         ?>

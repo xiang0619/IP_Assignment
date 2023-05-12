@@ -53,7 +53,7 @@ if(isset($_POST['submit'])){
         exit();
     }
     
-    if(!password_verify($oldPassword, $customer->getPassword())){
+    if(!password_verify($oldPassword, $staff->getPassword())){
         echo '<script>';
         echo 'alert("Invalid old password!!");';
         echo 'window.location.href = "http://localhost/IP_Assignment/Admin/AdminChangePassword.php";';
@@ -69,7 +69,7 @@ if(isset($_POST['submit'])){
         exit();
     }
     
-    if(password_verify($oldPassword, $customer->getPassword()) 
+    if(password_verify($oldPassword, $staff->getPassword()) 
             && $newPassword == $rePassword){
         
         $staffDatabase->updatePassword($staff->getId(), $newPassword);
