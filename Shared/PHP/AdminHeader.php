@@ -6,6 +6,10 @@
     if($_SESSION['staffID'] == null){
       header("Location : http://localhost/IP_Assignment/Homepage.php");
     }
+    
+    /**
+     * @author Chin Kah Seng
+    */
    ?>
 
 <html>

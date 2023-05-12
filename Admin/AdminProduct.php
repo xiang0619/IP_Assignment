@@ -16,6 +16,10 @@ $html = $xslt->transformToXML($xml);
 
 require_once '../Shared/DesignPattern/AdminProductFacade.php';
 
+/**
+ * @author Chin Kah Seng
+ */
+
 $host = "localhost";
 $dbname = "ip";
 $user = "root";

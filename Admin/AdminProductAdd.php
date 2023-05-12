@@ -1,6 +1,9 @@
 <?php
 
 include '../Shared/DesignPattern/AdminProductFacade.php';
+/**
+ * @author Chin Kah Seng
+ */
 
 $name = $_POST["name"];
 $quantity = $_POST["quantity"];

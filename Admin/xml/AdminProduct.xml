@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Products>
     <Product>
-        <id>2</id>
-        <name>english book</name>
+        <id>1</id>
+        <name>Pen</name>
         <quantity>100</quantity>
         <status>Available</status>
-        <unitPrice>13.00</unitPrice>
-        <image>https://media.karousell.com/media/photos/products/2022/2/16/eph_english_learning_book__pri_1644983823_bcbfe504_progressive</image>
-        <description>everythings you need to know about Enlish</description>
-        <productTypeID>2</productTypeID>
+        <unitPrice>11.00</unitPrice>
+        <image>PILOT-BL-G2-10-M.jpg</image>
+        <description>pen</description>
+        <productTypeID>1</productTypeID>
         <uploadDate>2023-04-19</uploadDate>
-        <updatedID>S0001</updatedID>
+        <updatedID>1</updatedID>
         <updatedDate>2023-04-19</updatedDate>
-        <createID>S0001</createID>
+        <createID>1</createID>
         <createdDate>2023-04-19</createdDate>
     </Product>
 </Products>

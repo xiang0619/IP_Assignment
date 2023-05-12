@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Description of ProductAdmin
+ *
+ * @author Chin Kah Seng
+ */
+
 header("Content-Type:application/json");
 $servername = "localhost";
 $username = "root";

@@ -2,6 +2,10 @@
 
 include '../Shared/DesignPattern/AdminProductFacade.php';
 
+/**
+ * @author Chin Kah Seng
+ */
+
 $productID = $_GET["id"];
 
 $host = "localhost";

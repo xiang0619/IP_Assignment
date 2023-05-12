@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Chin Kah Seng
+ */
+
 include '../Shared/DesignPattern/AdminProductFacade.php';
 
 $productTypeName = $_POST["productTypeName"];

@@ -8,7 +8,7 @@
 /**
  * Description of ProductAdmin
  *
- * @author KahSeng
+ * @author Chin Kah Seng
  */
 class ProductAdmin {
     private $productID,$name,$uploadDate,$quantity,$status,$unitPrice,$updatedID,$updatedDate,$createID,$createdDate,$image,$description, $productTypeID;

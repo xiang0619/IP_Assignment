@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Description of ProductAdmin
+ *
+ * @author Chin Kah Seng
+ */
+
 include '../Shared/DesignPattern/AdminProductFacade.php';
 
 $productTypeOldName = $_POST["category"];

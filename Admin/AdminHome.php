@@ -2,6 +2,9 @@
 require_once '../Shared/DesignPattern/AdminProductFacade.php';
 require_once '../Shared/DesignPattern/AdminServiceFacade.php';
 
+/**
+ * @author Chin Kah Seng
+ */
 
 $host = "localhost";
 $dbname = "ip";

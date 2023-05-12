@@ -1,5 +1,8 @@
 <?php
 require_once '../Shared/DesignPattern/AdminProductFacade.php';
+/**
+ * @author Chin Kah Seng
+ */
 
 $productID = $_GET['id'];
 
