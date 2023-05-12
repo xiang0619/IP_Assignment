@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="PaymentReceipt.xsl"?>
+<!DOCTYPE paymentReceipt SYSTEM "PaymentReceipt.dtd">
+
+<paymentReceipt>
+  <order_id>12345</order_id>
+  <customer_id>67890</customer_id>
+  <customer>
+    <name>John Doe</name>
+    <email>johndoe@example.com</email>
+    <phone>123-456-7890</phone>
+  </customer>
+  <items>
+    <item>
+      <name>Product A</name>
+      <quantity>2</quantity>
+      <price>10.00</price>
+    </item>
+    <item>
+      <name>Product B</name>
+      <quantity>1</quantity>
+      <price>20.00</price>
+    </item>
+  </items>
+  <payment>
+    <payment_method>Stripe</payment_method>
+    <transaction_amount>40.00</transaction_amount>
+    <transaction_date>2023-05-11T13:15:00</transaction_date>
+    <payment_status>Success</payment_status>
+    <payment_gateway_response>Payment processed successfully</payment_gateway_response>
+    <transaction_type>Sale</transaction_type>
+    <currency>USD</currency>
+    <stripe_charge_id>ch_1234567890</stripe_charge_id>
+  </payment>
+</paymentReceipt>
+
+
+<root>
+</root>
+

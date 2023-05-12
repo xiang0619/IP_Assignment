@@ -1,10 +1,57 @@
+<?php //
+//require_once('Shared/Stripe/init.php'); // Include Stripe PHP library
+//
+//\Stripe\Stripe::setApiKey('sk_test_51N4IUNEd7cmSO65bnsVFQ59rs2hxKJvANEV2ZPsrcuw2Lvl3MNkr8dJhbadm5Yowv2cxrcc52xAMvr0lUBX9IiSW00y2ZokQ5z');
+//
+//if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//    $cardNumber = $_POST['cardNumber'];
+//    $card = [
+//        'number' => $cardNumber,
+//        'exp_month' => $_POST['expMonth'],
+//        'exp_year' => $_POST['expYear'],
+//        'cvc' => $_POST['cvc']
+//    ];
+//
+//    try {
+//        // Use the Stripe PHP library to validate the card number
+//        $cardToken = \Stripe\Token::create(['card' => $card]);
+//    } catch (\Stripe\Exception\CardException $e) {
+//        // Card is invalid
+//        $error = $e->getError();
+//        $message = $error['message'];
+//        // Display an error message to the user
+//    } catch (\Stripe\Exception\InvalidRequestException $e) {
+//        // Invalid parameters were supplied to Stripe's API
+//        $error = $e->getError();
+//        $message = $error['message'];
+//        // Display an error message to the user
+//    }
+//
+//    // If there were no exceptions, the card is valid
+//    // You can now use the $cardToken variable to create a charge or save the card for later use
+//}
+$totalPay = $_POST['total'];
+
+include "CartRetrieve.php";
+$xslFile = "Payment.xsl";
+
+$_SESSION['customerID'];
+
+
+// Apply the XSLT stylesheet to the XML data
+$xslt = new XSLTProcessor();
+$xsldoc = new DOMDocument();
+$xsldoc->load($xslFile);
+$xslt->importStylesheet($xsldoc);
+$html = $xslt->transformToXML($xml);
+?>
+
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to edit this template
--->
+
 <html>
     <head>
+        <!-- Stripe JS Link -->
+        <script src="https://js.stripe.com/v3/"></script>
         <meta charset="UTF-8">
         <link href="Shared/CSS/PaymentCSS.css" rel="stylesheet" type="text/css"/>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -18,7 +65,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 
         <div class="card">
             <div class="card-top border-bottom text-center">
-                <a href="#"> Back to shop</a>
+                <a href = "javascript:history.back()"> Back to cart</a>
                 <span id="logo"><img src="<?php
                     $thisPath = dirname($_SERVER['PHP_SELF']);
                     if ($thisPath != "/IP_Assignment") {
@@ -33,7 +80,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                                     <span id="payment"><span id="three">3</span>Payment</span>
                                 </div>-->
                 <div class="row">
-                    <div class="col-md-7">
+                <div class="col-md-7">
                         <div class="left border">
                             <div class="row">
                                 <span class="header">Payment</span>
@@ -43,29 +90,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                                     <img src="https://img.icons8.com/color/48/000000/maestro.png"/>
                                 </div>
                             </div>
-                            <form action="" method="post" name="cardpayment" id="payment-form">
+                            <form action="PaymentProcess.php" method="post" name="cardpayment" id="payment-form">
                                 <span>Cardholder's name:</span>
-                                <input placeholder="Linda Williams">
+                                <input type="text" onkeydown="return /[a-z ]/i.test(event.key)" required>
                                 <span>Card Number:</span>
-                                <input placeholder="0125 6780 4567 9909">
+                                <input type="text" name="cardNumber" pattern="/^-?\ d*[.]?\ d*$/" maxlength="19" id="cardNumber" placeholder="0125 6780 4567 9909" required oninput="formatCardNumber(this)">
                                 <div class="row">
                                     <div class="col-4"><span>Expiry date:</span>
-                                        <input placeholder="YY/MM">
+                                        <input type="text" name="expDate" maxlength="5" placeholder="YY/MM" id="expDate"   required>
                                     </div>
                                     <div class="col-4"><span>CVV:</span>
-                                        <input id="cvv">
+                                        <input id="cvv" type="text" maxlength="3" name="cvv" onkeypress="return /[0-9]/i.test(event.key)" required>
                                     </div>
                                 </div>
-                                <input type="checkbox" id="save_card" class="align-left">
-                                <label for="save_card">Save card details to wallet</label>  
+<!--                                <label for="save_card">Save card details to wallet</label>  -->
+                                <button type="submit" name="payBtn" class="btn" style="border: 1px;" >Pay Now</button>
+                                <input type="hidden" value="<?php echo $totalPay; ?>" id="price" name="price" /> 
                             </form>
                         </div>                        
                     </div>
                     <div class="col-md-5">
                         <div class="right border">
                             <div class="header">Order Summary</div>
-                            <p>2 items</p>
-                            <div class="row item">
+                            <p>Items</p>
+                            <?php echo $html; ?>
+                            
+<!--                            <div class="row item">
                                 <div class="col-4 align-self-center"><img class="img-fluid" src="https://i.imgur.com/79M6pU0.png"></div>
                                 <div class="col-8">
                                     <div class="row"><b>$ 26.99</b></div>
@@ -80,11 +130,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                                     <div class="row text-muted">Be Legandary Lipstick-Sheer Navy Cream</div>
                                     <div class="row">Qty:1</div>
                                 </div>
-                            </div>
+                            </div>-->
                             <hr>
-                            <div class="row lower">
+<!--                            <div class="row lower">
                                 <div class="col text-left">Subtotal</div>
-                                <div class="col text-right">$ 46.98</div>
+                                <div class="col text-right">RM </div>
                             </div>
                             <div class="row lower">
                                 <div class="col text-left">Delivery</div>
@@ -92,13 +142,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             </div>
                             <div class="row lower">
                                 <div class="col text-left"><b>Total to pay</b></div>
-                                <div class="col text-right"><b>$ 46.98</b></div>
+                                <div class="col text-right"><b>RM </b></div>
+                            </div>-->
+                           
+                            <div class="form-group">
+                                <div class="payment-errors"></div>
                             </div>
-                            <div class="row lower">
-                                <div class="col text-left"><a href="#"><u>Add promo code</u></a></div>
-                            </div>
-                            <button class="btn">Place order</button>
-                            <p class="text-muted text-center">Complimentary Shipping & Returns</p>
                         </div>
                     </div>
                 </div>
@@ -111,9 +160,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 
 
     </body>
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript">
         Stripe.setPublishableKey('pk_test_51N4IUNEd7cmSO65bAEw99nd491msbDeRat7hyJma1gaqawVW1LFZ195NJ2yewOSO2vqKagl8VkJCVDuskAy4hqd500LOTNbp8k');
+        
+
+        //Auto space after every 4 digits
+        function formatCardNumber(input) {
+            // Remove all non-digits from the input string
+            var inputNumber = input.value.replace(/\D/g, '');
+
+            // Insert a space after every 4 digits
+            var formattedNumber = inputNumber.replace(/(\d{4})(?=\d)/g, '$1 ');
+
+            // Update the input field with the formatted number
+            input.value = formattedNumber;
+        }
+
+
         $(function () {
             var $form = $('#payment-form');
             $form.submit(function (event) {
