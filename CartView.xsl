@@ -27,7 +27,7 @@
                 <link href="../Shared/CSS/SharedCSS.css" rel="stylesheet" type="text/css"/>
                 <title>Cart</title>
                 <script>
-                function deleteCart(id) {
+                function deleteCart(id,type) {
                    
                     var xhr = new XMLHttpRequest();
                     xhr.open('GET', 'delete_cart.php?id=' + id, true);

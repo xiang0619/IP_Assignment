@@ -3,28 +3,25 @@ $id = $_GET['id'];
 
 include 'config.php';
 
+        $stmt = $dbc->prepare("SELECT file from cart where cartID = ?");
+        $stmt->execute([$id]); // pass the value of $id as an argument to execute()
+        $stmt->bind_result($file); // bind result
+        $stmt->fetch();
 
-
-    
-            $stmt = $dbc->prepare("SELECT file from cart where cartID ='{$id}'");
-            $stmt->execute(); //execute bind 
-            $stmt->bind_result($file); //bind result
-            $stmt->fetch();
+        $stmt->close(); // free the result set
 
         $file_path = "./Shared/pdfFile/".$file;
 
-        if (file_exists($file_path)) {
-            include 'config.php';
-            $a = $dbc->prepare("delete from cart where cartID ='{$id}'");
-            $a->execute(); //execute bind 
-            unlink($file_path);
-               
-                
-        } else {
-                 include 'CartView.php';
-                 header("Location: CartView.php");
+        if($file!=null){
+            if (file_exists($file_path)) {
+                unlink($file_path);
+            }
         }
-include 'CartView.php';
-header("Location: CartView.php");
+
+        $a = $dbc->prepare("delete from cart where cartID = ?");
+        $a->execute([$id]); // pass the value of $cartid as an argument to execute()
+
+        $a->close(); // free the result set
+
 ?>
 

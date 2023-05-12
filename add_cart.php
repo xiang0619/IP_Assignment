@@ -138,11 +138,6 @@ if(isset($_POST['submit'])){
                $path = $target_file;
                 $totalPages = check($path);
 
-                
-
-
-
-            
                 //update database
                 
                 $stmt = $dbc->prepare("insert into cart (customerID, status, serviceID,type,quantity,file,downloadStatus) "
