@@ -106,12 +106,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             
           <div class="card border rounded-3">             
             <div class="card-header text-center">
-              <h4>Add Product Type</h4>
+              <h4>Edit Product Type</h4>
             </div>
             <div class="card-body ms-1 me-1">
-              <form method="post" action="AdminProductTypeAdd.php" id="addProductTypeForm" enctype="multipart/form-data" onsubmit="return showConfirmationDialog()">
+              <form method="post" action="AdminProductTypeEdit.php" id="editProductTypeForm" enctype="multipart/form-data" onsubmit="return showConfirmationDialog()">
                 <div class="mb-3">
-                  <label for="productTypeName" class="form-label mt-2">Product Type Name:</label>
+                  <label for="category" class="form-label mt-2">Product Type:</label>
+                  <select class="form-control" id="category" name="category" required>
+                    <option value="">Select a product type name you wish to edit</option>                   
+                    <?php foreach ($productTypeNames as $productType) { ?>
+                        <option value="<?php echo $productType['productTypeName']; ?>"><?php echo $productType['productTypeName']; ?></option>
+                    <?php } ?>
+                  </select>
+                  <span id="categoryError" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                  <label for="productTypeName" class="form-label mt-2">Product Type New Name:</label>
                   <input type="text" class="form-control" id="productTypeName" name="productTypeName" required>
                   <span id="productTypeNameError" class="text-danger"></span>
                 </div>
@@ -122,7 +132,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                   </div>
                 </div>
                 <div class="row mt-4">
-                   <p style="text-align: center;"><a href="AdminProductTypeEditForm.php">Edit Product Type?</a></p>
+                   <p style="text-align: center;"><a href="AdminProductTypeAddForm.php">Add Product Type?</a></p>
                 </div>
               </form>
             </div>
@@ -174,46 +184,43 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             // If the name input is not empty, clear any error message
             document.getElementById("productTypeNameError").textContent = "";
 
-            // Check if the name already exists in the product names array
-            var productTypeNames = <?php echo json_encode($productTypeNames); ?>;
-            var index = -1;
-            for (var i = 0; i < productTypeNames.length; i++) {
-              if (productTypeNames[i]['productTypeName'] === productTypeNameValue) {
-                index = i;
-                break;
-              }
-            }
-
-            if (index >= 0) {
-              // If the name already exists in the array, display an error message and return false
-              document.getElementById("productTypeNameError").textContent = "*This product type name has been registered.";
-              return false;
-            } else {
-              // If the name does not exist in the array, clear any error message and return true
-              document.getElementById("productTypeNameError").textContent = "";
-              return true;
-            }
+            return true;
         }
     }
     
     document.getElementById("productTypeName").addEventListener("input", validateProductTypeName);
     
+    function validateCategory() {
+        var categoryInput = document.getElementById("category");
+        var categoryValue = categoryInput.value;
+        
+        if (categoryValue === "") {
+            document.getElementById("categoryError").textContent = "*Please select a product type name you wish to edit.";
+            return false;
+        } else {
+            document.getElementById("categoryError").textContent = "";
+            return true;
+        }
+    }
+    
     function validateForm() {
         // Get the values of all input fields
         var productTypeNameValue = document.getElementById("productTypeName").value;
+        var categoryValue = document.getElementById("category").value;
         
         // Check if all fields are valid
         var isProductTypeNameValid = validateProductTypeName(productTypeNameValue);     
+        var isCategoryValid = validateCategory(categoryValue);
         
         // If any field is invalid, prevent the form from submitting and display error messages
-        if (!isProductTypeNameValid) {
+        if (!isProductTypeNameValid || !isCategoryValid) {
             event.preventDefault(); // Prevent the form from submitting
             return false;
         } else {
             // show confirmation dialog
             const confirmationDialog = document.querySelector('.confirmationDialog');
             const yesButton = confirmationDialog.querySelector('.btn-primary');
-            const form = document.getElementById('addProductTypeForm');
+            const form = document.getElementById('editProductTypeForm');
             yesButton.addEventListener('click', function() {
               form.submit();
             });

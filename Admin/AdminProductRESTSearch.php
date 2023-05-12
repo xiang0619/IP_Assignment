@@ -17,7 +17,7 @@ try {
 
 if (!empty($_GET['productName'])) {
   $productName = $_GET['productName'];
-  $sql = "SELECT * FROM product WHERE name=:productName";
+  $sql = "SELECT * FROM product WHERE name LIKE CONCAT('%', :productName, '%')";
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(':productName', $productName);
   $stmt->execute();

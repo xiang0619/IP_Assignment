@@ -79,8 +79,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 		<h1>Products</h1>
 	</main>
         
-        <main class="container-fluid">	         
-          <div class="table-responsive">          
+        <main class="container mx-auto mt-5 mb-5" style="max-width: 600px;">	 
+          <div class="card border rounded-3">
+            <div class="card-header text-center">
+              <h4>Product Details</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">          
             <table class="table table-hover mx-auto" style="max-width: 600px;">
               <tbody>
                 <tr>
@@ -139,6 +144,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </tr>
               </tbody>
             </table>
+          </div>
+            </div>
           </div>
         </main>
         </div>

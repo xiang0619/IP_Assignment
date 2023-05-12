@@ -58,6 +58,14 @@ class AdminProductDA {
         return $product;
     }
     
+    public function checkNameExist() {
+        $query = "SELECT name FROM product";
+        $pstmt = $this->conn->prepare($query);
+        $pstmt->execute();
+        $product = $pstmt->fetchAll(PDO::FETCH_ASSOC);
+        return $product;
+    }
+    
     public function retrieveAll() {
         $query = "SELECT * FROM product";
         $pstmt = $this->conn->prepare($query);
@@ -107,7 +115,7 @@ class AdminProductDA {
         $productElement->getElementsByTagName('productTypeID')->item(0)->nodeValue = $newProductTypeID;
 
         // Save the updated XML document to disk
-        $xmlDoc->save('AdminProduct.xml');
+        $xmlDoc->save('xml/AdminProduct.xml');
         return $product;
     }
     
@@ -161,6 +169,17 @@ class AdminProductDA {
         $query = "DELETE FROM product WHERE productID = ?";
         $pstmt = $this->conn->prepare($query);
         $pstmt->bindParam(1, $productID);
+        $pstmt->execute();
+        
+        header("Location: AdminProduct.php");
+        exit();
+    }
+    
+    public function editProductType($productTypeOldName, $productTypeNewName) {
+        $query = "UPDATE producttype SET productTypeName = ? WHERE productTypeName = ?";
+        $pstmt = $this->conn->prepare($query);
+        $pstmt->bindParam(1, $productTypeNewName);
+        $pstmt->bindParam(2, $productTypeOldName);       
         $pstmt->execute();
         
         header("Location: AdminProduct.php");
