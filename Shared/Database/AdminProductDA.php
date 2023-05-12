@@ -185,4 +185,28 @@ class AdminProductDA {
         header("Location: AdminProduct.php");
         exit();
     }
+    
+    public function getNoOfCustomer() {
+        $query = "SELECT COUNT(*) FROM customer";
+        $pstmt = $this->conn->prepare($query);
+        $pstmt->execute();
+        $result = $pstmt->fetchColumn();      
+        return $result;
+    }
+    
+    public function retrieveAllOrders() {
+        $query = "SELECT * FROM payment";
+        $pstmt = $this->conn->prepare($query);
+        $pstmt->execute();
+        $order = $pstmt->fetchAll(PDO::FETCH_ASSOC);
+        return $order;
+    }
+    
+    public function totalSales() {
+        $query = "SELECT SUM(totalPayment) FROM payment";
+        $pstmt = $this->conn->prepare($query);
+        $pstmt->execute();
+        $result = $pstmt->fetchColumn();      
+        return $result;
+    }
 }

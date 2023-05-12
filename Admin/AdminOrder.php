@@ -1,3 +1,30 @@
+<?php
+require_once '../Shared/DesignPattern/AdminProductFacade.php';
+require_once '../Shared/DesignPattern/AdminServiceFacade.php';
+
+
+$host = "localhost";
+$dbname = "ip";
+$user = "root";
+$password = "";
+$dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
+
+$pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
+$facade = new AdminProductFacade($pdo);
+$facadeS = new AdminServiceFacade($pdo);
+$orders = $facade->retrieveAllOrders();
+
+include "AdminOrderRetrieve.php";
+$xslFile = "xsl/AdminOrder.xsl";
+
+// Apply the XSLT stylesheet to the XML data
+$xslt = new XSLTProcessor();
+$xsldoc = new DOMDocument();
+$xsldoc->load($xslFile);
+$xslt->importStylesheet($xsldoc);
+$html = $xslt->transformToXML($xml);
+
+?>
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -51,11 +78,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <!-- Main Content Area -->
         <div>
 	<main class="container-fluid mb-4 mt-4 text-center" style="">
-		<h1>Report</h1>
+		<h1>Orders</h1>
 	</main>
         
+        
+        
         <main class="container-fluid">
-		
+		<div id="products-container1">
+                    <?php echo $html; ?>
+                </div>
         </main>
         </div>
     </body>

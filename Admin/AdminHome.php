@@ -1,3 +1,23 @@
+<?php
+require_once '../Shared/DesignPattern/AdminProductFacade.php';
+require_once '../Shared/DesignPattern/AdminServiceFacade.php';
+
+
+$host = "localhost";
+$dbname = "ip";
+$user = "root";
+$password = "";
+$dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
+
+$pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
+$facade = new AdminProductFacade($pdo);
+$facadeS = new AdminServiceFacade($pdo);
+$productTypeNames = $facade->retrieveProductTypes();
+$noOfCustomer = $facade->getNoOfCustomer();
+$orders = $facade->retrieveAllOrders();
+$totalSales = $facade->totalSales();
+
+?>
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -54,33 +74,34 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="card mb-3">
-					<div class="card-header">
+					<div class="card-header bg-info">
 						<h5 class="card-title">Sales</h5>
 					</div>
 					<div class="card-body">
-						<h1>$10,000</h1>
-						<p class="card-text text-success">+15% since last month</p>
+						<h1>RM <?php echo $totalSales ?></h1>
+						
 					</div>
 				</div>
 				
 				<div class="card">
-					<div class="card-header">
+					<div class="card-header bg-success">
                                             <h5 class="card-title">Users</h5>
                                             				</div>
 				<div class="card-body">
-					<h1>1,000</h1>
-					<p class="card-text text-success">+10% since last month</p>
+					<h1><?php echo $noOfCustomer ?></h1>
+					
 				</div>
 			</div>
 			
 			<div class="card mt-3">
-				<div class="card-header">
+				<div class="card-header bg-danger">
 					<h5 class="card-title">Categories</h5>
 				</div>
 				<div class="card-body">
 					<ul class="list-group">
-						<li class="list-group-item">Stationery</li>
-						<li class="list-group-item">Printing Service</li>					
+						<?php foreach ($productTypeNames as $productType) { ?>
+                                                    <li class="list-group-item"><?php echo $productType['productTypeName']; ?></li>
+                                                <?php } ?>						
 					</ul>
 				</div>
 			</div>
@@ -88,10 +109,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 		
 		<div class="col-lg-9">
 			<div class="card mb-3">
-				<div class="card-header">
+				<div class="card-header bg-warning">
 					<h5 class="card-title">Recent Orders</h5>
 				</div>
-				<div class="card-body">
+				<div class="card-body" style="height: 425px;">
 					<table class="table">
 						<thead>
 							<tr>
@@ -102,37 +123,25 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>123</td>
-								<td>ABC</td>
-								<td>2023-04-25</td>
-								<td>$500.00</td>
-							</tr>
-							<tr>
-								<td>124</td>
-								<td>DEF</td>
-								<td>2023-04-26</td>
-								<td>$250.00</td>
-							</tr>
-							<tr>
-								<td>125</td>
-								<td>GHI</td>
-								<td>2023-04-27</td>
-								<td>$750.00</td>
-							</tr>
+							<?php foreach ($orders as $order): if($order['orderID'] != null || $order['orderID'] != "") {?>
+                                                            <tr>
+                                                                <td><?php echo $order['orderID']; ?></td>                                                           
+                                                                <td>
+                                                                    <?php
+                                                                        $customerName = $facadeS->retrieveCustomerName($order['customerID']);
+                                                                        echo $customerName['customerName'];
+                                                                    ?>
+                                                                </td>
+                                                                <td><?php echo $order['paymentDate']; ?></td>
+                                                                <td>RM <?php echo $order['totalPayment']; ?></td>                                                              
+                                                            </tr>
+                                                          <?php } endforeach; ?> 
 						</tbody>
 					</table>
 				</div>
 			</div>
 			
-			<div class="card">
-				<div class="card-header">
-					<h5 class="card-title">Sales Chart</h5>
-				</div>
-				<div class="card-body">
-					<canvas id="salesChart" width="400" height="200"></canvas>
-				</div>
-			</div>
+			
                 </div>
                 </div>
         </main>
@@ -142,33 +151,4 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 
 <!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
-<script>
-	// Create a chart
-	var ctx = document.getElementById('salesChart').getContext('2d');
-	var myChart = new Chart(ctx, {
-		type: 'line',
-		data: {
-			labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-			datasets: [{
-				label: 'Sales',
-				data: [1000, 2000, 1500, 3000, 2500, 4000],
-				borderColor: 'rgb(255, 99, 132)',
-				fill: false
-			}]
-		}
-	});
-	
-	// Add event listeners to the sidebar menu items
-	var sidebarItems = document.querySelectorAll('.sidebar-nav a');
-	sidebarItems.forEach(function(item) {
-		item.addEventListener('click', function() {
-			// Remove the "active" class from all items
-			sidebarItems.forEach(function(item) {
-				item.classList.remove('active');
-			});
-			
-			// Add the "active" class to the clicked item
-			item.classList.add('active');
-		});
-	});
-</script>
+

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<?php
-session_start();
-            
-if($_SESSION['staffID'] == null){
-    header("Location : http://localhost/IP_Assignment/Homepage.php");
-}
-?>
+
+   <?php
+    session_start();
+
+    if($_SESSION['staffID'] == null){
+        header("Location : http://localhost/IP_Assignment/Homepage.php");
+    }
+   ?>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -55,7 +57,7 @@ if($_SESSION['staffID'] == null){
                             <a class="nav-link" id="adminService1" href="AdminService.php">Services</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="adminReport1" href="AdminReport.php">Report</a>
+                            <a class="nav-link" id="adminReport1" href="AdminOrder.php">Orders</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="adminStaff" href="AdminStaff.php">Staff</a>
@@ -112,10 +114,10 @@ if($_SESSION['staffID'] == null){
                                     <a class="nav-link" id="adminService2"  href="AdminService.php">Services</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="adminReport2" href="AdminReport.php">Report</a>
+                                    <a class="nav-link" id="adminReport2" href="AdminOrder.php">Orders</a>
                                 </li> 
                                  <li class="nav-item">
-                                    <a class="nav-link" id="adminStaff2" href="AdminReport.php">Staff</a>
+                                    <a class="nav-link" id="adminStaff2" href="AdminStaff.php">Staff</a>
                                 </li>
                                 <hr class="bg-dark border-1 border-top border-light">
                                 <li class="nav-item">
