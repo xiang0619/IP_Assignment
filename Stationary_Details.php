@@ -41,9 +41,12 @@ include './Shared/PHP/CustomerHeader.php';
                         $product->setStatus($status);
                         $product->setUnitPrice($unitPrice);     
                         $product->setQuantity($quantity);
+                        $product->setImage($image);
+                        $product->setDescription($description);
                         
                         
             }
+            $stmt->close(); 
             
             if($product!=null){
                 echo '
@@ -69,7 +72,7 @@ include './Shared/PHP/CustomerHeader.php';
                     <!-- Contribute 5/12 in a row, image position -->
                     <div class="col-5">
                     
-                        <img src=./Shared/Image/'.$image.' class="rounded float-start w-100 shadow" alt=""/>
+                        <img src=./Shared/Image/'.$product->getImage().' class="rounded float-start w-100 shadow" alt=""/>
                     </div>
                     
                     <!-- Contribute 7/12 in a row, description position -->
@@ -119,7 +122,7 @@ include './Shared/PHP/CustomerHeader.php';
                             <h5>Description</h5>
                             
                             
-                            <p>'.$description.'</p>
+                            <p>'.$product->getDescription().'</p>
                         </div>
                     </div>
                 </div>
