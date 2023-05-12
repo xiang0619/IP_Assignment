@@ -3,7 +3,7 @@
 <!--
     Document   : CartView.xsl
     Created on : May 6, 2023, 6:25 PM
-    Author     : huatl
+    Author     : ONG ENG HUAT
     Description:
         Purpose of transformation follows.
 -->
@@ -80,6 +80,7 @@
             </script>
             </head>
             <body>
+                <form action="./Payment.php" method="post">
                 <div class="row m-5">
 
 
@@ -153,7 +154,7 @@
                 </div>
 
             </div>
-        
+        </form>
                 
                 
                 

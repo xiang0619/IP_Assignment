@@ -1,3 +1,4 @@
+<!--Author: ONG ENG HUAT-->
 <?php
 $id= $_GET['id'];
 $qty = $_GET['qty'];
