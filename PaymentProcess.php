@@ -73,8 +73,13 @@ try {
             $stmt = $dbc->prepare("INSERT INTO payment (customerID, paymentMethod, paymentDate, productID, totalPayment, payment_status) VALUES (?, ?, ?, ?, ?, 'Paid')");
             $stmt->bind_param('issii', $customerID, $method, $current_time, $productID, $amount);
             $stmt->execute();
-            $stmt->close();
             
+            
+            $stmt = $dbc->prepare("UPDATE cart SET quantity = ? WHERE cartID = ?");
+            $stmt->bind_param('is', $qty,$id );
+            $stmt->execute(); // execute bind 
+            
+            $stmt->close();
             
         }
     }
