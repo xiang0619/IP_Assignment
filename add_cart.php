@@ -10,7 +10,14 @@ if(isset($_POST['submit'])){
     $addCart = $_POST['addCart'];
     $doubleAdd = $_POST['doubleAdd'];
     
-    $customerID = 1001;
+    session_start();
+    $customerID = isset($_SESSION['customerID']) ? $_SESSION['customerID'] : null;
+
+    if($customerID==null){
+        header("Location: ./CustomerLogin.php");
+    }
+    
+    
     
     if($productid!=null){
         $encryptionHelper = new EncryptionHelper("id");
