@@ -79,13 +79,13 @@ session_start();
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                       <li class="nav-item">
-                            <a class="nav-link fs-5 primary-color" aria-current="page" href="#">Home</a>
+                            <a class="nav-link fs-5 primary-color" aria-current="page" href="http://localhost/IP_Assignment/Homepage.php">Home</a>
                       </li>
                       <li class="nav-item ">
-                            <a class="nav-link fs-5 primary-color" href="#">Stationery</a>
+                            <a class="nav-link fs-5 primary-color" href="http://localhost/IP_Assignment/Stationary.php">Stationery</a>
                       </li>
                       <li class="nav-item">
-                            <a class="nav-link fs-5 primary-color" href="#">Service</a>
+                            <a class="nav-link fs-5 primary-color" href="http://localhost/IP_Assignment/Service.php">Service</a>
                       </li>
                     </ul>
                     <form class="d-flex" role="search">
