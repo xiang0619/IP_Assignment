@@ -123,7 +123,7 @@ if($_SESSION['staffID'] == null){
                                 </li> 
                                 <li class="nav-item">
                                     <div class="d-flex align-items-center justify-content-center mt-4" style="">
-                                        <button type="button" class="btn btn-outline-danger">Log Out</button>
+                                        <a title="Log Out" href="http://localhost/IP_Assignment/Shared/PHP/Logout.php" class="btn btn-outline-danger">Log Out</a>
                                     </div>
                                 </li> 
                             </ul>  
