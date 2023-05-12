@@ -142,13 +142,13 @@
                 <div class="col-12">
                     <div class="row shadow-sm">
 
-                        
+                        <form method="post" action="Payment.php">
                         <div class="col-9 text-end primary-color fs-4 m-4">Total Price : RM <xsl:value-of select="$totalPrice"/></div>
                         <div class="col-2 float-end m-4">
                             <input type="Submit" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;" value="Check Out"/>
-                                                             
+                            <input type="hidden" name="total" id="total" value="{ $totalPrice }" />                                
                         </div>
-
+                        </form>
                     </div>
                 </div>
 

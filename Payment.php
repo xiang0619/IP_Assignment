@@ -31,6 +31,7 @@
 //    // You can now use the $cardToken variable to create a charge or save the card for later use
 //}
 $totalPay = $_POST['total'];
+echo $totalPay;
 
 include "CartRetrieve.php";
 $xslFile = "Payment.xsl";
