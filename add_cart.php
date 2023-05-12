@@ -34,7 +34,8 @@ if(isset($_POST['submit'])){
         
         
         
-        $stmt = $dbc->prepare("SELECT cartID from cart where customerID='{$customerID}' AND productID='{$productid}'");
+        $stmt = $dbc->prepare("SELECT cartID from cart where customerID=? AND productID=?");
+        $stmt->bind_param('ss',  $customerID, $productid);
             $stmt->execute(); //execute bind 
             $stmt->bind_result($cartID); //bind result    
             while ($stmt->fetch()) {
@@ -44,7 +45,8 @@ if(isset($_POST['submit'])){
 
             if($cartID!=null){
 
-                    $stmt = $dbc->prepare("SELECT quantity from cart where cartID='{$cartID}'");
+                    $stmt = $dbc->prepare("SELECT quantity from cart where cartID=?");
+                    $stmt->bind_param('s', $cartID );
                     $stmt->execute(); //execute bind 
                     $stmt->bind_result($qty); //bind result    
                     while ($stmt->fetch()) {
@@ -54,7 +56,8 @@ if(isset($_POST['submit'])){
                     $newqty=$qty+$quantity;
                         //update cart
 
-                    $stmt = $dbc->prepare("update cart set quantity = '{$newqty}' where cartID = '{$cartID}'");
+                    $stmt = $dbc->prepare("update cart set quantity = ? where cartID = ?");
+                    $stmt->bind_param('is', $newqty,$cartID );
                     $stmt->execute();
                     echo "<script>";
                     echo "alert('$doubleAdd');";
@@ -64,7 +67,8 @@ if(isset($_POST['submit'])){
             }
             else
             {
-                $stmt = $dbc->prepare("insert into cart (customerID,status,productID,type,quantity ) values ({$customerID},'pending',{$productid},'Product',{$quantity});");
+                $stmt = $dbc->prepare("insert into cart (customerID,status,productID,type,quantity ) values (?,'pending',?,'Product',?);");
+                $stmt->bind_param('ssi', $customerID,$productid,$quantity );
                 $stmt->execute(); //execute bind 
                 echo "<script>";
                     echo "alert('$addCart');";
@@ -77,13 +81,13 @@ if(isset($_POST['submit'])){
         //service
         if ($_FILES["pdf_file"]["type"] == "application/pdf") {
             
-            require_once('fpdf/fpdf.php');
-            require_once('fpdi/src/autoload.php');
+
             
             $filename=$customerID.$_FILES['pdf_file']['name'];
             
             
-            $stmt = $dbc->prepare("select file from cart where customerID='{$customerID}' AND file='{$filename}'");
+            $stmt = $dbc->prepare("select file from cart where customerID=? AND file=?");
+            $stmt->bind_param('ss', $customerID,$filename );
             $stmt->execute(); //execute bind 
             $stmt->bind_result($result); //bind result
             $stmt->fetch();
@@ -132,7 +136,8 @@ if(isset($_POST['submit'])){
                 //update database
                 
                 $stmt = $dbc->prepare("insert into cart (customerID, status, serviceID,type,quantity,file,downloadStatus) "
-                        . "values ($customerID,'pending',1,'Service','{$totalPages}','{$filename}','pending');");
+                        . "values (?,'pending',1,'Service',?,?,'pending');");
+                  $stmt->bind_param('sis', $customerID,$totalPages,$filename );      
                 $stmt->execute(); //execute bind 
                 
                  echo "<script>";

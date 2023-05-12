@@ -66,14 +66,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                                             var numPages = pdf.numPages;
 
                                             // Display the number of pages
-                                            document.getElementById("pdf_info1").innerHTML = "PDF total page: ";
-                                            document.getElementById("pdf_info").innerHTML = numPages;
+                                            document.getElementById("pdf_info").innerHTML = 'Total : RM'+(numPages*0.10);
                                           });
                                     }
                                     </script>
                             </div>
                             <div class="col-6 fs-3 primary-color">
-                                <p id="pdf_info1">Total Page: </p><p id="pdf_info" name="pdf_info"></p>
+                             <p id="pdf_info" name="pdf_info"></p>
                             </div>
                             <!-- Make submit button to right-->
                             <div class="col-7 fs-3 primary-color"></div>
