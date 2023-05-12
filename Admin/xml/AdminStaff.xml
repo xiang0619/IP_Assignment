@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Staffs>
     <Staff>
-        <id>3</id>
-        <email>chin kah seng</email>
-        <name>chinks-pm20@student.tarc.edu.my</name>
-        <password>$2y$10$nG5kpm5pSpSo6hskNRos0utODMmcbOhRss/E6E04RozeTnyDZuLNq</password>
-        <mobile>011-55605955</mobile>
-        <status>employed</status>
+        <id>6</id>
+        <email>Ng Xiao Bin</email>
+        <name>xiaobin0306@outlook.com</name>
+        <password>$2y$10$.H3BN9fnOgbsptNiCwxuQO6KGjTuoSU70FygHf4C7EQYhLpRYEZEG</password>
+        <mobile>011-36106802</mobile>
+        <status>disabled</status>
         <position>normal staff</position>
-        <updatedID>6</updatedID>
-        <updatedDate>2023-05-12</updatedDate>
-        <createdID></createdID>
-        <createdDate></createdDate>
+        <updatedID></updatedID>
+        <updatedDate></updatedDate>
+        <createdID>4</createdID>
+        <createdDate>2023-05-12</createdDate>
     </Staff>
 </Staffs>

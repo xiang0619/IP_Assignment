@@ -80,7 +80,7 @@
                                     </li>
                                     <li>
                                         <div class="d-flex align-items-center justify-content-center mt-4 mb-2" style="">
-                                            <button type="button" class="btn btn-outline-danger">Log Out</button>
+                                              <a title="Log Out" href="http://localhost/IP_Assignment/Shared/PHP/Logout.php" class="btn btn-outline-danger">Log Out</a>
                                         </div></li>
                                 </ul>
                             </div>

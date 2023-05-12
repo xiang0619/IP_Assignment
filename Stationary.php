@@ -38,7 +38,7 @@
                echo '<li><a href="?category='.$category.'">'.$category.'</a></li>';
             }
 
-            
+             $a->close();
         ?>
       
                 </ul>
@@ -114,6 +114,7 @@
                     ';
 
             }
+            $stmt->close(); 
                     }
                     ?>
                     

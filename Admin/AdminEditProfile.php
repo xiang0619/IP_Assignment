@@ -41,6 +41,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 </head>
 <body>
     <?php
+            include '../Shared/PHP/AdminHeader.php';
+    ?>
+    <?php
     require '../Shared/Database/StaffDatabase.php';
 
     $json_response = null;
@@ -92,13 +95,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             if ($status1 == 200) {
                 echo '<script>';
                 echo 'alert("Profile Updated.");';
-                echo 'window.location.href = "http://localhost/IP_Assignment/Staff/AdminProfile.php";';
+                echo 'window.location.href = "http://localhost/IP_Assignment/Admin/AdminProfile.php";';
                 echo '</script>';
                 exit();
             } else {
                 echo '<script>';
                 echo 'alert("' . $message1 . '.");';
-                echo 'window.location.href = "http://localhost/IP_Assignment/Staff/EditProfile.php";';
+                echo 'window.location.href = "http://localhost/IP_Assignment/Admin/AdminEditProfile.php";';
                 echo '</script>';
                 exit();
             }
