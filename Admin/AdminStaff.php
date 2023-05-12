@@ -41,16 +41,20 @@ $html = $xslt->transformToXML($xml);
                 transform: translateX(-50%);
                 top: 100%;
             }
+
+            body{
+                background-color: white;
+            }
+
             #adminStaff {
                 color: lightsteelblue;
             }
-            #adminStaff1 {
+
+            #adminStaff2 {
                 color: white;
             }
-            #adminProduct1 {
-                color: white;
-            }
-            #adminService1, #adminReport1{
+
+            #adminService1, #adminReport1,#adminProduct1{
                 color:white;
             }
         </style>
@@ -64,10 +68,8 @@ $html = $xslt->transformToXML($xml);
             <main class="container-fluid mb-4 mt-4 text-center" style="">
                 <h1>Staffs</h1>
             </main>
-            <main class="container-fluid d-flex">
-<!--                <div class="ms-auto">-->
-                    <button class="btn btn-primary"><a href="AdminStaffAdd.php" class="text-light">Add Staff</a></button>
-                <!--</div>-->
+            <main class="container-fluid">
+                <button class="btn btn-primary"><a href="AdminStaffAdd.php" class="text-light">Add Staff</a></button>
             </main>
             <main class="container-fluid" style="margin-top: 40px;">
                 <?php echo $html; ?>

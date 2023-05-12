@@ -43,7 +43,7 @@
               </button>
             </td>
             <td><xsl:value-of select="staff_id"/></td>
-            <td><a href="#" class="text-dark"><xsl:value-of select="staff_name"/></a></td>
+            <td><a href="AdminStaffDetail.php?id={staff_id}" class="text-dark"><xsl:value-of select="staff_name"/></a></td>
             <td><xsl:value-of select="staff_email"/></td>
             <td><xsl:value-of select="staff_status"/></td>
             <td><xsl:value-of select="staff_position"/></td>

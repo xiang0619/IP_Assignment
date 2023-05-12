@@ -1,5 +1,4 @@
 <?php
-
 include '../Shared/DesignPattern/AdminProductFacade.php';
 
 $productID = $_POST["productID"];

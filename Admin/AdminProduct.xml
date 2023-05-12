@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Products>
     <Product>
-        <id>1</id>
-        <name>pen</name>
+        <id>2</id>
+        <name>english book</name>
         <quantity>100</quantity>
         <status>Available</status>
-        <unitPrice>11.00</unitPrice>
-        <image>FABER-CASTELL-CLICK-X7.jpg</image>
-        <description>pen</description>
-        <productTypeID>1</productTypeID>
+        <unitPrice>13.00</unitPrice>
+        <image>https://media.karousell.com/media/photos/products/2022/2/16/eph_english_learning_book__pri_1644983823_bcbfe504_progressive</image>
+        <description>everythings you need to know about Enlish</description>
+        <productTypeID>2</productTypeID>
         <uploadDate>2023-04-19</uploadDate>
         <updatedID>S0001</updatedID>
-        <updatedDate>2023-05-11</updatedDate>
+        <updatedDate>2023-04-19</updatedDate>
         <createID>S0001</createID>
         <createdDate>2023-04-19</createdDate>
     </Product>

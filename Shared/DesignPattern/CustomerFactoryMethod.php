@@ -68,10 +68,10 @@ class Login extends Authentication {
         $staffStmt->execute();
         $staffResult = $staffStmt->get_result();
         $staff = $staffResult->fetch_assoc();
-
         $staffHashedPassword = $staff['password'] ?? null;
-        $status = $staff['status'] ?? null;
-        if ($status != "resigned" || $status != "disabled") {
+        $staffStatus = $staff['status'];
+
+        if ($staffStatus != "resigned" || $staffStatus != "disabled") {
             if (password_verify($this->password, $staffHashedPassword)) {
 
                 $encryptionHelper = new EncryptionHelper("Staff");
@@ -88,12 +88,8 @@ class Login extends Authentication {
             } else {
                 echo '<script>alert("Login failed. Please check your email and password.");</script>';
             }
-        } else {
-            echo '<script>alert("Login failed. Please check your email and password.");</script>';
+            $staffStmt->close();
         }
-
-
-        $staffStmt->close();
         mysqli_close($conn);
     }
 

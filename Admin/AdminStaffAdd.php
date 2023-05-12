@@ -1,6 +1,4 @@
-<?php 
-session_start();
-?>
+<?php ?>
 
 <!DOCTYPE html>
 <!--
@@ -34,15 +32,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 transform: translateX(-50%);
                 top: 100%;
             }
+
             body{
-                background-color: lightsteelblue;
+                background-color: white;
             }
 
             #adminStaff {
                 color: lightsteelblue;
             }
 
-            #adminStaff1 {
+            #adminStaff2 {
                 color: white;
             }
 
@@ -53,8 +52,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <?php
-        include '../Shared/DesignPattern/StaffFactoryMethod.php';
+        session_start();
         include '../Shared/PHP/AdminHeader.php';
+        include '../Shared/DesignPattern/StaffFactoryMethod.php';
         $servername = 'localhost';
         $username = 'root';
         $serverPassword = '';
@@ -69,15 +69,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         }
 
         $isValid = true;
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'];
             $email = $_POST['email'];
             $position = $_POST['position'];
-            $phone = $_POST['mobileNumber'];
+            $mobile = $_POST['mobile'];
             $password = $_POST['password'];
             $confirmPassword = $_POST['confirmPassword'];
-            $pattern = "/^01[0-46-9]-\d{7,8}$/ "; // Regular expression pattern
 
             $customerEmailstmt = $conn->prepare("SELECT * FROM customer WHERE email = ?"); // prepare the statement
             $customerEmailstmt->bind_param("s", $email); // bind the parameters
@@ -85,7 +83,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             $customerEmailResult = $customerEmailstmt->get_result(); // get the result set
 
             $customerPhonestmt = $conn->prepare("SELECT * FROM customer WHERE mobile = ?");
-            $customerPhonestmt->bind_param("s", $phone);
+            $customerPhonestmt->bind_param("s", $mobile);
             $customerPhonestmt->execute();
             $customerPhoneResult = $customerPhonestmt->get_result();
 
@@ -93,9 +91,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             $staffEmailstmt->bind_param("s", $email);
             $staffEmailstmt->execute();
             $staffEmailResult = $staffEmailstmt->get_result();
+            $pattern = "/^01[0-46-9]-\d{7,8}$/ "; // Regular expression pattern
 
             $staffPhonestmt = $conn->prepare("SELECT * FROM staff WHERE mobile = ?");
-            $staffPhonestmt->bind_param("s", $phone);
+            $staffPhonestmt->bind_param("s", $mobile);
             $staffPhonestmt->execute();
             $staffPhoneResult = $staffPhonestmt->get_result();
 
@@ -104,7 +103,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 $isValid = false;
             }
             if ($customerPhoneResult->num_rows > 0) {
-                $mobileNumberError = "Mobile number already exists, please choose a different one.";
+                $mobileError = "Mobile number already exists, please choose a different one.";
                 $isValid = false;
             }
             if ($staffEmailResult->num_rows > 0) {
@@ -112,17 +111,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 $isValid = false;
             }
             if ($staffPhoneResult->num_rows > 0) {
-                $mobileNumberError = "Mobile number already exists, please choose a different one.";
+                $mobileError = "Mobile number already exists, please choose a different one.";
                 $isValid = false;
             }
+
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $emailError = 'Invalid email address.';
                 $isValid = false;
             }
-            if (!preg_match($pattern, $phone)) {
-                $mobileNumberError = 'Please fill in a valid phone number format, such as: xxx-xxxxxxxx';
-                $isValid = false;
-            }
+
             if (strlen($password) < 8) {
                 $passwordError = 'Password should be at least 8 characters long.';
                 $isValid = false;
@@ -130,14 +127,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 $passwordError = "The password must contain a combination of letters, numbers, and special characters such as !@#$%^&*()_+-=[]{}|;':\",./<>?";
                 $isValid = false;
             }
+
             if ($confirmPassword != $password) {
                 $confirmPasswordError = 'Confirm password is not same with password.';
                 $isValid = false;
             }
 
+            if (!preg_match($pattern, $mobile)) {
+                $mobileError = 'Please fill in a valid phone number format, such as: xxx-xxxxxxxx';
+                $isValid = false;
+            }
+
             if ($isValid == true) {
                 mysqli_close($conn);
-                $addStaff = AuthenticationFactory::createAuthentication("addStaff",null,$email, $name, "employed", $position, $phone, $password);
+                $addStaff = AuthenticationFactory::createAuthentication("addStaff", null, $email, $name, "employed", $position, $mobile, $password);
                 $addStaff->authenticate();
             }
         }
@@ -145,7 +148,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <!-- Main Content Area -->
         <div>
             <main class="container-fluid mb-4 mt-4 text-center" style="">
-                <h1>Staff</h1>
+                <h1>Staffs</h1>
             </main>
 
             <main class="container mx-auto mt-5 mb-5" style="max-width: 600px;">
@@ -154,11 +157,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                         <h4>Add Staff</h4>
                     </div>
                     <div class="card-body ms-1 me-1">
-                        <form method="post" enctype="multipart/form-data">
+                        <form method="post">
                             <div class="mb-3">
                                 <label for="item_name" class="form-label mt-2">Name:</label>
                                 <input type="text" class="form-control" id="name" name="name" value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>" required>
-                                <span id="nameError" class="text-danger"></span>
+                                <span id="nameError" class="text-danger">
+                                    <?php
+                                    if (isset($nameError)) {
+                                        echo $nameError;
+                                    }
+                                    ?>
+                                </span>
                             </div>
                             <div class="mb-3">
                                 <label for="item_name" class="form-label mt-2">Email:</label>
@@ -178,22 +187,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                                     <option value="senior staff" <?php if (isset($_POST['position']) && $_POST['position'] == 'senior staff') echo 'selected'; ?>>Senior staff</option> 
                                     <option value="normal staff" <?php if (isset($_POST['position']) && $_POST['position'] == 'normal staff') echo 'selected'; ?>>Normal staff</option> 
                                 </select>
-                                <span id="positionError" class="text-danger"></span>
+                                <span id="positionError" class="text-danger">
+
+                                </span>
                             </div>
                             <div class="mb-3">
-                                <label for="item_name" class="form-label mt-2">Mobile Number:</label>
-                                <input type="text" class="form-control" id="mobileNumber" name="mobileNumber" value="<?php echo isset($_POST['mobileNumber']) ? htmlspecialchars($_POST['mobileNumber']) : ''; ?>" required>
-                                <span id="mobileNumberError" class="text-danger">
+                                <label for="item_name" class="form-label mt-2">Mobile:</label>
+                                <input type="text" class="form-control" id="mobile" name="mobile" value="<?php echo isset($_POST['mobile']) ? htmlspecialchars($_POST['mobile']) : ''; ?>" required>
+                                <span id="mobileError" class="text-danger">
                                     <?php
-                                    if (isset($mobileNumberError)) {
-                                        echo $mobileNumberError;
+                                    if (isset($mobileError)) {
+                                        echo $mobileError;
                                     }
                                     ?>
                                 </span>
                             </div>
                             <div class="mb-3">
                                 <label for="item_name" class="form-label mt-2">Password:</label>
-                                <input type="password" class="form-control" id="password" name="password" value="<?php echo isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; ?>" required>
+                                <input type="password" class="form-control" id="password" name="password"value="<?php echo isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; ?>" required>
                                 <span id="passwordError" class="text-danger">
                                     <?php
                                     if (isset($passwordError)) {
@@ -204,7 +215,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             </div>
                             <div class="mb-3">
                                 <label for="item_name" class="form-label mt-2">Confirm Password:</label>
-                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" value="<?php echo isset($_POST['confirmPassword']) ? htmlspecialchars($_POST['confirmPassword']) : ''; ?>" required>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"value="<?php echo isset($_POST['confirmPassword']) ? htmlspecialchars($_POST['confirmPassword']) : ''; ?>" required>
                                 <span id="confirmPasswordError" class="text-danger">
                                     <?php
                                     if (isset($confirmPasswordError)) {
@@ -216,7 +227,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                             <div class="row mt-4">
                                 <div class="col text-center">
                                     <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"  onclick="window.location.href = 'AdminStaff.php'">Cancel</button>
-                                    <button type="submit" id="confirm" class="btn btn-primary" onclick="return validateAdminAddStaffForm()">Confirm</button>
+                                    <button type="submit" id="confirm" class="btn btn-primary">Confirm</button>
                                 </div>
                             </div>
                         </form>
@@ -230,3 +241,4 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 
 <!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+

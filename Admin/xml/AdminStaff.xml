@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Staffs>
     <Staff>
-        <id></id>
-        <email></email>
-        <name></name>
-        <password></password>
-        <status></status>
-        <position></position>
-        <updatedID></updatedID>
-        <updatedDate></updatedDate>
+        <id>1</id>
+        <email>eng huat lor</email>
+        <name>ongel-pm19@student.tarc.edu.com</name>
+        <password>abcd1234</password>
+        <mobile>011-12332321</mobile>
+        <status>disabled</status>
+        <position>normal staff</position>
+        <updatedID>8</updatedID>
+        <updatedDate>2023-05-12</updatedDate>
         <createdID></createdID>
         <createdDate></createdDate>
     </Staff>
 </Staffs>
-
