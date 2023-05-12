@@ -51,58 +51,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                         <li class="nav-item">
                             <a class="nav-link" id="adminService1" href="AdminService.php">Services</a>
                         </li>
-                        <li>
-                            <div class="d-flex align-items-center justify-content-center mt-4 mb-2" style="">
-                                 <button type="button" class="btn btn-outline-danger">Log Out</button>
-                            </div></li>
-                      </ul>
-                  </div>
-                  
-                    
-                    
-                 
-              </li>
-            </ul>
-              
-            <a class="navbar-brand fixed-end ms-3" href="AdminHome.php">JE</a>
-            
-            <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-              <div class="offcanvas-header">                 
-                  <h5 class="offcanvas-title mx-auto" id="offcanvasDarkNavbarLabel">
-                      <a class="navbar-brand fixed-end ms-3" href="AdminHome.php">JE</a>
-                  </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>                       
-              </div>
-               
-              <div class="offcanvas-body">
-                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">                
-                  <li class="nav-item">
-                    <a class="nav-link" aria-current="page" id="adminDashboard" href="AdminHome.php">Dashboard</a>
-                  </li>
-                  <hr class="bg-dark border-1 border-top border-light">
-                  <li class="nav-item">
-                    <a class="nav-link" id="adminProduct2" href="AdminProduct.php">Products</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="adminService2"  href="AdminService.php">Services</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="adminReport2" href="AdminReport.php">Report</a>
-                  </li> 
-                  <hr class="bg-dark border-1 border-top border-light">
-                  <li class="nav-item">
-                    <a class="nav-link" id="adminProfile" href="AdminProfile.php">Profile</a>
-                  </li> 
-                  <li class="nav-item">
-                      <div class="d-flex align-items-center justify-content-center mt-4" style="">
-                         <button type="button" class="btn btn-outline-danger">Log Out</button>
-                      </div>
-                  </li> 
-                </ul>  
-              </div>
-            </div>
-          </div>
-        </nav>
                         <li class="nav-item">
                             <a class="nav-link" id="adminReport1" href="AdminReport.php">Report</a>
                         </li>
@@ -126,7 +74,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                                         </div>
                                     </li>
                                     <li>
-                                        <div class="text-center mt-4 mb-3">
+                                        <div class="d-flex align-items-center justify-content-center mt-4 mb-2" style="">
                                             <button type="button" class="btn btn-outline-danger">Log Out</button>
                                         </div></li>
                                 </ul>
@@ -162,16 +110,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="adminReport2" href="AdminReport.php">Report</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="adminStaff1" href="AdminStaff.php">Staff</a>
                                 </li> 
+                                 <li class="nav-item">
+                                    <a class="nav-link" id="adminStaff2" href="AdminReport.php">Staff</a>
+                                </li>
                                 <hr class="bg-dark border-1 border-top border-light">
                                 <li class="nav-item">
                                     <a class="nav-link" id="adminProfile" href="AdminProfile.php">Profile</a>
                                 </li> 
                                 <li class="nav-item">
-                                    <div class="text-center mt-5 mb-3">
+                                    <div class="d-flex align-items-center justify-content-center mt-4" style="">
                                         <button type="button" class="btn btn-outline-danger">Log Out</button>
                                     </div>
                                 </li> 

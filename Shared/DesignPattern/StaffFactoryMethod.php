@@ -38,8 +38,9 @@ class AddStaff extends Authentication {
         $serverpassword = '';
         $dbname = 'ip';
         $current_date = date('Y-m-d');
-        $date_param = &$current_date;
+        $date_param = $current_date;
         $createdID = $encryptStaffID;
+
         $status = "employed";
         // Create connection
         $conn = mysqli_connect($servername, $username, $serverpassword, $dbname);
@@ -70,23 +71,58 @@ class AddStaff extends Authentication {
 class EditStaff extends Authentication {
 
     public function authenticate() {
+        $staffID = $_SESSION['staffID'];
+        $encryptionHelper = new EncryptionHelper("Staff");
+
+        $encryptStaffID = $encryptionHelper->decrypt($staffID);
+
         $servername = 'localhost';
         $username = 'root';
         $serverpassword = '';
         $dbname = 'ip';
         // Create connection
         $conn = mysqli_connect($servername, $username, $serverpassword, $dbname);
-
+        $current_date = date('Y-m-d');
+        $date_param = $current_date;
+        $createdID = $encryptStaffID;
         // Check connection
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
 
-        $stmt = $conn->prepare("UPDATE staff SET email = ?, name = ?, status=?, position=?, mobile=?  WHERE ID = ?");
+        $stmt = $conn->prepare("UPDATE staff SET email = ?, name = ?, status=?, position=?, mobile=?,updatedID=?,updatedDate=?  WHERE ID = ?");
 
-        $stmt->bind_param("ssssss", $this->email, $this->name, $this->status, $this->position, $this->mobile, $this->id);
+        $stmt->bind_param("ssssssss", $this->email, $this->name, $this->status, $this->position, $this->mobile, $createdID, $date_param, $this->id);
         if ($stmt->execute()) {
             echo '<script>alert("Staff has been successfully updated!");</script><br><script>window.location.href = "AdminStaff.php";</script>';
+            $stmt->close();
+        } else {
+            echo "Error adding new field: " . $stmt->error;
+        }
+    }
+
+}
+
+class DeleteStaff extends Authentication {
+
+    public function authenticate() {
+        $servername = 'localhost';
+        $username = 'root';
+        $serverpassword = '';
+        $dbname = 'ip';
+        $status = "disabled";
+        // Create connection
+        $conn = mysqli_connect($servername, $username, $serverpassword, $dbname);
+
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        $stmt = $conn->prepare("UPDATE staff SET status=?  WHERE ID = ?");
+        $stmt->bind_param("ss", $status, $this->id);
+
+        if ($stmt->execute()) {
+            echo '<script>alert("Staff has been successfully deleted!");</script><br><script>window.location.href = "AdminStaff.php";</script>';
             $stmt->close();
         } else {
             echo "Error adding new field: " . $stmt->error;
@@ -101,9 +137,10 @@ class AuthenticationFactory {
     public static function createAuthentication($type, $id, $email, $name = "", $status = "", $position = "", $mobile = "", $password = "") {
         if ($type == "addStaff") {
             return new AddStaff(null, $email, $name, $status, $position, $mobile, $password);
-        }
-        if ($type == "editStaff") {
+        } else if ($type == "editStaff") {
             return new EditStaff($id, $email, $name, $status, $position, $mobile, null);
+        } else if ($type == "deleteStaff") {
+            return new DeleteStaff($id, null, null, null, null, null, null);
         }
     }
 

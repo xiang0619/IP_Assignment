@@ -120,69 +120,60 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <h1>Staffs</h1>
             </main>
 
-            <main class="container mx-auto mt-5 mb-5" style="max-width: 600px;">
-                <div class="card border rounded-3">
-                    <div class="card-header text-center">
-                        <h4>Delete Staff</h4>
-                    </div>
-                    <div class="card-body">
-                        <form method="post" action="AdminStaffDeleteFunction.php?id=<?php echo $xml->Staff->id; ?>">
-                            <div class="table-responsive">
-                                <table class="table table-hover mx-auto" style="max-width: 600px;">
-                                    <tbody>
-                                        <tr>
-                                            <td class="bg-light" colspan="2" style="text-align: center;"><i class="fas fa-user" style="font-size: 8em; color: black;"></i></td>
-                                        </tr>               
-                                        <tr>
-                                            <th class="bg-dark text-light">ID</th>
-                                            <td class="bg-light"><?php echo $xml->Staff->id; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="bg-light text-dark">Email</th>
-                                            <td class="bg-light"><?php echo $xml->Staff->email; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="bg-dark text-light">Status</th>
-                                            <td class="bg-light"><?php echo $xml->Staff->status; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="bg-light text-dark">Position</th>
-                                            <td class="bg-light"><?php echo $xml->Staff->position; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="bg-dark text-light">Mobile Number</th>
-                                            <td class="bg-light"><?php echo $xml->Staff->mobile; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="bg-light text-dark">Updated ID</th>
-                                            <td class="bg-light"><?php echo $xml->Staff->updatedID; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="bg-dark text-light">Updated Date</th>
-                                            <td class="bg-light"><?php echo $xml->Staff->updatedDate; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="bg-light text-dark">Created ID</th>
-                                            <td class="bg-light"><?php echo $xml->Staff->createdID; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="bg-dark text-light">Created Date</th>
-                                            <td class="bg-light"><?php echo $xml->Staff->createdDate; ?></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"  onclick="window.location.href = 'AdminStaff.php'">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Delete</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+            <main class="container mx-auto mt-5 mb-5" style="max-width: 600px;">          
+                <div class="table-responsive">
+                    <table class="table table-hover mx-auto" style="max-width: 600px;">
+                        <tbody>
+                            <tr>
+                                <td class="" colspan="2" style="text-align: right;"><a href="AdminStaff.php">Back</a></td>
+                            </tr>
+                            <tr>
+                                <td class="bg-light" colspan="2" style="text-align: center;"><i class="fas fa-user" style="font-size: 8em; color: black;"></i></td>
+                            </tr>               
+                            <tr>
+                                <th class="bg-dark text-light">ID</th>
+                                <td class="bg-light"><?php echo $xml->Staff->id; ?></td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light text-dark">Email</th>
+                                <td class="bg-light"><?php echo $xml->Staff->email; ?></td>
+                            </tr>
+                            <tr>
+                                <th class="bg-dark text-light">Status</th>
+                                <td class="bg-light"><?php echo $xml->Staff->status; ?></td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light text-dark">Position</th>
+                                <td class="bg-light"><?php echo $xml->Staff->position; ?></td>
+                            </tr>
+                            <tr>
+                                <th class="bg-dark text-light">Mobile Number</th>
+                                <td class="bg-light"><?php echo $xml->Staff->mobile; ?></td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light text-dark">Updated ID</th>
+                                <td class="bg-light"><?php echo $xml->Staff->updatedID; ?></td>
+                            </tr>
+                            <tr>
+                                <th class="bg-dark text-light">Updated Date</th>
+                                <td class="bg-light"><?php echo $xml->Staff->updatedDate; ?></td>
+                            </tr>
+                            <tr>
+                                <th class="bg-light text-dark">Created ID</th>
+                                <td class="bg-light"><?php echo $xml->Staff->createdID; ?></td>
+                            </tr>
+                            <tr>
+                                <th class="bg-dark text-light">Created Date</th>
+                                <td class="bg-light"><?php echo $xml->Staff->createdDate; ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </main>
         </div>
-    </body>
+    </div>
+</main>
+</div>
+</body>
 </html>
 
 <!-- JavaScript -->
