@@ -184,7 +184,25 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             // If the name input is not empty, clear any error message
             document.getElementById("productTypeNameError").textContent = "";
 
-            return true;
+            // Check if the name already exists in the product names array
+            var productTypeNames = <?php echo json_encode($productTypeNames); ?>;
+            var index = -1;
+            for (var i = 0; i < productTypeNames.length; i++) {
+              if (productTypeNames[i]['productTypeName'] === productTypeNameValue) {
+                index = i;
+                break;
+              }
+            }
+
+            if (index >= 0) {
+              // If the name already exists in the array, display an error message and return false
+              document.getElementById("productTypeNameError").textContent = "*This product type name has been registered.";
+              return false;
+            } else {
+              // If the name does not exist in the array, clear any error message and return true
+              document.getElementById("productTypeNameError").textContent = "";
+              return true;
+            }
         }
     }
     

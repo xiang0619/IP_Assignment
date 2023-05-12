@@ -5,6 +5,9 @@
     <!-- TODO customize transformation rules 
          syntax recommendation http://www.w3.org/TR/xslt 
     -->
+    <!--
+       Author     : Chin Kah Seng
+    -->
     <xsl:template match="/">
   
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -29,7 +32,9 @@
                     <xsl:for-each select="orders/order">
                         <tr>                           
                             <td>
-                                <xsl:value-of select="orderID"/>
+                                <a href="AdminOrderDetails.php?oid={orderID}" class="text-dark">
+                                    <xsl:value-of select="orderID"/>
+                                </a>
                             </td>
                             <td>
                                 <xsl:value-of select="customerID"/>

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Orders>
     <Order>
-        <paymentID></paymentID>
-        <customerID></customerID>
-        <paymentMethod></paymentDate>
-        <totalPayment></totalPayment>
-        <orderID></orderID>
-        <customerName></customerName>
+        <paymentID>5</paymentID>
+        <customerID>1001</customerID>
+        <paymentMethod>ww</paymentMethod>
+        <totalPayment>211.00</totalPayment>
+        <orderID>1</orderID>
+        <customerName>huat</customerName>
+        <productID>1</productID>
+        <productName>pen</productName>
+        <productQty>2</productQty>
     </Order>
 </Orders>

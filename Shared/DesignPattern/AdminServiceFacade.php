@@ -8,7 +8,7 @@
 /**
  * Description of AdminServiceFacade
  *
- * @author KahSeng
+ * @author Chin Kah Seng
  */
 
 include_once '../Shared/Database/AdminServiceDA.php';

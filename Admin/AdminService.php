@@ -104,7 +104,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                                 <td><?php echo $serviceOrder['quantity']; ?></td>
                                 <td><?php
                                     $file = $serviceOrder['file'];
-                                    $file_path = '../Shared/File/'.$file;
+                                    $file_path = '../Shared/pdfFile/'.$file;
                                     echo '<a href="' . $file_path . '" download onclick="setTimeout(function() { window.location.href = \'AdminServiceUpdateDownloadStatus.php?cartID=' . $serviceOrder['cartID'] . '\'; }, 1000);">'.$file.'</a>';
                             
                                 ?></td>

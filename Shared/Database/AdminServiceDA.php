@@ -8,7 +8,7 @@
 /**
  * Description of AdminServiceDA
  *
- * @author KahSeng
+ * @author Chin Kah Seng
  */
 
 class AdminServiceDA {
@@ -35,6 +35,14 @@ class AdminServiceDA {
         $pstmt ->bindParam(1, $customerID); 
         $pstmt->execute();
         $customerName = $pstmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($customerName === false) {
+            // handle the case where the query execution is unsuccessful
+            // redirect to the error page
+            header("Location: AdminErrorPage.php");
+            exit();
+        }
+        
         return $customerName;
     }
     
@@ -44,9 +52,15 @@ class AdminServiceDA {
         $pstmt = $this->conn->prepare($query);
         $pstmt->bindParam(1, $updateStatus);
         $pstmt->bindParam(2, $cartID);       
-        $pstmt->execute();
+        $result = $pstmt->execute();
         
-        header("Location: AdminService.php");
-        exit();
+        if($result) { // check if the insert was successful
+            header("Location: AdminService.php");
+            exit();
+        } else {
+            header("Location: AdminErrorPage.php");
+            exit();
+        }
+        
     }
 }

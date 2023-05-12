@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="payment.xsl"?>
+<payments>
+    <payment>
+        <payment_id>7</payment_id>
+        <customer_id></customer_id>
+        <cart_id></cart_id>
+        <products>
+            <product>
+                <id>1</id>
+                <name>Product A</name>
+                <quantity>2</quantity>
+                <total-payment>20.00</total-payment>
+            </product>
+            <product>
+                <id>2</id>
+                <name>Product B</name>
+                <quantity>1</quantity>
+                <total-payment>10.00</total-payment>
+            </product>
+        </products>
+        <payment_method>Card</payment_method>
+        <date>2023-05-10</date>
+    </payment>
+</payments>
+
+
+
+
+
+
+<root>
+</root>
+
