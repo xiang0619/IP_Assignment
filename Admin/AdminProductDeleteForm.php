@@ -68,6 +68,34 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             #adminService1, #adminReport1,#adminStaff{
                 color:white;
             }
+            
+            
+            .confirmationDialog {
+              display: none;
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              z-index: 9999;
+              background-color: #ffffff;
+              border: 1px solid #000000;
+              padding: 20px;
+              box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            }
+
+            .confirmationDialog p {
+              margin-top: 0;
+            }
+
+            .confirmationDialogButtons {
+              display: flex;
+              justify-content: center;
+            }
+
+            .confirmationDialogButtons button {
+              margin: 0 10px;
+              padding: 5px 10px;
+            }
         </style>
     </head>
     <body>
@@ -86,7 +114,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
               <h4>Delete Product</h4>
             </div>
             <div class="card-body">
-              <form method="post" action="AdminProductDelete.php?id=<?php echo $xml->Product->id; ?>" enctype="multipart/form-data">
+              <form method="post" id="deleteProductForm" action="AdminProductDelete.php?id=<?php echo $xml->Product->id; ?>" onsubmit="return showConfirmationDialog()" enctype="multipart/form-data">
                 <div class="table-responsive">
                     <table class="table table-hover mx-auto" style="max-width: 600px;">
                       <tbody>
@@ -147,6 +175,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
               </form>
             </div>
           </div>
+          <div class="confirmationDialog">
+              <p>Are you sure you want to submit?</p>
+              <div class="confirmationDialogButtons">
+                <button type="submit" class="btn btn-primary">Yes</button>
+                <button type="button" class="btn btn-secondary">No</button>
+              </div>
+         </div>
         </main>
 
         </div>
@@ -156,3 +191,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 <!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
 
+<script>
+    function showConfirmationDialog() {
+      event.preventDefault();
+      const confirmationDialog = document.querySelector('.confirmationDialog');
+      confirmationDialog.style.display = 'block';
+      const cancelButton = confirmationDialog.querySelector('.btn-secondary');
+      cancelButton.addEventListener('click', function() {
+        confirmationDialog.style.display = 'none';
+      });
+      const yesButton = confirmationDialog.querySelector('.btn-primary');
+    const form = document.getElementById('deleteProductForm');
+    yesButton.addEventListener('click', function() {
+      form.submit();
+    });
+    }
+</script>

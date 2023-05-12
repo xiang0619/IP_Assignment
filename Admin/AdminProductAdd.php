@@ -14,8 +14,8 @@ $image = $_FILES["image"]['name'];
 $target = "../Shared/Image/" . basename($image);
 move_uploaded_file($_FILES["image"]["tmp_name"], $target);
 $date = date("Y-m-d");
-$createID = "1";
-$updatedID = "1";
+$createID = $_POST["staffID"];
+$updatedID = $_POST["staffID"];
 
 $host = "localhost";
 $dbname = "ip";

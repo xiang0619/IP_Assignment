@@ -17,12 +17,11 @@
             $xslFile = "../Customer/xsl/CustomerProfile.xsl";
             require '../Shared/Database/CustomerDatabase.php';
 
-            $customerID = $_SESSION['customerID'];
-            
-            if($customerID == null){
+            if($_SESSION['customerID'] == null){
                 header("Location : http://localhost/IP_Assignment/Homepage.php");
             }
             
+            $customerID = $_SESSION['customerID'];
             $customerDatabase = new CustomerDatabase();
             $customer = $customerDatabase->getProfile($customerID);
 

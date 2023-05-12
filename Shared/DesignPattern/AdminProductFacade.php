@@ -62,4 +62,12 @@ class AdminProductFacade {
     public function deleteProduct($productID) {
         $this->adminProductDA->delete($productID);
     }
+    
+    public function editProductType($productTypeOldName, $productTypeNewName) {
+        $this->adminProductDA->editProductType($productTypeOldName, $productTypeNewName);
+    }
+    
+    public function checkNameExist() {
+        return $this->adminProductDA->checkNameExist();
+    }
 }

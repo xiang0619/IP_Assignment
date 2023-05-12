@@ -1,5 +1,6 @@
 <?php
 require_once '../Shared/DesignPattern/AdminProductFacade.php';
+require_once '../Shared/Helper/EncryptionHelper.php';
 
 $host = "localhost";
 $dbname = "ip";
@@ -11,6 +12,12 @@ $pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
 $facade = new AdminProductFacade($pdo);
 
 $productTypeNames = $facade->retrieveProductTypes();
+$productNames = $facade->checkNameExist();
+
+session_start();
+$staffID = $_GET['staffID'];
+$encryptionHelper = new EncryptionHelper("Staff");
+$encryptStaffID = $encryptionHelper->decrypt($staffID);
 
 ?>
 
@@ -61,6 +68,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
             #adminService1, #adminReport1,#adminStaff{
                 color:white;
             }
+            
+            .confirmationDialog {
+              display: none;
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              z-index: 9999;
+              background-color: #ffffff;
+              border: 1px solid #000000;
+              padding: 20px;
+              box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            }
+
+            .confirmationDialog p {
+              margin-top: 0;
+            }
+
+            .confirmationDialogButtons {
+              display: flex;
+              justify-content: center;
+            }
+
+            .confirmationDialogButtons button {
+              margin: 0 10px;
+              padding: 5px 10px;
+            }
         </style>
     </head>
     <body>
@@ -79,7 +113,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
               <h4>Add Product</h4>
             </div>
             <div class="card-body ms-1 me-1">
-              <form method="post" action="AdminProductAdd.php" enctype="multipart/form-data">
+              <form method="post" action="AdminProductAdd.php" id="addProductForm" enctype="multipart/form-data" onsubmit="return showConfirmationDialog()">
                 <div class="mb-3">
                   <label for="item_name" class="form-label mt-2">Name:</label>
                   <input type="text" class="form-control" id="name" name="name" required>
@@ -118,14 +152,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <div class="row mt-4">
                   <div class="col text-center">
                     <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"  onclick="window.location.href='AdminProduct.php'">Cancel</button>
-                    <button type="submit" id="confirm" class="btn btn-primary" onclick="return validateForm()">Confirm</button>
+                    <button type="submit" id="confirm" class="btn btn-primary" onclick="return validateForm();">Confirm</button>
                   </div>
+                   <input type="hidden" name="staffID" value="<?php echo $staffID; ?>">
                 </div>
               </form>
             </div>
           </div>
         </main>
 
+        </div>
+        
+        <div class="confirmationDialog">
+          <p>Are you sure you want to submit?</p>
+          <div class="confirmationDialogButtons">
+            <button type="submit" class="btn btn-primary">Yes</button>
+            <button type="button" class="btn btn-secondary">No</button>
+          </div>
         </div>
     </body>
 </html>
@@ -134,23 +177,52 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
 
 <script>
-    function validateName() {
-        // Get the name input element and its value
-        var nameInput = document.getElementById("name");
-        var nameValue = nameInput.value;
-        
-        // Check if the name input is empty
-        if (nameValue.trim() === "") {
-            // If the name input is empty, display an error message and return false
-            document.getElementById("nameError").textContent = "*Please enter a name.";
-            return false;
-        } else {
-            // If the name input is not empty, clear any error message and return true
-            document.getElementById("nameError").textContent = "";
-            return true;
-        }
+    function showConfirmationDialog() {
+      event.preventDefault();
+      const confirmationDialog = document.querySelector('.confirmationDialog');
+      confirmationDialog.style.display = 'block';
+      const cancelButton = confirmationDialog.querySelector('.btn-secondary');
+      cancelButton.addEventListener('click', function() {
+        confirmationDialog.style.display = 'none';
+      });
     }
-    
+
+    function validateName() {
+      // Get the name input element and its value
+      var nameInput = document.getElementById("name");
+      var nameValue = nameInput.value;
+
+      // Check if the name input is empty
+      if (nameValue.trim() === "") {
+        // If the name input is empty, display an error message and return false
+        document.getElementById("nameError").textContent = "*Please enter a name.";
+        return false;
+      } else {
+        // If the name input is not empty, clear any error message
+        document.getElementById("nameError").textContent = "";
+
+        // Check if the name already exists in the product names array
+        var productNames = <?php echo json_encode($productNames); ?>;
+        var index = -1;
+        for (var i = 0; i < productNames.length; i++) {
+          if (productNames[i]['name'] === nameValue) {
+            index = i;
+            break;
+          }
+        }
+
+        if (index >= 0) {
+          // If the name already exists in the array, display an error message and return false
+          document.getElementById("nameError").textContent = "*This product name has been registered.";
+          return false;
+        } else {
+          // If the name does not exist in the array, clear any error message and return true
+          document.getElementById("nameError").textContent = "";
+          return true;
+        }
+      }
+    }
+
     // Add an event listener to the name input that calls the validateName function on input change
     document.getElementById("name").addEventListener("input", validateName);
 
@@ -266,14 +338,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         if (!isNameValid || !isCategoryValid || !isQuantityValid || !isUnitPriceValid || !isImageValid || !isDescriptionValid) {
             event.preventDefault(); // Prevent the form from submitting
             return false;
-        }
-        
-        // If all fields are valid, allow the form to submit
-        return true;
+        }else{
+            // show confirmation dialog
+            const confirmationDialog = document.querySelector('.confirmationDialog');
+            const yesButton = confirmationDialog.querySelector('.btn-primary');
+            const form = document.getElementById('addProductForm');
+            yesButton.addEventListener('click', function() {
+              form.submit();
+            });
+        }               
     }
-    
-    // Add an event listener to the submit button that calls the validateForm function
-    document.getElementById("confirm").addEventListener("click", validateForm);
+   
 </script>
 
 
