@@ -51,7 +51,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         </style>
     </head>
     <?php
-    session_start();
     include '../Shared/PHP/AdminHeader.php';
     include '../Shared/errorPage.php';
     include '../Shared/DesignPattern/StaffFactoryMethod.php';

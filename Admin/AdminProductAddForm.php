@@ -1,25 +1,4 @@
-<?php
-require_once '../Shared/DesignPattern/AdminProductFacade.php';
-require_once '../Shared/Helper/EncryptionHelper.php';
 
-$host = "localhost";
-$dbname = "ip";
-$user = "root";
-$password = "";
-$dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
-
-$pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
-$facade = new AdminProductFacade($pdo);
-
-$productTypeNames = $facade->retrieveProductTypes();
-$productNames = $facade->checkNameExist();
-
-session_start();
-$staffID = $_GET['staffID'];
-$encryptionHelper = new EncryptionHelper("Staff");
-$encryptStaffID = $encryptionHelper->decrypt($staffID);
-
-?>
 
 <!DOCTYPE html>
 <!--
@@ -100,6 +79,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     <body>
         <?php
             include '../Shared/PHP/AdminHeader.php';
+        ?>
+        <?php
+            require_once '../Shared/DesignPattern/AdminProductFacade.php';
+            require_once '../Shared/Helper/EncryptionHelper.php';
+
+            $host = "localhost";
+            $dbname = "ip";
+            $user = "root";
+            $password = "";
+            $dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
+
+            $pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
+            $facade = new AdminProductFacade($pdo);
+
+            $productTypeNames = $facade->retrieveProductTypes();
+            $productNames = $facade->checkNameExist();
+            
+            $staffID = $_SESSION['staffID'];
+            $encryptionHelper = new EncryptionHelper("Staff");
+            $encryptStaffID = $encryptionHelper->decrypt($staffID);
+
         ?>
         <!-- Main Content Area -->
         <div>

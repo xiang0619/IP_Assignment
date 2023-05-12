@@ -39,7 +39,6 @@
     </head>
     <body>
         <?php
-        session_start();
         include '../Shared/PHP/AdminHeader.php';
         ?>
         <!-- Main Content Area -->
