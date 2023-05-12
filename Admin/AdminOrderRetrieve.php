@@ -28,7 +28,7 @@ foreach ($orderDetails as $orderDetail){
     $order->addChild('customerID', $orderDetail['customerID']);
     $order->addChild('paymentMethod', $orderDetail['paymentMethod']);
     $order->addChild('totalPayment', $orderDetail['totalPayment']);
-    $order->addChild('orderID', $orderDetail['orderID']);
+    $order->addChild('orderID', $orderDetail['paymentID']);
     $order->addChild('customerName', $customerName['customerName']);    
 }
 ?>

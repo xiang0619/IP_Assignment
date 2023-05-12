@@ -1,7 +1,10 @@
 <?php declare(strict_types=1) ?>
 <?php 
+ob_start();
 // Start the session 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <html>
     <head>
@@ -29,13 +32,13 @@ session_start();
                     <i class="secondary-color">We are open: Mon-Fri 9am-5pm</i>
                 </div>
                 <div class="col text-end fs-5">
-                    <a title="Cart" href="#">
+                    <a title="Cart" href="http://localhost/IP_Assignment/CartView.php">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill secondary-color icon-size" viewBox="0 0 16 16">
                             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                         </svg>
                     </a>
                     <?php
-                    ob_start();
+                    
                     if (isset($_SESSION['customerID'])) {
                         $title = "Profile";
                         $link = "http://localhost/IP_Assignment/Customer/Profile.php";

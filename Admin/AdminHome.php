@@ -22,10 +22,6 @@ $totalSales = $facade->totalSales();
 
 ?>
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to edit this template
--->
 <html>
     <head>
 	<meta charset="UTF-8">
@@ -126,19 +122,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($orders as $order): if($order['orderID'] != null || $order['orderID'] != "") {?>
-                                                            <tr>
-                                                                <td><?php echo $order['orderID']; ?></td>                                                           
-                                                                <td>
-                                                                    <?php
+							<?php foreach ($orders as $order) {
+                                                            if (!empty($order['paymentID'])) {
+                                                                ?>
+                                                                <tr>
+                                                                    <td><?php echo $order['paymentID']; ?></td>
+                                                                    <td>
+                                                                        <?php
                                                                         $customerName = $facadeS->retrieveCustomerName($order['customerID']);
                                                                         echo $customerName['customerName'];
-                                                                    ?>
-                                                                </td>
-                                                                <td><?php echo $order['paymentDate']; ?></td>
-                                                                <td>RM <?php echo $order['totalPayment']; ?></td>                                                              
-                                                            </tr>
-                                                          <?php } endforeach; ?> 
+                                                                        ?>
+                                                                    </td>
+                                                                    <td><?php echo $order['paymentDate']; ?></td>
+                                                                    <td>RM <?php echo $order['totalPayment']; ?></td>
+                                                                </tr>
+                                                            <?php }
+                                                        } ?>
 						</tbody>
 					</table>
 				</div>

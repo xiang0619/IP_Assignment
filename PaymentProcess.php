@@ -100,6 +100,9 @@ $charge = $gateway->charge($amount, $cardNumber, $cvv, $expDate, $currency);
     //header("Location: Homepage.php" );
 } catch (Exception $e) {
     echo 'Payment failed: ' . $e->getMessage();
+    echo '<a title="Cart" href="http://localhost/IP_Assignment/CartView.php">
+                        Back To Cart
+                    </a>';
 }
 
 //$adapter = new IP_StripePaymentAdapter();
