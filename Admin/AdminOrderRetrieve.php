@@ -16,7 +16,8 @@ $dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
 $pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
 $facade = new AdminProductFacade($pdo);
 $facadeS = new AdminServiceFacade($pdo);
-$orderDetails = $facade->retrieveAllOrders();
+$cartID = $facade->retrieveCartID();
+$orderDetails = $facade->retrieveAllOrders("2");
 
 // Convert the data to XML format
 $xml = new SimpleXMLElement('<orders/>');
@@ -24,7 +25,7 @@ $xml = new SimpleXMLElement('<orders/>');
 foreach ($orderDetails as $orderDetail){
     $customerName = $facadeS->retrieveCustomerName($orderDetail['customerID']);
     $order = $xml->addChild('order');
-    $order->addChild('paymentID', $orderDetail['paymentID']);
+    $order->addChild('paymentID', $orderDetail['cartID']);
     $order->addChild('customerID', $orderDetail['customerID']);
     $order->addChild('paymentMethod', $orderDetail['paymentMethod']);
     $order->addChild('totalPayment', $orderDetail['totalPayment']);

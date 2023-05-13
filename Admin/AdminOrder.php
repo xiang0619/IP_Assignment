@@ -81,9 +81,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <div>
 	<main class="container-fluid mb-4 mt-4 text-center" style="">
 		<h1>Orders</h1>
-	</main>
-        
-        
+	</main>           
         
         <main class="container-fluid">
 		<div id="products-container1">

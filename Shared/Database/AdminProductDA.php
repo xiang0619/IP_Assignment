@@ -180,7 +180,7 @@ class AdminProductDA {
         $orderElement->getElementsByTagName('customerID')->item(0)->nodeValue = $newCustomerID;
         $orderElement->getElementsByTagName('paymentMethod')->item(0)->nodeValue = $paymentMethod;
         $orderElement->getElementsByTagName('totalPayment')->item(0)->nodeValue = $totalPayment;
-        $orderElement->getElementsByTagName('orderID')->item(0)->nodeValue = $orderID;
+        $orderElement->getElementsByTagName('cartID')->item(0)->nodeValue = $cartID;
         $orderElement->getElementsByTagName('customerName')->item(0)->nodeValue = $customerName;
         $orderElement->getElementsByTagName('productID')->item(0)->nodeValue = $newProductID;
         $orderElement->getElementsByTagName('productName')->item(0)->nodeValue = $productName["name"];
@@ -315,19 +315,26 @@ class AdminProductDA {
     }
     
     public function retrieveAllOrders() {
-        $query = "SELECT * FROM payment";
-        $pstmt = $this->conn->prepare($query);
-        $pstmt->execute();
-        $order = $pstmt->fetchAll(PDO::FETCH_ASSOC);
         
-        if ($order === false) {
-            // handle the case where the query execution is unsuccessful
-            // redirect to the error page
-            header("Location: AdminErrorPage.php");
-            exit();
-        }
+            $query1 = "SELECT * FROM payment WHERE cartID IN (SELECT cartID FROM cart WHERE type = 'Product')";
+            $pstmt1 = $this->conn->prepare($query1);
+            $pstmt1->execute();
+            $order = $pstmt1->fetchAll(PDO::FETCH_ASSOC);
+
+            if ($order === false) {
+                // handle the case where the query execution is unsuccessful
+                // redirect to the error page
+                header("Location: AdminErrorPage.php");
+                exit();
+            }else {
+                
+            }
+            
+        
+        
         
         return $order;
+        
     }
     
     public function totalSales() {
@@ -346,13 +353,14 @@ class AdminProductDA {
         return $result;
     }
     
-    public function retrieveCartID($orderID) {
-        $query = "SELECT * FROM `order` WHERE orderID = ?";
+    public function retrieveCartID() {
+        $type = "Product";
+        $query = "SELECT * FROM `cart` WHERE type = ?";
         $pstmt = $this->conn->prepare($query);
-        $pstmt->bindParam(1, $orderID);
+        $pstmt->bindParam(1, $type);
         $pstmt->execute();
-        $result = $pstmt->fetch(PDO::FETCH_ASSOC);
-        
+        $result = $pstmt->fetchAll(PDO::FETCH_ASSOC);
+                     
         if ($result === false) {
             // handle the case where the query execution is unsuccessful
             // redirect to the error page
@@ -363,10 +371,10 @@ class AdminProductDA {
         return $result;
     }
     
-    public function retrieveOrderDetails($orderID) {
-        $query = "SELECT * FROM payment WHERE orderID = ?";
+    public function retrieveOrderDetails($paymentID) {
+        $query = "SELECT * FROM payment WHERE paymentID = ?";
         $pstmt = $this->conn->prepare($query);
-        $pstmt->execute([$orderID]);
+        $pstmt->execute([$paymentID]);
         $result = $pstmt->fetch(PDO::FETCH_ASSOC);
         
         if ($result === false) {

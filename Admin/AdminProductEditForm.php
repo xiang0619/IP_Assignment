@@ -184,7 +184,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                   </div>
                 </div>
                 <input type="hidden" id="uploadDate" name="uploadDate" value="<?php echo $product['uploadDate']; ?>">
-                <input type="hidden" name="updatedID" value="<?php echo $staffID; ?>">
+                <input type="hidden" name="updatedID" value="<?php echo $encryptStaffID; ?>">
                 <input type="hidden" name="updatedDate" value="<?php echo $product['updatedDate']; ?>">
                 <input type="hidden" name="createID" value="<?php echo $product['createID']; ?>">
                 <input type="hidden" name="createdDate" value="<?php echo $product['createdDate']; ?>">

@@ -20,10 +20,10 @@
             <table class="table table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th>Order ID</th>
+                        <th>Payment ID</th>
                         <th>Customer ID</th>
                         <th>Customer Name</th>
-                        <th>Payment ID</th>
+                        <th>Cart ID</th>
                         <th>Total Payment</th>
                         <th>Payment Method</th>                      
                     </tr>

@@ -155,7 +155,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                     <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal"  onclick="window.location.href='AdminProduct.php'">Cancel</button>
                     <button type="submit" id="confirm" class="btn btn-primary" onclick="return validateForm();">Confirm</button>
                   </div>
-                   <input type="hidden" name="staffID" value="<?php echo $staffID; ?>">
+                   <input type="hidden" name="staffID" value="<?php echo $encryptStaffID; ?>">
                 </div>
               </form>
             </div>

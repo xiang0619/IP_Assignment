@@ -83,15 +83,15 @@ class AdminProductFacade {
         return $this->adminProductDA->retrieveAllOrders();
     }
     
-    public function retrieveOrderDetails($orderID) {
-        return $this->adminProductDA->retrieveOrderDetails($orderID);
+    public function retrieveOrderDetails($paymentID) {
+        return $this->adminProductDA->retrieveOrderDetails($paymentID);
     }
     
     public function totalSales() {
         return $this->adminProductDA->totalSales();
     }
     
-    public function retrieveCartID($orderID) {
-        return $this->adminProductDA->retrieveCartID($orderID);
+    public function retrieveCartID() {
+        return $this->adminProductDA->retrieveCartID();
     }
 }

@@ -6,7 +6,7 @@ require_once '../Shared/DesignPattern/AdminServiceFacade.php';
  * @author Chin Kah Seng
  */
 
-$orderID = $_GET['oid'];
+$paymentID = $_GET['oid'];
 
 $host = "localhost";
 $dbname = "ip";
@@ -17,10 +17,9 @@ $dsn = "mysql:host=$host;dbname=$dbname"; //dsn=database source name
 $pdo = new PDO($dsn,$user,$password);//connect to MYSQL using PDO class
 $facade = new AdminProductFacade($pdo);
 $facadeS = new AdminServiceFacade($pdo);
-$cartID = $facade->retrieveCartID($orderID);
-$orderDetails = $facade->retrieveOrderDetails($orderID);
+$orderDetails = $facade->retrieveOrderDetails($paymentID);
 $customerName = $facadeS->retrieveCustomerName($orderDetails['customerID']);
-$facade->updateAdminOrderXML($orderID, $cartID['cartID'], $customerName['customerName'], $orderDetails['paymentID'], $orderDetails['paymentMethod'], $orderDetails['totalPayment']);
+$facade->updateAdminOrderXML($paymentID, $orderDetails['cartID'], $customerName['customerName'], $orderDetails['paymentID'], $orderDetails['paymentMethod'], $orderDetails['totalPayment']);
 
 // Load the XML file
 $xml = simplexml_load_file('xml/AdminOrder.xml');
@@ -63,7 +62,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 background-color: lightsteelblue;
             }
                        
-            #adminProduct1 {
+            #adminReport1 {
                 color: lightsteelblue;
             }
             
@@ -71,7 +70,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 color: white;
             }
                        
-            #adminService1, #adminReport1,#adminStaff{
+            #adminService1, #adminProduct1,#adminStaff{
                 color:white;
             }
         </style>
@@ -99,8 +98,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                   <td class="" colspan="2" style="text-align: right;"><a href="AdminOrder.php">Back</a></td>
                 </tr>                            
                 <tr>
-                  <th class="bg-dark text-light">Order ID</th>
-                  <td class="bg-light"><?php echo $xml->Order->orderID; ?></td>
+                  <th class="bg-dark text-light">Cart ID</th>
+                  <td class="bg-light"><?php echo $xml->Order->cartID; ?></td>
                 </tr>
                 <tr>
                   <th class="bg-light text-dark">Customer ID</th>
@@ -128,7 +127,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 </tr>
                 <tr>
                   <th class="bg-light text-dark">Total Payment</th>
-                  <td class="bg-light"><?php echo $xml->Order->totalPayment; ?></td>
+                  <td class="bg-light">RM <?php echo $xml->Order->totalPayment; ?></td>
                 </tr> 
                 <tr>
                   <th class="bg-dark text-light">Payment Method</th>
