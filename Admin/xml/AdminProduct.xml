@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Products>
     <Product>
-        <id>1</id>
-        <name>Pen</name>
-        <quantity>100</quantity>
+        <id>14</id>
+        <name>Mw</name>
+        <quantity>34</quantity>
         <status>Available</status>
-        <unitPrice>11.00</unitPrice>
-        <image>PILOT-BL-G2-10-M.jpg</image>
-        <description>pen</description>
+        <unitPrice>3.30</unitPrice>
+        <image>tealive voucher 10.jpg</image>
+        <description>fghj</description>
         <productTypeID>1</productTypeID>
-        <uploadDate>2023-04-19</uploadDate>
-        <updatedID>1</updatedID>
-        <updatedDate>2023-04-19</updatedDate>
-        <createID>1</createID>
-        <createdDate>2023-04-19</createdDate>
+        <uploadDate>2023-05-13</uploadDate>
+        <updatedID>GYAUPDrfvU</updatedID>
+        <updatedDate>2023-05-13</updatedDate>
+        <createID>GYAUPDrfvU</createID>
+        <createdDate>2023-05-13</createdDate>
     </Product>
 </Products>
