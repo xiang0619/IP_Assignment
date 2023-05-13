@@ -8,7 +8,7 @@ require './class/Product.php';
     $stmt = $dbc->prepare("SELECT  c.productID, SUM(c.quantity) AS total_quantity,p.name,c.status,unitPrice,image,description
 FROM cart c
 JOIN product p ON c.productID = p.productID
-WHERE c.status= 'payed' AND p.status = 'Available'
+WHERE c.status= 'Paid' AND p.status = 'Available'
 GROUP BY c.productID
 ORDER BY total_quantity DESC
 

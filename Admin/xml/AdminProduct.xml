@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Products>
     <Product>
-        <id>2</id>
-        <name>English book</name>
-        <quantity>100</quantity>
+        <id>14</id>
+        <name>Mw</name>
+        <quantity>34</quantity>
         <status>Available</status>
-        <unitPrice>13.00</unitPrice>
-        <image>english_book.jpg</image>
-        <description>everything you need to know about English</description>
-        <productTypeID>2</productTypeID>
-        <uploadDate>2023-04-19</uploadDate>
-        <updatedID>4</updatedID>
+        <unitPrice>3.30</unitPrice>
+        <image>tealive voucher 10.jpg</image>
+        <description>fghj</description>
+        <productTypeID>1</productTypeID>
+        <uploadDate>2023-05-13</uploadDate>
+        <updatedID>GYAUPDrfvU</updatedID>
         <updatedDate>2023-05-13</updatedDate>
-        <createID>1</createID>
-        <createdDate>2023-04-19</createdDate>
+        <createID>GYAUPDrfvU</createID>
+        <createdDate>2023-05-13</createdDate>
     </Product>
 </Products>
