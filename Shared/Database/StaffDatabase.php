@@ -1,11 +1,13 @@
-<!--Author: NG WEN XIANG-->
+<?php
+/*Author : Ng Wen Xiang*/
+?>
 <?php
 
-include '../Shared/Helper/EncryptionHelper.php';
-include '../Shared/Helper/GenerateRandomCodeHelper.php';
-include 'Database.php';
-include '../class/Staff.php';
-include '../Shared/DesignPattern/ProfileObserver.php';
+include __DIR__ .'/../../Shared/Helper/EncryptionHelper.php';
+include __DIR__ .'/../../Shared/Helper/GenerateRandomCodeHelper.php';
+include __DIR__ .'/../../Shared/Database/Database.php';
+include __DIR__ .'/../../class/Staff.php';
+include __DIR__ .'/../../Shared/DesignPattern/ProfileObserver.php';
 
 class StaffDatabase implements ProfileObserver{
     private static $pdo;
@@ -67,20 +69,8 @@ class StaffDatabase implements ProfileObserver{
         $stmt = self::$pdo->prepare('UPDATE staff SET name = ?, mobile = ? WHERE id = ?');
 
         $stmt->execute([$staff->getName(),$staff->getMobile(),$staff->getId()]);
-
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        if ($result != null) {
-            foreach ($result as $row) {
-               $staff = new Staff($result['ID'], $result['email'], $result['name'], $result['mobile'],$result['status'],$result['position'],
-                                $result['updatedID'],$result['updatedDate'],$result['createdID'],$result['createdDate'],$result['password']);
-               self::$pdo->close();
-               return $staff;
-            }
-        } else {
-            self::$pdo->close();
-            return null;
-        }
+               
+        self::$pdo->close();
     }
     
     public function updatePassword($id,$password) {
@@ -91,20 +81,6 @@ class StaffDatabase implements ProfileObserver{
         $stmt = self::$pdo->prepare('UPDATE staff SET password = ? WHERE id = ?');
 
         $stmt->execute([$password,$id]);
-
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        if ($result != null) {
-            foreach ($result as $row) {
-               $staff = new Staff($result['ID'], $result['email'], $result['name'], $result['mobile'],$result['status'],$result['position'],
-                                $result['updatedID'],$result['updatedDate'],$result['createdID'],$result['createdDate'],$result['password']);
-               self::$pdo->close();
-               return $staff;
-            }
-        } else {
-            self::$pdo->close();
-            return null;
-        }
     }
     
     public function getStaffList(){

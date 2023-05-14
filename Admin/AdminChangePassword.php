@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<!--Author: NG WEN XIANG-->
+<?php
+/*Author : Ng Wen Xiang*/
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -45,8 +47,8 @@
         <main class="container-fluid mb-4 mt-4 text-center" style="">
             <h1>Change Password</h1>
 	</main>
-        
-         <form action="../Validation/AdminChangePassword.php" method="post">
+
+        <form    id="passwordUpdateForm" onsubmit="handlePasswordUpdate(event)"    >
             <div class="row">
                 <!-- Make div center -->
                 <div class="col-3"></div>
@@ -79,6 +81,39 @@
 
             </div>
         </form>
-        
+        <script>
+            function handlePasswordUpdate(event) {
+                event.preventDefault(); // Prevent form submission
+
+                // Get the form data
+                var form = document.getElementById('passwordUpdateForm');
+                var formData = new FormData(form);
+
+                // Make the API call
+                fetch('http://localhost/IP_Assignment/Admin/api/AdminChangePassword.php', {
+                  method: 'POST',
+                  body: formData
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    // Handle the response
+                    if (data.status == 200) {
+                      // Password update successful
+                      alert(data.message);
+                      window.location.href = 'http://localhost/IP_Assignment/Admin/AdminProfile.php';
+                      // Redirect to profile page
+                    } else {
+                      // Password update failed
+                      alert(data.message);
+                    }
+                  })
+                  .catch(error => {
+                    // Request failed or JSON parsing error
+                    console.log(error);
+                    alert('An error occurred while updating the password.');
+                  });
+              }
+
+        </script>
     </body>
 </html>

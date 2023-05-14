@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<!--Author: NG WEN XIANG-->
+<?php
+/*Author : Ng Wen Xiang*/
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -12,78 +14,21 @@
     <body>
         <?php
             include '../Shared/PHP/CustomerHeader.php';
-            
             require '../Shared/Database/CustomerDatabase.php';
-
-            $json_response = null;
-            $message1 = null;
             
             if($_SESSION['customerID'] == null){
                 header("Location : http://localhost/IP_Assignment/Homepage.php");
             }
+            
             $customerID = $_SESSION['customerID'];
+
             $customerDatabase = new CustomerDatabase();
             $customer = $customerDatabase->getProfile($customerID);
             $encryptionHelper = new EncryptionHelper("Customer");
-
-            if (isset($_POST['submit'])) {
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $name = isset($_POST['name']) ? $_POST['name'] : null;
-                    $mobile = isset($_POST['mobile']) ? $_POST['mobile'] : null;
-
-                    if ($name == null || $mobile == null) {
-                        response(400, "Please fill in name and phone number", NULL);
-                        exit();
-                    } else if (!preg_match("/^01[0-46-9]-\d{7,8}$/", $mobile)) {
-                        response(400, "Invalid Mobile Number", NULL);
-                        exit();
-                    } else {
-                        $customer->setName($name);
-                        $customer->setMobile($mobile);
-
-                        $customerDatabase->updateProfile($customer);
-
-                        response(200, "Profile Updated", NULL);
-                        exit();
-                    }
-                } else {
-                    response(400, "Invalid Request", NULL);
-                }
-            }
-
-            function response($status, $message, $data) {
-                header("HTTP/1.1 " . $status);
-                $response['status'] = $status;
-                $response['message'] = $message;
-                $response['data'] = $data;
-                $json_response = json_encode($response);
-
-                // Output the JSON response
-                if ($json_response != null) {
-                $decoded_response = json_decode($json_response, true);
-                $message1 = $decoded_response['message'];
-                $status1 = $decoded_response['status'];
-
-                    if ($status1 == 200) {
-                        echo '<script>';
-                        echo 'alert("Profile Updated.");';
-                        echo 'window.location.href = "http://localhost/IP_Assignment/Customer/Profile.php";';
-                        echo '</script>';
-                        exit();
-                    }else{
-                        echo '<script>';
-                        echo 'alert("'.$message1.'.");';
-                        echo 'window.location.href = "http://localhost/IP_Assignment/Customer/EditProfile.php";';
-                        echo '</script>';
-                        exit();
-                    }
-                }
-            }
-            
-            
         ?>
+
         
-        <form method="post">
+        <form  id="profileUpdateForm" onsubmit="handleProfileUpdate(event)" >
             <div class="row">
                 <!-- Make div center -->
                 <div class="col-3"></div>
@@ -121,5 +66,39 @@
         <?php
             include '../Shared/PHP/CustomerFooter.php';
         ?>
+        <script>
+        function handleProfileUpdate(event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Get the form data
+        var form = document.getElementById('profileUpdateForm');
+        var formData = new FormData(form);
+
+        // Make the API call
+        fetch('http://localhost/IP_Assignment/Customer/api/EditProfile.php', {
+           method: 'POST',
+           body: formData
+        })
+           .then(response => response.json())
+           .then(data => {
+              // Handle the response
+              if (data.status == 200) {
+                 // Profile update successful
+                 alert(data.message);
+                 window.location.href = 'http://localhost/IP_Assignment/Customer/Profile.php';
+                 // Redirect to profile page
+              } else {
+                 // Profile update failed
+                 alert(data.message);
+              }
+           })
+           .catch(error => {
+              // Request failed
+              console.log(error);
+              alert('An error occurred while updating the profile.');
+           });
+     }
+
+    </script>
     </body>
 </html>
