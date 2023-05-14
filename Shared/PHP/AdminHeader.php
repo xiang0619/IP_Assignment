@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 
    <?php
-    session_start();
-
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
     if($_SESSION['staffID'] == null){
       header("Location : http://localhost/IP_Assignment/Homepage.php");
     }

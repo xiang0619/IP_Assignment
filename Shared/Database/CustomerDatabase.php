@@ -1,11 +1,13 @@
-<!--Author: NG WEN XIANG-->
+<?php
+/*Author : Ng Wen Xiang*/
+?>
 <?php
 
-include '../Shared/Helper/EncryptionHelper.php';
-include '../Shared/Helper/GenerateRandomCodeHelper.php';
-include 'Database.php';
-include '../class/Customer.php';
-include '../Shared/DesignPattern/ProfileObserver.php';
+include __DIR__ .'/../../Shared/Helper/EncryptionHelper.php';
+include __DIR__ .'/../../Shared/Helper/GenerateRandomCodeHelper.php';
+include __DIR__ .'/../../Shared/Database/Database.php';
+include __DIR__ .'/../../class/Customer.php';
+include __DIR__ .'/../../Shared/DesignPattern/ProfileObserver.php';
 
 class CustomerDatabase implements ProfileObserver {
     
@@ -70,17 +72,6 @@ class CustomerDatabase implements ProfileObserver {
         $stmt->execute([$customer->getName(),$customer->getMobile(),$customer->getId()]);
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        if ($result != null) {
-            foreach ($result as $row) {
-               $customer = new Customer($row['customerID'], $row['email'], $row['customerName'], $row['mobile']);
-               self::$pdo->close();
-               return $customer;
-            }
-        } else {
-            self::$pdo->close();
-            return null;
-        }
     }
     
     public function updatePassword($id,$password) 
@@ -92,18 +83,5 @@ class CustomerDatabase implements ProfileObserver {
         $stmt = self::$pdo->prepare('UPDATE customer SET password = ? WHERE customerId = ?');
 
         $stmt->execute([$password,$id]);
-
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        if ($result != null) {
-            foreach ($result as $row) {
-               $customer = new Customer($row['customerID'], $row['email'], $row['customerName'], $row['mobile']);
-               self::$pdo->close();
-               return $customer;
-            }
-        } else {
-            self::$pdo->close();
-            return null;
-        }
     }
 }

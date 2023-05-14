@@ -1,4 +1,7 @@
 <?php
+/*Author : Ng Wen Xiang*/
+?>
+<?php
 class EncryptionHelper {
     private $key;
     private $cipher;

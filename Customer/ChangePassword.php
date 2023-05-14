@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<!--Author: NG WEN XIANG-->
+<?php
+/*Author : Ng Wen Xiang*/
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -18,7 +20,7 @@
             }
         ?>
         
-        <form action="../Validation/CustomerChangePassword.php" method="post">
+        <form id="passwordUpdateForm" onsubmit="handlePasswordUpdate(event)">
             <div class="row">
                 <!-- Make div center -->
                 <div class="col-3"></div>
@@ -58,5 +60,39 @@
         <?php
             include '../Shared/PHP/CustomerFooter.php';
         ?>
+        <script>
+            function handlePasswordUpdate(event) {
+                event.preventDefault(); // Prevent form submission
+
+                // Get the form data
+                var form = document.getElementById('passwordUpdateForm');
+                var formData = new FormData(form);
+
+                // Make the API call
+                fetch('http://localhost/IP_Assignment/Customer/api/ChangePassword.php', {
+                  method: 'POST',
+                  body: formData
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    // Handle the response
+                    if (data.status == 200) {
+                      // Password update successful
+                      alert(data.message);
+                      window.location.href = 'http://localhost/IP_Assignment/Customer/Profile.php';
+                      // Redirect to profile page
+                    } else {
+                      // Password update failed
+                      alert(data.message);
+                    }
+                  })
+                  .catch(error => {
+                    // Request failed or JSON parsing error
+                    console.log(error);
+                    alert('An error occurred while updating the password.');
+                  });
+              }
+
+        </script>
     </body>
 </html>

@@ -1,4 +1,6 @@
-<!--Author: NG WEN XIANG-->
+<?php
+/*Author : Ng Wen Xiang*/
+?>
 <?php
 
 class Database {
