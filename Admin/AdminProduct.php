@@ -72,15 +72,19 @@ $productTypeNames = $facade->retrieveProductTypes();
             }
             
             .mb-3 {
-  display: flex;
-  justify-content: space-between;
-  
-}
+              display: flex;
+              justify-content: space-between;
 
-.btn {
-  margin-right: 2px;
-}
-            
+            }
+
+            .btn {
+              margin-right: 2px;
+            }
+
+            .btn.active {
+              font-weight: bold;
+            }
+
         </style>
     </head>
     <body>
@@ -101,12 +105,12 @@ $productTypeNames = $facade->retrieveProductTypes();
             <div class="mb-3">
               <div style="display: flex; align-items: center;">
                 <p style="display: inline; margin-right: 10px; padding-top:15px;">Filter by Categories:</p>
-                <button class="btn btn-close-white" style="" onclick="showAll()">All</button>
+                <button class="btn active" style="" onclick="showAll()">All</button>
                 <?php
                 foreach ($productTypeNames as $productTypeName) {
                   $category = $productTypeName['productTypeName'];
                   $categoryID = $productTypeName['productTypeID'];
-                  echo '<button class="btn btn-close-white" style="" onclick="getProducts(' . $categoryID . ')">' . $category . '</button>';
+                  echo '<button class="btn btn-close-white active" style="" onclick="getProducts(' . $categoryID . ')">' . $category . '</button>';
                 }
                 ?>
               </div>

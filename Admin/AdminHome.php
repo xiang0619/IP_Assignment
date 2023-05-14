@@ -73,7 +73,7 @@ $totalSales = $facade->totalSales();
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="card mb-3">
-					<div class="card-header bg-info">
+					<div class="card-header bg-danger">
 						<h5 class="card-title">Sales</h5>
 					</div>
 					<div class="card-body">
@@ -83,7 +83,7 @@ $totalSales = $facade->totalSales();
 				</div>
 				
 				<div class="card">
-					<div class="card-header bg-success">
+					<div class="card-header bg-warning">
                                             <h5 class="card-title">Users</h5>
                                             				</div>
 				<div class="card-body">
@@ -93,7 +93,7 @@ $totalSales = $facade->totalSales();
 			</div>
 			
 			<div class="card mt-3">
-				<div class="card-header bg-danger">
+				<div class="card-header bg-success">
 					<h5 class="card-title">Categories</h5>
 				</div>
 				<div class="card-body">
@@ -108,7 +108,7 @@ $totalSales = $facade->totalSales();
 		
 		<div class="col-lg-9">
 			<div class="card mb-3">
-				<div class="card-header bg-warning">
+				<div class="card-header bg-info">
 					<h5 class="card-title">Recent Orders</h5>
 				</div>
 				<div class="card-body" style="height: 425px;">
