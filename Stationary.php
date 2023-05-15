@@ -54,19 +54,17 @@
                     
                     <?php
                     
-                    
-                
+                    $searchText = isset($_GET['searchText']) ? $_GET['searchText'] : null;
            
                     $category = isset($_GET['category']) ? $_GET['category'] : 'all';
 
                     // build the SQL query
                     if($category == 'topSales'){
                         
-                        
                     }
                     else
                     {
-                        if ($category == 'all') {
+                    if ($category == 'all') {
                       $sql = "select productID,name,status,unitPrice,image, description from product where status = 'Available';";
                       $stmt = $dbc->prepare($sql);
                     }else {
@@ -76,7 +74,12 @@
                     }
            
                     
-                    
+                    if($searchText != null){
+                        $sql = "SELECT productID,name,status,unitPrice,image, description FROM product WHERE name LIKE CONCAT('%', ?, '%')";
+                        $stmt = $dbc->prepare($sql);
+                        $stmt->bind_param('s',$searchText);
+                        echo $searchText;
+                    }
                     
                     include './Shared/Helper/EncryptionHelper.php';
                     include './class/Product.php';

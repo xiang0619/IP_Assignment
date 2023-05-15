@@ -91,8 +91,8 @@ if (session_status() === PHP_SESSION_NONE) {
                             <a class="nav-link fs-5 primary-color" href="http://localhost/IP_Assignment/Service.php">Service</a>
                       </li>
                     </ul>
-                    <form class="d-flex" role="search">
-                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="d-flex" action="http://localhost/IP_Assignment/Stationary.php" method="get">
+                      <input class="form-control me-2" type="search" placeholder="Search" name="searchText" aria-label="Search">
                       <button class="button me-3" type="submit">Search</button>
                     </form>
                 </div>

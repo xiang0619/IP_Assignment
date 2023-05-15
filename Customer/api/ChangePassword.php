@@ -43,7 +43,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
     
     if(password_verify($oldPassword, $customer->getPassword()) && $newPassword == $rePassword){
-        $customerDatabase->updatePassword($customer->getId(), $newPassword);
+        $customerDayt->updatePassword($customer->getId(), $newPassword);
         response(200, "New Password Updated.", null);
     }
 }
