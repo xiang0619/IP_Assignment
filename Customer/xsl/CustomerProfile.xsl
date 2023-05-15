@@ -32,7 +32,7 @@
                     <div class="col-8 fs-5 primary-color mt-2 mb-2"><xsl:value-of select="Customer/Customer/mobile"/></div>
                     
                     <div class="col-4 mt-2 mb-2"><a href="ChangePassword.php" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;">Change Password</a></div>
-                    <div class="col-4 mt-2 mb-2"></div>
+                    <div class="col-4 mt-2 mb-2"><a href="PaymentHistory.php" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;">Payment History</a></div>
                     <div class="col-4 mt-2 mb-2 "><a href="EditProfile.php" class="form-control" style="border-color: #2BDEDE; border-radius: 25px;background-color: none; color:#2BDEDE;">Edit Profile</a></div>
                 </div>
             </div>
