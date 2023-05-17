@@ -22,27 +22,27 @@
             <body>
                 <xsl:for-each select="payments/payment">
                         
-                  
-                        <div class="row shadow-sm">
-                            <td>
-                                <xsl:value-of select="position()"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="customer/customer_name"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="name"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="total_payment"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="payment_date"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="payment_status"/>
-                            </td>
-                        </div>
+                            <tr>
+                                <td>
+                                    <xsl:value-of select="position()"/>
+                                </td>
+
+                                <td>
+                                    <xsl:value-of select="customer/customer_name"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="name"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="total_payment"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="payment_date"/>
+                                </td>
+                                <td>
+                                    <xsl:value-of select="payment_status"/>
+                                </td>
+                            </tr>
                     
                     
                 </xsl:for-each>

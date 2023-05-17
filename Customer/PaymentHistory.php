@@ -40,7 +40,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 
         <div>
             <main class="container-fluid mb-4 mt-4 text-center" style="">
-                <h1>Products</h1>
+                <h1>Payment History</h1>
             </main>
             <main class="container-fluid">
 
@@ -69,15 +69,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                                     <th>Status</th>
                                 </tr>
                             </thead>
-                            <tbody id="result" class="table-light"></tbody>
+                            <tbody id="result" class="table-light">
+                                <?php echo $html ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>
 
                 <div id="products-container1" >
-
-                    <?php echo $html ?>
-
+                    
                 </div>
 
 
@@ -89,8 +89,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <?php
         include '../Shared/PHP/CustomerFooter.php';
         ?>
-        
-         <script>
+
+        <script>
             function handleSearch(event) {
                 event.preventDefault(); // Prevent form submission
 
@@ -100,43 +100,45 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 
                 // Make the API call
                 fetch('http://localhost/IP_Assignment/Customer/api/PaymentHistorySearch.php', {
-                  method: 'POST',
-                  body: formData
+                    method: 'POST',
+                    body: formData
                 })
-                  .then(response => response.json())
-                  .then(data => {
-                    // Handle the response
-                    if (data.status == 200) {
-                      // Password update successful
-                      var searchResults = data.data;
-                var html = '';
+                        .then(response => response.json())
+                        .then(data => {
+                            // Handle the response
+                            if (data.status == 200) {
+                                // Password update successful
+                                var searchResults = data.data;
+                                var html = '';
+                                document.getElementById("products-container1").style.display = "none";
+                                document.getElementById("products-container").style.display = "block";
 
-                for (var i = 0; i < searchResults.length; i++) {
-                    html += '<tr>' +
-                            '<td>' + searchResults[i].paymentID + '</td>' +
-                            '<td>' + searchResults[i].customerName + '</td>' +
-                            '<td>' + searchResults[i].name + '</td>' +
-                            '<td>' + searchResults[i].totalPayment + '</td>' +
-                            '<td>' + searchResults[i].payment_date + '</td>' +
-                            '<td>' + searchResults[i].payment_status + '</td>' +
-                            '</tr>';
-                }
+                                for (var i = 0; i < searchResults.length; i++) {
+                                    html += '<tr>' +
+                                            '<td>' + searchResults[i].paymentID + '</td>' +
+                                            '<td>' + searchResults[i].customerName + '</td>' +
+                                            '<td>' + searchResults[i].name + '</td>' +
+                                            '<td>' + searchResults[i].totalPayment + '</td>' +
+                                            '<td>' + searchResults[i].payment_date + '</td>' +
+                                            '<td>' + searchResults[i].payment_status + '</td>' +
+                                            '</tr>';
+                                }
 
-                var resultContainer = document.getElementById('result');
-                resultContainer.innerHTML = html;
-                    } else {
-                      // Password update failed
-                      console.log('Request failed.  Returned status of ' + xhr.status);
-                    }
-                  })
-                  .catch(error => {
-                    // Request failed or JSON parsing error
-                    console.log(error);
-                    alert('An error occurred while updating the password.');
-                  });
-              }
+                                var resultContainer = document.getElementById('result');
+                                resultContainer.innerHTML = html;
+                            } else {
+                                // Password update failed
+                                console.log('Request failed.  Returned status of ' + xhr.status);
+                            }
+                        })
+                        .catch(error => {
+                            // Request failed or JSON parsing error
+                            console.log(error);
+                            alert('Something went wrong.');
+                        });
+            }
 
         </script>
-        
+
     </body>
 </html>
