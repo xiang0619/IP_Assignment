@@ -28,7 +28,7 @@
                                 <xsl:value-of select="position()"/>
                             </td>
                             <td>
-                                <xsl:value-of select="customer_name"/>
+                                <xsl:value-of select="customer/customer_name"/>
                             </td>
                             <td>
                                 <xsl:value-of select="name"/>
